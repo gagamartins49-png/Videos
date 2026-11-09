@@ -1,123 +1,39 @@
 {
-  "titulo": "E se a Terra parasse de girar?",
+  "titulo": "E se o Sol apagasse de repente?",
   "duracao": 80,
   "fps": 30,
   "voz": "pt-BR-AntonioNeural",
+  "velocidade": "-6%",
+  "tom": "-7Hz",
   "frases": [
-    {
-      "inicio": 0.4,
-      "fim": 4.2,
-      "texto": "E se a Terra parasse de girar... de repente?"
-    },
-    {
-      "inicio": 4.8,
-      "fim": 11.6,
-      "texto": "Neste exato momento, você está girando a mil seiscentos e setenta quilômetros por hora. E nem percebe.",
-      "legenda": "Agora mesmo, você gira a 1.670 km/h. E nem percebe."
-    },
-    {
-      "inicio": 12.2,
-      "fim": 17.8,
-      "texto": "Mas imagine que, num piscar de olhos, o planeta começasse a frear."
-    },
-    {
-      "inicio": 18.3,
-      "fim": 23.8,
-      "texto": "O chão desacelera. Mas tudo que está sobre ele... continua em movimento."
-    },
-    {
-      "inicio": 24.3,
-      "fim": 29.8,
-      "texto": "Carros e pessoas são arremessados para o leste pela inércia."
-    },
-    {
-      "inicio": 30.4,
-      "fim": 36.8,
-      "texto": "O ar também não para. Ventos de quinhentos quilômetros por hora varrem as ruas.",
-      "legenda": "O ar também não para. Ventos de 500 km/h varrem as ruas."
-    },
-    {
-      "inicio": 37.4,
-      "fim": 44.6,
-      "texto": "E continuam acelerando, até romper a barreira do som."
-    },
-    {
-      "inicio": 45.4,
-      "fim": 54.4,
-      "texto": "Árvores são arrancadas pela raiz. Prédios inteiros se desfazem como castelos de areia."
-    },
-    {
-      "inicio": 55.2,
-      "fim": 59.4,
-      "texto": "A rotação chega a zero."
-    },
-    {
-      "inicio": 60.0,
-      "fim": 64.4,
-      "texto": "E então... os oceanos vêm."
-    },
-    {
-      "inicio": 65.8,
-      "fim": 72.4,
-      "texto": "Toda a água do planeta avança sobre os continentes. Nenhuma cidade fica de pé."
-    },
-    {
-      "inicio": 73.6,
-      "fim": 79.4,
-      "texto": "Felizmente, a Terra nunca vai parar de girar. Pelo menos... não de repente.",
-      "legenda": "Felizmente, a Terra nunca vai parar de girar.\nPelo menos... não de repente."
-    }
+    { "inicio": 0.4,  "fim": 4.4,  "texto": "E se o Sol apagasse... de repente?" },
+    { "inicio": 4.9,  "fim": 11.9, "texto": "A luz do Sol leva oito minutos para chegar até nós. Então, por alguns minutos... nada mudaria.", "legenda": "A luz do Sol leva 8 minutos para chegar até nós. Então, por alguns minutos... nada mudaria." },
+    { "inicio": 12.8, "fim": 18.4, "texto": "Até que a última luz chega. E o céu fica completamente negro." },
+    { "inicio": 18.9, "fim": 24.6, "texto": "Sem o Sol, a Terra mergulha numa noite que nunca mais vai acabar." },
+    { "inicio": 25.6, "fim": 31.4, "texto": "Em vinte e quatro horas, a temperatura despenca abaixo de zero.", "legenda": "Em 24 horas, a temperatura despenca abaixo de zero." },
+    { "inicio": 31.9, "fim": 38.0, "texto": "Em uma semana, chega a setenta graus negativos. Tudo congela.", "legenda": "Em uma semana, chega a -70°C. Tudo congela." },
+    { "inicio": 38.5, "fim": 44.6, "texto": "Sem combustível e com a rede elétrica em colapso, as luzes se apagam uma a uma." },
+    { "inicio": 45.6, "fim": 51.4, "texto": "Depois de um ano, a superfície chega a cento e cinquenta graus negativos.", "legenda": "Depois de um ano, a superfície chega a -150°C." },
+    { "inicio": 51.9, "fim": 58.4, "texto": "Até o oxigênio do ar se liquefaz, e cai do céu como uma neve azulada." },
+    { "inicio": 58.9, "fim": 64.4, "texto": "Estruturas congeladas e quebradiças desabam com o vento." },
+    { "inicio": 65.6, "fim": 72.6, "texto": "A duzentos e quarenta graus negativos, apenas bactérias no fundo do oceano sobreviveriam.", "legenda": "A -240°C, apenas bactérias no fundo do oceano sobreviveriam." },
+    { "inicio": 73.6, "fim": 79.4, "texto": "Sem o Sol, a Terra seria só uma pedra congelada... vagando na escuridão.", "legenda": "Sem o Sol, a Terra seria só uma pedra congelada\nvagando na escuridão." }
   ],
   "eventos": {
-    "inicioFreio": 12,
-    "rachaduras": [
-      13.5,
-      16,
-      19,
-      22.5,
-      26
-    ],
-    "arremessos": [
-      19,
-      20.5,
-      22,
-      23.5,
-      25,
-      26.5,
-      28
-    ],
-    "semaforos": [
-      33.5,
-      35.2,
-      36.9,
-      38.6,
-      40.3
-    ],
-    "arvores": [
-      39,
-      48
-    ],
-    "desabamentos": [
-      38.5,
-      40,
-      41.3,
-      42.6,
-      44,
-      46.2,
-      47.6,
-      49,
-      50.5,
-      52,
-      53.4
-    ],
-    "barreiraSom": 45.7,
-    "zeroRotacao": 55,
-    "tsunamiInicio": 55,
-    "impactoTsunami": 64.6,
-    "vidro": [
-      66.0,
-      67.4
-    ],
-    "telaPreta": 73
+    "solApaga": 8.0,
+    "escuridao": 12.5,
+    "postesAcendem": 13.2,
+    "farois": 13.7,
+    "pessoasParam": 14.0,
+    "saltosTempo": [25.0, 34.5, 45.0, 65.0],
+    "nevasca": [26.0, 65.0],
+    "folhas": [27.0, 36.0],
+    "falhaEnergia": [38.6, 39.3, 39.9, 40.4, 41.0, 41.5, 42.0, 42.6, 43.1],
+    "blackout": 43.3,
+    "oxigenio": 52.0,
+    "quedas": [50.6, 53.2, 55.6, 57.9, 60.2, 62.4],
+    "geloLente": 65.2,
+    "trincas": [66.6, 67.9, 69.2],
+    "telaPreta": 73.0
   }
 }

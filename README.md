@@ -1,4 +1,4 @@
-# E se a Terra parasse de girar? — gerador automático de Shorts/TikTok
+# E se o Sol apagasse de repente? — gerador automático de Shorts/TikTok
 
 Vídeo vertical **9:16 · 1080×1920 · 30 fps · 80 s** no estilo "What if…", gerado 100% por código:
 cena 3D low-poly em **Three.js**, narração neural em **pt-BR** com **edge-tts** (`pt-BR-AntonioNeural`)
@@ -25,15 +25,15 @@ workflow publica o site com a trilha final (voz neural + efeitos). Abra a págin
 Sem o Pages pelo Actions (ex.: abrindo o `index.html` direto da branch), a página usa a voz do próprio
 navegador e efeitos via Web Audio como alternativa.
 
-## 🎬 Roteiro (80 s)
+## 🎬 Roteiro (80 s) — "E se o Sol apagasse de repente?"
 
 | Tempo | Cena |
 |---|---|
-| 0–12 s | Rua de cidade low-poly ensolarada, carros, pedestres, palmeiras, semáforos. Título + HUD `ROTAÇÃO DA TERRA: 1.670 km/h · VENTO: 0 km/h` |
-| 12–30 s | Rotação cai, vento sobe; rachaduras no asfalto; carros e pessoas arremessados para o leste pela inércia |
-| 30–55 s | Vento de 500 km/h até romper a barreira do som (1.235 km/h, ~45,7 s): céu alaranjado, camera shake, árvores arrancadas, prédios explodindo em milhares de blocos 3D |
-| 55–65 s | Rotação = 0. Mega-tsunami avança do horizonte, engole o que restou e atinge a câmera |
-| 65–73 s | Subaquático escuro, vidro da tela trincando, texto **"O OCEANO AGORA ESTÁ AQUI"** |
+| 0–12 s | Rua movimentada ao meio-dia. Aos 8 s o Sol some do céu, mas tudo continua claro (a luz leva 8 minutos para chegar). HUD `TEMPO: 8 MINUTOS · TEMP: 24°C` |
+| 12–25 s | A última luz chega: céu negro com estrelas. Postes e faróis acendem sozinhos, pessoas param assustadas olhando para o céu |
+| 25–45 s | 24 horas → 7 dias: temperatura cai para -70°C, nevasca, árvores perdem as folhas, carros cobertos de gelo, postes piscam e apagam (rede elétrica em colapso) |
+| 45–65 s | 1 ano depois: -150°C, ventos congelantes derrubam estruturas, oxigênio liquefeito cai como "neve azulada" |
+| 65–73 s | -240°C: a lente da câmera congela e trinca; texto **"APENAS BACTÉRIAS NO FUNDO DO OCEANO SOBREVIVEM"** |
 | 73–80 s | Tela preta com a frase final |
 
 As frases, tempos e eventos sonoros ficam em **`roteiro.json`** — a cena, as legendas e o áudio

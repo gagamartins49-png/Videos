@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>E se a Terra parasse de girar?</title>
+<title>E se o Sol apagasse?</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Playfair+Display:ital,wght@0,600;1,600&family=Roboto+Mono:wght@700&display=block" rel="stylesheet">
@@ -48,7 +48,7 @@
 </div>
 
 <script type="module">
-import { createApp, windAt, DUR, SONIC_T, WAVE_HIT } from './js/scene.js';
+import { createApp, windLevel, DUR, END } from './js/scene.js';
 
 const params = new URLSearchParams(location.search);
 const CAPTURE = params.has('capture');
@@ -138,14 +138,14 @@ if (!CAPTURE) {
     return {
       schedule(base, from) {
         const ev = script.eventos;
-        [...ev.desabamentos, ev.barreiraSom, ev.impactoTsunami, ...ev.vidro, ev.telaPreta].forEach((tt, i) => { if (tt >= from) boom(base + tt - from, tt === ev.barreiraSom || tt === ev.impactoTsunami ? 1.6 : 0.8, 45 + (i % 3) * 10); });
+        [ev.escuridao, ...ev.saltosTempo, ev.blackout, ...ev.quedas, ...ev.trincas, ev.telaPreta].forEach((tt, i) => { if (tt >= from) boom(base + tt - from, tt === ev.escuridao || tt === ev.telaPreta ? 1.6 : 0.8, 45 + (i % 3) * 10); });
       },
       update(t) {
-        const w = windAt(t) / 1670, under = t >= WAVE_HIT && t < 73;
+        const w = windLevel(t), under = false;
         const now = ac.currentTime;
-        g.gain.setTargetAtTime(t >= 73 ? 0 : under ? 0.35 : 0.08 + w * 0.6 + (t > 55 ? 0.3 : 0), now, 0.1);
+        g.gain.setTargetAtTime(t >= END ? 0 : 0.05 + w * 0.7, now, 0.1);
         lp.frequency.setTargetAtTime(under ? 250 : 300 + w * 2500, now, 0.1);
-        gw.gain.setTargetAtTime(under || t >= 73 ? 0 : w * 0.25, now, 0.1);
+        gw.gain.setTargetAtTime(under || t >= END ? 0 : w * 0.25, now, 0.1);
         bp.frequency.setTargetAtTime(500 + w * 1500 + Math.sin(t * 2) * 200, now, 0.1);
       },
       stop() { g.gain.setTargetAtTime(0, ac.currentTime, 0.2); gw.gain.setTargetAtTime(0, ac.currentTime, 0.2); },

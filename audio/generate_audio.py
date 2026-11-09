@@ -260,6 +260,8 @@ def build_voice(script, outdir, use_tts, dur):
         report.append({"frase": i, "inicio": f["inicio"], "fim": f["fim"], "dur_original": round(d, 2), "atempo": round(tempo, 3), "dur_final": round(len(x) / SR, 2)})
         print(f"  [{i:02d}] {f['inicio']:5.1f}s  {d:5.2f}s -> {len(x) / SR:5.2f}s (slot {slot:.2f}s)  {f['texto'][:50]}", flush=True)
         i0 = int(f["inicio"] * SR)
+        if f.get("ancorarFim"):  # termina exatamente no fim do slot (loop perfeito com o 0,0 s)
+            i0 = max(i0, int(f["fim"] * SR) - len(x))
         m = min(len(x), len(voice) - i0)
         voice[i0:i0 + m] += x[:m]
     (outdir / "narracao_tempos.json").write_text(json.dumps(report, ensure_ascii=False, indent=2))
@@ -343,7 +345,7 @@ def build_sfx(script, dur):
     wl = wind_level(t) * (1 - smooth(end - 0.6, end, t))
 
     # ---------------------------------------------------- 1) cidade ao meio-dia (0-12,5 s), corta na escuridão
-    amb_g = (smooth(0, 0.8, t) * (1 - smooth(dark - 0.05, dark + 0.25, t))).astype(np.float32)
+    amb_g = (smooth(0, 0.05, t) * (1 - smooth(dark - 0.05, dark + 0.25, t))).astype(np.float32)
     for ch in range(2):
         traffic = sos_filter(white(n), "lowpass", 260, 3) * 0.6
         murmur = bandnoise(n, 300, 1100) * (0.6 + 0.4 * np.sin(2 * np.pi * (3.3 + ch) * t + ch)) * 0.25
@@ -448,9 +450,17 @@ def build_sfx(script, dur):
 
     # ---------------------------------------------------- 11) tela preta: hit final + drone que some
     bus.add(reverb(sfx_boom(5.0, 48, 24, 300, 1.0), 4.0, 0.45, seed=9), end, 0.8)
-    fin = (smooth(end, end + 0.5, t) * (1 - smooth(end + 4, dur - 0.2, t)))
+    fin = smooth(end, end + 0.5, t) * (1 + 0.6 * smooth(76, dur, t))   # cresce até o loop
     tone = (np.sin(2 * np.pi * 49 * t) + 0.5 * np.sin(2 * np.pi * 73.4 * t) + 0.25 * np.sin(2 * np.pi * 98 * t)) * fin * 0.08
     bus.add_full(np.stack([tone, tone]))
+
+    # ---------------------------------------------------- 12) SUB-BASS DROP no 0,0 s (retenção) + riser que leva de volta ao início (loop)
+    m = int(2.2 * SR)
+    tt = np.arange(m) / SR
+    sweep = np.sin(2 * np.pi * np.cumsum(28 + 72 * np.exp(-tt * 3.0)) / SR) * env_ad(m, 0.003, 0.7)
+    hit = sos_filter(white(m), "lowpass", 900, 2) * env_ad(m, 0.001, 0.06) * 1.5
+    bus.add(normalize(np.tanh((sweep + hit) * 1.6), 1.0), ev.get("subDrop", 0.0), 1.15)
+    bus.add(sfx_riser(3.0), dur - 3.0, 0.4)
 
     return bus.buf
 
@@ -481,7 +491,7 @@ def main():
     mix = np.tanh(mix * 1.1) / np.tanh(1.1)
     mix = normalize(mix, 0.97)
     fade = np.ones(mix.shape[1], dtype=np.float32)
-    fade[-int(0.3 * SR):] = np.linspace(1, 0, int(0.3 * SR))
+    fade[-int(0.012 * SR):] = np.linspace(1, 0, int(0.012 * SR))   # loop: sem fade longo no fim
     mix *= fade
 
     # versão SEM narração: só efeitos sonoros (sem ducking)

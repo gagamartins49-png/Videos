@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>E se o Sol apagasse?</title>
+<title>Projeto E se? — E se o Sol apagasse?</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Playfair+Display:ital,wght@0,600;1,600&family=Roboto+Mono:wght@700&display=block" rel="stylesheet">
@@ -87,7 +87,9 @@ if (CAPTURE) { status(''); }
 if (!CAPTURE) {
   status('Pronto! Toque em ▶ Play para assistir ou ● Gravar para salvar um vídeo.');
   $('play').disabled = $('rec').disabled = false;
-  fetch('what_if_video.mp4', { method: 'HEAD' }).then((r) => { if (r.ok) $('mp4').hidden = false; }).catch(() => {});
+  const mp4Name = `${script.arquivo || 'what_if_video'}.mp4`;
+  $('mp4').href = mp4Name; $('mp4').download = mp4Name;
+  fetch(mp4Name, { method: 'HEAD' }).then((r) => { if (r.ok) $('mp4').hidden = false; }).catch(() => {});
 
   $('quality').addEventListener('change', async () => {
     if (running) return;

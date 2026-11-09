@@ -88,6 +88,7 @@ function shakeIntensity(t) {
   if (t > 45 && t < 65) s = 0.12 + 0.18 * smooth(45, 52, t);
   if (t > 65 && t < 73) s = 0.05;
   if (t > DARK - 0.05 && t < DARK + 0.6) s += 0.25 * (1 - (t - DARK) / 0.6);
+  if (t < 0.6) s += 0.45 * (1 - t / 0.6);              // impacto do sub-bass no 0,0 s
   return s;
 }
 
@@ -517,17 +518,32 @@ export async function createApp({ quality = 1, script }) {
   }
 
   function drawTitle(t) {
-    const a = t < 0.3 ? smooth(0, 0.3, t) : 1 - smooth(11.6, 12.6, t);
+    const a = 1 - smooth(11.6, 12.6, t);
     if (a <= 0) return;
     ctx.save(); ctx.globalAlpha = a; ctx.textAlign = 'center';
     const pop = 1 + 0.08 * (1 - smooth(0, 0.6, t));
-    ctx.translate(W / 2, 175); ctx.scale(pop, pop);
+    ctx.translate(W / 2, 215); ctx.scale(pop, pop);
     ctx.lineJoin = 'round'; ctx.lineWidth = 16; ctx.strokeStyle = '#000';
     ctx.shadowColor = 'rgba(0,0,0,0.5)'; ctx.shadowBlur = 20;
     ['E SE O SOL APAGASSE', 'DE REPENTE?'].forEach((l, i) => {
       fitFont(l, 400, 104, F_TITLE, 1000);
       ctx.strokeText(l, 0, i * 118); ctx.fillStyle = i ? '#ffd23f' : '#ffffff'; ctx.fillText(l, 0, i * 118);
     });
+    ctx.restore();
+  }
+
+  // selo de identidade da série (sempre visível, discreto)
+  function drawBadge(t) {
+    const txt = `${script.projeto || 'PROJETO E SE?'}  |  EXPERIMENTO #${script.experimento || '001'}`;
+    ctx.save();
+    ctx.font = `700 25px ${F_MONO}`;
+    const tw = ctx.measureText(txt).width, bw = tw + 76, bh = 50, bx = (W - bw) / 2, by = 36;
+    roundRect(bx, by, bw, bh, 25); ctx.fillStyle = 'rgba(8,12,20,0.55)'; ctx.fill();
+    ctx.lineWidth = 1.5; ctx.strokeStyle = 'rgba(255,255,255,0.28)'; ctx.stroke();
+    const pulse = 0.55 + 0.45 * Math.abs(Math.sin(t * Math.PI));
+    ctx.fillStyle = `rgba(255,59,59,${pulse})`; ctx.beginPath(); ctx.arc(bx + 30, by + bh / 2, 7, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = 'rgba(255,255,255,0.88)'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+    ctx.fillText(txt, bx + 50, by + bh / 2 + 1);
     ctx.restore();
   }
 
@@ -582,13 +598,13 @@ export async function createApp({ quality = 1, script }) {
   function drawSubtitles(t) {
     for (const f of script.frases) {
       if (t < f.inicio - 0.05 || t > f.fim + 0.05) continue;
-      const a = smooth(f.inicio, f.inicio + 0.4, t) * (1 - smooth(f.fim - 0.4, f.fim, t));
+      const a = (f.inicio <= 0 ? 1 : smooth(f.inicio, f.inicio + 0.4, t)) * (f.fim >= DUR ? 1 : 1 - smooth(f.fim - 0.4, f.fim, t));
       if (a <= 0) continue;
       const ending = f.inicio >= END;
       const size = ending ? 70 : 62, lh = size * 1.28;
       const font = `${ending ? 'italic 600' : '600'} ${size}px ${F_SERIF}`;
       const lines = wrapLines(f.legenda || f.texto, font, ending ? 900 : 940);
-      const cy = (ending ? 940 : 960) + (1 - smooth(f.inicio, f.inicio + 0.5, t)) * 18;
+      const cy = (ending ? 940 : 960) + (f.inicio <= 0 ? 0 : (1 - smooth(f.inicio, f.inicio + 0.5, t)) * 18);
       ctx.save(); ctx.globalAlpha = a; ctx.font = font; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
       ctx.shadowColor = 'rgba(0,0,0,0.95)'; ctx.shadowBlur = 22; ctx.shadowOffsetY = 3;
       ctx.lineJoin = 'round'; ctx.lineWidth = 8; ctx.strokeStyle = 'rgba(0,0,0,0.6)';
@@ -840,6 +856,7 @@ export async function createApp({ quality = 1, script }) {
     else { ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H); }
     if (t > 72.4 && t < END) { ctx.fillStyle = `rgba(0,0,0,${smooth(72.4, END, t)})`; ctx.fillRect(0, 0, W, H); }
     drawTitle(t);
+    drawBadge(t);
     drawHUD(t);
     drawCards(t);
     drawSubtitles(t);

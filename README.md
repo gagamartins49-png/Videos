@@ -9,9 +9,9 @@ e efeitos sonoros procedurais em **Python (numpy/scipy)**. O MP4 final é render
 1. Todo `push` na branch `main` (ou **Actions → Renderizar vídeo → Run workflow**) inicia a renderização.
 2. Leva ~20–30 min (8 partes renderizadas em paralelo).
 3. Baixe o vídeo de um destes jeitos:
-   - **Mais fácil:** aba **Releases** → `video-mais-recente` → toque em **what_if_video.mp4** (com narração) ou **what_if_video_sem_narracao.mp4** (só efeitos sonoros). Download direto, sem zip.
-   - **Actions** → execução mais recente → seção *Artifacts* → **what_if_video** (vem dentro de um .zip).
-   - **GitHub Pages** (se ativado): `https://<seu-usuário>.github.io/<repo>/what_if_video.mp4`.
+   - **Mais fácil:** aba **Releases** → `video-mais-recente` → toque em **e_se_o_sol_apagasse_simulacao_3d.mp4** (com narração) ou **e_se_o_sol_apagasse_simulacao_3d_sem_narracao.mp4** (só efeitos sonoros). O nome vem do campo `arquivo` em `roteiro.json`. Download direto, sem zip.
+   - **Actions** → execução mais recente → seção *Artifacts* (vem dentro de um .zip).
+   - **GitHub Pages** (se ativado): `https://<seu-usuário>.github.io/<repo>/e_se_o_sol_apagasse_simulacao_3d.mp4`.
 
 ## ▶ Assistir / gravar no navegador (GitHub Pages)
 
@@ -34,10 +34,17 @@ navegador e efeitos via Web Audio como alternativa.
 | 25–45 s | 24 horas → 7 dias: temperatura cai para -70°C, nevasca, árvores perdem as folhas, carros cobertos de gelo, postes piscam e apagam (rede elétrica em colapso) |
 | 45–65 s | 1 ano depois: -150°C, ventos congelantes derrubam estruturas, oxigênio liquefeito cai como "neve azulada" |
 | 65–73 s | -240°C: a lente da câmera congela e trinca; texto **"APENAS BACTÉRIAS NO FUNDO DO OCEANO SOBREVIVEM"** |
-| 73–80 s | Tela preta com a frase final |
+| 73–80 s | Tela preta: resumo final e, de 76 a 80 s, *"Mas tudo isso começa com uma simples pergunta:"* — que emenda no "E se o Sol apagasse… de repente?" do 0,0 s (loop infinito) |
 
 As frases, tempos e eventos sonoros ficam em **`roteiro.json`** — a cena, as legendas e o áudio
 leem o mesmo arquivo, então tudo continua sincronizado se você editar o texto ou os tempos.
+
+## 🔁 Retenção e identidade ("Projeto E se?")
+
+- Selo fixo no topo: `PROJETO E SE? | EXPERIMENTO #002` (campos `projeto` e `experimento` em `roteiro.json`).
+- 0,0 s: impacto grave (sub-bass drop) junto com a primeira palavra da narração.
+- Loop infinito: a última frase termina exatamente aos 80 s e se conecta com a frase do 0,0 s.
+- O MP4 é exportado com palavras-chave do tema (campo `arquivo`).
 
 ## 🗂 Estrutura
 
@@ -58,5 +65,5 @@ pip install edge-tts numpy scipy
 python audio/generate_audio.py --out build/audio
 cd render && npm install && npx playwright install chromium && cd ..
 node render/capture.mjs --out build/video.mp4            # ou --start 0 --end 90 para testar
-ffmpeg -i build/video.mp4 -i build/audio/mix.wav -c:v copy -c:a aac -shortest what_if_video.mp4
+ffmpeg -i build/video.mp4 -i build/audio/mix.wav -c:v copy -c:a aac -shortest e_se_o_sol_apagasse_simulacao_3d.mp4
 ```

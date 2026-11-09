@@ -75,7 +75,7 @@ jobs:
 
   # ------------------------------------------------------------------ 3) juntar vídeo + áudio
   mux:
-    name: Montar what_if_video.mp4
+    name: Montar MP4 final (com e sem narração)
     needs: [audio, render]
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -92,6 +92,8 @@ jobs:
         with:
           name: audio
           path: build/audio
+      - name: Nome do arquivo (palavras-chave do tema)
+        run: echo "NOME=$(python3 -c "import json;print(json.load(open('roteiro.json'))['arquivo'])")" >> "$GITHUB_ENV"
       - name: Concatenar partes e mixar áudio
         run: |
           ls -la build/segs
@@ -99,25 +101,25 @@ jobs:
           ffmpeg -y -v error -f concat -safe 0 -i build/segs/list.txt -c copy build/video_mudo.mp4
           ffmpeg -y -v error -i build/video_mudo.mp4 -i build/audio/mix.wav \
             -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 192k -ar 44100 \
-            -t 80 -movflags +faststart what_if_video.mp4
+            -t 80 -movflags +faststart "$NOME.mp4"
           ffmpeg -y -v error -i build/video_mudo.mp4 -i build/audio/mix_sem_narracao.wav \
             -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 192k -ar 44100 \
-            -t 80 -movflags +faststart what_if_video_sem_narracao.mp4
-          for f in what_if_video.mp4 what_if_video_sem_narracao.mp4; do
+            -t 80 -movflags +faststart "${NOME}_sem_narracao.mp4"
+          for f in "$NOME.mp4" "${NOME}_sem_narracao.mp4"; do
             ffprobe -v error -show_entries format=duration,size:stream=codec_name,width,height,r_frame_rate -of compact "$f"
           done
       - name: Salvar MP4 como Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: what_if_video
-          path: what_if_video.mp4
+          name: ${{ env.NOME }}
+          path: ${{ env.NOME }}.mp4
           compression-level: 0
           retention-days: 30
       - name: Salvar MP4 sem narração como Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: what_if_video_sem_narracao
-          path: what_if_video_sem_narracao.mp4
+          name: ${{ env.NOME }}_sem_narracao
+          path: ${{ env.NOME }}_sem_narracao.mp4
           compression-level: 0
           retention-days: 30
       - name: Publicar MP4 na Release "video-mais-recente" (download direto no celular)
@@ -125,16 +127,16 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release delete video-mais-recente --yes --cleanup-tag || true
-          gh release create video-mais-recente what_if_video.mp4 what_if_video_sem_narracao.mp4 \
+          gh release create video-mais-recente "$NOME.mp4" "${NOME}_sem_narracao.mp4" \
             --target "${GITHUB_SHA}" \
-            --title "E se a Terra parasse de girar? — vídeo mais recente" \
-            --notes "Renderizado automaticamente a partir do commit ${GITHUB_SHA}. what_if_video.mp4 = com narração; what_if_video_sem_narracao.mp4 = só efeitos sonoros."
+            --title "$(python3 -c "import json;print(json.load(open('roteiro.json'))['titulo'])") — vídeo mais recente" \
+            --notes "Renderizado automaticamente a partir do commit ${GITHUB_SHA}. ${NOME}.mp4 = com narração; ${NOME}_sem_narracao.mp4 = só efeitos sonoros."
       - name: Preparar site (GitHub Pages)
         run: |
           mkdir -p _site/audio
           cp -r index.html roteiro.json js vendor _site/
           cp build/audio/mix.mp3 _site/audio/mix.mp3
-          cp what_if_video.mp4 _site/what_if_video.mp4
+          cp "$NOME.mp4" "_site/$NOME.mp4"
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site

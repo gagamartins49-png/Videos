@@ -40,6 +40,7 @@ jobs:
           path: |
             build/audio/mix.wav
             build/audio/mix.mp3
+            build/audio/mix_sem_narracao.wav
             build/audio/narracao_tempos.json
           retention-days: 7
 
@@ -99,7 +100,12 @@ jobs:
           ffmpeg -y -v error -i build/video_mudo.mp4 -i build/audio/mix.wav \
             -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 192k -ar 44100 \
             -t 80 -movflags +faststart what_if_video.mp4
-          ffprobe -v error -show_entries format=duration,size:stream=codec_name,width,height,r_frame_rate -of compact what_if_video.mp4
+          ffmpeg -y -v error -i build/video_mudo.mp4 -i build/audio/mix_sem_narracao.wav \
+            -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 192k -ar 44100 \
+            -t 80 -movflags +faststart what_if_video_sem_narracao.mp4
+          for f in what_if_video.mp4 what_if_video_sem_narracao.mp4; do
+            ffprobe -v error -show_entries format=duration,size:stream=codec_name,width,height,r_frame_rate -of compact "$f"
+          done
       - name: Salvar MP4 como Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -107,15 +113,22 @@ jobs:
           path: what_if_video.mp4
           compression-level: 0
           retention-days: 30
+      - name: Salvar MP4 sem narração como Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: what_if_video_sem_narracao
+          path: what_if_video_sem_narracao.mp4
+          compression-level: 0
+          retention-days: 30
       - name: Publicar MP4 na Release "video-mais-recente" (download direto no celular)
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release delete video-mais-recente --yes --cleanup-tag || true
-          gh release create video-mais-recente what_if_video.mp4 \
+          gh release create video-mais-recente what_if_video.mp4 what_if_video_sem_narracao.mp4 \
             --target "${GITHUB_SHA}" \
             --title "E se a Terra parasse de girar? — vídeo mais recente" \
-            --notes "Renderizado automaticamente a partir do commit ${GITHUB_SHA}. Toque em what_if_video.mp4 para baixar."
+            --notes "Renderizado automaticamente a partir do commit ${GITHUB_SHA}. what_if_video.mp4 = com narração; what_if_video_sem_narracao.mp4 = só efeitos sonoros."
       - name: Preparar site (GitHub Pages)
         run: |
           mkdir -p _site/audio

@@ -86,7 +86,7 @@ function canvasTex(w, h, draw, repeat) {
   const tx = new THREE.CanvasTexture(c);
   tx.colorSpace = THREE.SRGBColorSpace;
   if (repeat) { tx.wrapS = tx.wrapT = THREE.RepeatWrapping; tx.repeat.set(repeat[0], repeat[1]); }
-  tx.anisotropy = 4;
+  tx.anisotropy = 16;
   return tx;
 }
 const windowTexture = () => canvasTex(128, 128, (g) => {
@@ -130,7 +130,7 @@ export async function createApp({ quality = 1, script }) {
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.05;
 
-  const camera = new THREE.PerspectiveCamera(72, W / H, 0.1, 2500);
+  const camera = new THREE.PerspectiveCamera(72, W / H, 0.3, 1700);
   const scene = new THREE.Scene();
   scene.fog = new THREE.FogExp2(0xcfe6ff, 0.0025);
 
@@ -168,22 +168,22 @@ export async function createApp({ quality = 1, script }) {
   const ground = new THREE.Mesh(new THREE.PlaneGeometry(4000, 4000), std(0xb3ad9f, { flatShading: false }));
   ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
   const road = new THREE.Mesh(new THREE.PlaneGeometry(11, 520), new THREE.MeshStandardMaterial({ map: asphaltTexture(), roughness: 0.95 }));
-  road.rotation.x = -Math.PI / 2; road.position.set(0, 0.01, -220); road.receiveShadow = true; scene.add(road);
+  road.rotation.x = -Math.PI / 2; road.position.set(0, 0.04, -220); road.receiveShadow = true; scene.add(road);
   for (const s of [-1, 1]) {
     const walk = new THREE.Mesh(new THREE.BoxGeometry(3.6, 0.22, 520), std(0xcfc8bb));
     walk.position.set(s * 7.3, 0.11, -220); walk.receiveShadow = true; scene.add(walk);
     const curb = new THREE.Mesh(new THREE.BoxGeometry(0.25, 0.26, 520), std(0xe9e4da));
     curb.position.set(s * 5.5, 0.13, -220); curb.receiveShadow = true; scene.add(curb);
     const edge = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.02, 520), std(0xf2f2f2, { emissive: 0x222222 }));
-    edge.position.set(s * 5.05, 0.025, -220); scene.add(edge);
+    edge.position.set(s * 5.05, 0.08, -220); scene.add(edge);
   }
   {
     const dashG = new THREE.BoxGeometry(0.2, 0.02, 3.2), dashM = std(0xf4d35e, { emissive: 0x332a00 });
     const n = 50, dash = new THREE.InstancedMesh(dashG, dashM, n), m = new THREE.Matrix4();
-    for (let i = 0; i < n; i++) { m.makeTranslation(0, 0.025, 30 - i * 9); dash.setMatrixAt(i, m); }
+    for (let i = 0; i < n; i++) { m.makeTranslation(0, 0.08, 30 - i * 9); dash.setMatrixAt(i, m); }
     dash.receiveShadow = true; scene.add(dash);
     const zebra = new THREE.InstancedMesh(new THREE.BoxGeometry(0.75, 0.02, 3.6), std(0xf5f5f5, { emissive: 0x222222 }), 7);
-    for (let i = 0; i < 7; i++) { m.makeTranslation(-4.2 + i * 1.4, 0.026, -9); zebra.setMatrixAt(i, m); }
+    for (let i = 0; i < 7; i++) { m.makeTranslation(-4.2 + i * 1.4, 0.08, -9); zebra.setMatrixAt(i, m); }
     zebra.receiveShadow = true; scene.add(zebra);
   }
 
@@ -206,8 +206,8 @@ export async function createApp({ quality = 1, script }) {
         const dx = x1 - x0, dz = z1 - z0, l = Math.hypot(dx, dz) || 1;
         const w0 = width * (1 - i / segs * 0.85), w1 = width * (1 - (i + 1) / segs * 0.85);
         const nx = -dz / l, nz = dx / l;
-        pos.push(x0 + nx * w0, 0.035, z0 + nz * w0, x0 - nx * w0, 0.035, z0 - nz * w0, x1 + nx * w1, 0.035, z1 + nz * w1);
-        pos.push(x0 - nx * w0, 0.035, z0 - nz * w0, x1 - nx * w1, 0.035, z1 - nz * w1, x1 + nx * w1, 0.035, z1 + nz * w1);
+        pos.push(x0 + nx * w0, 0.12, z0 + nz * w0, x0 - nx * w0, 0.12, z0 - nz * w0, x1 + nx * w1, 0.12, z1 + nz * w1);
+        pos.push(x0 - nx * w0, 0.12, z0 - nz * w0, x1 - nx * w1, 0.12, z1 - nz * w1, x1 + nx * w1, 0.12, z1 + nz * w1);
       }
       const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
       const mesh = new THREE.Mesh(g, crackMat); mesh.frustumCulled = false; scene.add(mesh);
@@ -687,8 +687,9 @@ export async function createApp({ quality = 1, script }) {
     hemi.intensity = 1.0 - 0.25 * dust;
     hemi.color.copy(mixColor(0xd6ecff, 0xffc08a, dust));
     renderer.toneMappingExposure = 1.05 - 0.1 * storm;
-    sun.target.position.set(0, 0, camZ - 40);
-    sun.position.set(-45, 85, camZ + 30);
+    // sol FIXO (não acompanha a câmera) -> sombras não "tremem" de um frame para o outro
+    sun.target.position.set(0, 0, -22);
+    sun.position.set(-45, 85, 48);
 
     // rachaduras
     for (const c of cracks) {

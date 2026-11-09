@@ -9,7 +9,7 @@ e efeitos sonoros procedurais em **Python (numpy/scipy)**. O MP4 final é render
 1. Todo `push` na branch `main` (ou **Actions → Renderizar vídeo → Run workflow**) inicia a renderização.
 2. Leva ~20–30 min (8 partes renderizadas em paralelo).
 3. Baixe o vídeo de um destes jeitos:
-   - **Mais fácil:** aba **Releases** → `video-mais-recente` → toque em **what_if_video.mp4** (download direto, sem zip).
+   - **Mais fácil:** aba **Releases** → `video-mais-recente` → toque em **what_if_video.mp4** (com narração) ou **what_if_video_sem_narracao.mp4** (só efeitos sonoros). Download direto, sem zip.
    - **Actions** → execução mais recente → seção *Artifacts* → **what_if_video** (vem dentro de um .zip).
    - **GitHub Pages** (se ativado): `https://<seu-usuário>.github.io/<repo>/what_if_video.mp4`.
 

@@ -416,6 +416,10 @@ def main():
     fade[-int(0.3 * SR):] = np.linspace(1, 0, int(0.3 * SR))
     mix *= fade
 
+    # versão SEM narração: só efeitos sonoros (sem ducking)
+    nonarr = normalize(np.tanh(sfx * 0.62 * 1.1) / np.tanh(1.1), 0.97) * fade
+    wavfile.write(out / "mix_sem_narracao.wav", SR, (nonarr.T * 32767).astype(np.int16))
+
     wav = out / "mix.wav"
     wavfile.write(wav, SR, (mix.T * 32767).astype(np.int16))
     wavfile.write(out / "sfx.wav", SR, (normalize(sfx, 0.9).T * 32767).astype(np.int16))

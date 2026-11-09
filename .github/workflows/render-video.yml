@@ -1,0 +1,144 @@
+name: Renderizar vídeo (MP4 9:16)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'README.md'
+
+concurrency:
+  group: render-video-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write   # para publicar o MP4 na Release "video-mais-recente"
+
+env:
+  SHARDS: 8         # o vídeo (2400 frames) é dividido em 8 partes renderizadas em paralelo
+
+jobs:
+  # ------------------------------------------------------------------ 1) narração + efeitos
+  audio:
+    name: Narração (edge-tts) + efeitos sonoros
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Instalar FFmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Instalar dependências Python
+        run: pip install edge-tts numpy scipy
+      - name: Gerar narração e trilha sonora
+        run: python audio/generate_audio.py --out build/audio
+      - uses: actions/upload-artifact@v4
+        with:
+          name: audio
+          path: |
+            build/audio/mix.wav
+            build/audio/mix.mp3
+            build/audio/narracao_tempos.json
+          retention-days: 7
+
+  # ------------------------------------------------------------------ 2) animação Three.js frame a frame
+  render:
+    name: Render frames (parte ${{ matrix.shard }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Instalar FFmpeg e fontes
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+      - name: Instalar Playwright + Chromium
+        working-directory: render
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Gravar frames (WebGL via SwiftShader) e codificar H.264
+        run: node render/capture.mjs --shard ${{ matrix.shard }} --shards ${{ env.SHARDS }} --out build/seg_${{ matrix.shard }}.mp4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: seg-${{ matrix.shard }}
+          path: build/seg_${{ matrix.shard }}.mp4
+          retention-days: 3
+
+  # ------------------------------------------------------------------ 3) juntar vídeo + áudio
+  mux:
+    name: Montar what_if_video.mp4
+    needs: [audio, render]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar FFmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: seg-*
+          path: build/segs
+          merge-multiple: true
+      - uses: actions/download-artifact@v4
+        with:
+          name: audio
+          path: build/audio
+      - name: Concatenar partes e mixar áudio
+        run: |
+          ls -la build/segs
+          for i in $(seq 0 $((SHARDS-1))); do echo "file 'seg_$i.mp4'" ; done > build/segs/list.txt
+          ffmpeg -y -v error -f concat -safe 0 -i build/segs/list.txt -c copy build/video_mudo.mp4
+          ffmpeg -y -v error -i build/video_mudo.mp4 -i build/audio/mix.wav \
+            -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 192k -ar 44100 \
+            -t 80 -movflags +faststart what_if_video.mp4
+          ffprobe -v error -show_entries format=duration,size:stream=codec_name,width,height,r_frame_rate -of compact what_if_video.mp4
+      - name: Salvar MP4 como Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: what_if_video
+          path: what_if_video.mp4
+          compression-level: 0
+          retention-days: 30
+      - name: Publicar MP4 na Release "video-mais-recente" (download direto no celular)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete video-mais-recente --yes --cleanup-tag || true
+          gh release create video-mais-recente what_if_video.mp4 \
+            --target "${GITHUB_SHA}" \
+            --title "E se a Terra parasse de girar? — vídeo mais recente" \
+            --notes "Renderizado automaticamente a partir do commit ${GITHUB_SHA}. Toque em what_if_video.mp4 para baixar."
+      - name: Preparar site (GitHub Pages)
+        run: |
+          mkdir -p _site/audio
+          cp -r index.html roteiro.json js vendor _site/
+          cp build/audio/mix.mp3 _site/audio/mix.mp3
+          cp what_if_video.mp4 _site/what_if_video.mp4
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  # ------------------------------------------------------------------ 4) GitHub Pages (opcional)
+  pages:
+    name: Publicar no GitHub Pages (opcional)
+    needs: mux
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    continue-on-error: true   # se o Pages não estiver ativado, o vídeo continua disponível
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4

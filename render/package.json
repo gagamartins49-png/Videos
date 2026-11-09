@@ -1,0 +1,12 @@
+{
+  "name": "what-if-video-render",
+  "private": true,
+  "type": "module",
+  "description": "Grava a animação Three.js frame a frame com Chromium headless (Playwright) e codifica em MP4 com FFmpeg.",
+  "scripts": {
+    "capture": "node capture.mjs"
+  },
+  "dependencies": {
+    "playwright": "1.63.0"
+  }
+}

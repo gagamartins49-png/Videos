@@ -1,0 +1,123 @@
+{
+  "titulo": "E se a Terra parasse de girar?",
+  "duracao": 80,
+  "fps": 30,
+  "voz": "pt-BR-AntonioNeural",
+  "frases": [
+    {
+      "inicio": 0.4,
+      "fim": 4.2,
+      "texto": "E se a Terra parasse de girar... de repente?"
+    },
+    {
+      "inicio": 4.8,
+      "fim": 11.6,
+      "texto": "Neste exato momento, você está girando a mil seiscentos e setenta quilômetros por hora. E nem percebe.",
+      "legenda": "Agora mesmo, você gira a 1.670 km/h. E nem percebe."
+    },
+    {
+      "inicio": 12.2,
+      "fim": 17.8,
+      "texto": "Mas imagine que, num piscar de olhos, o planeta começasse a frear."
+    },
+    {
+      "inicio": 18.3,
+      "fim": 23.8,
+      "texto": "O chão desacelera. Mas tudo que está sobre ele... continua em movimento."
+    },
+    {
+      "inicio": 24.3,
+      "fim": 29.8,
+      "texto": "Carros e pessoas são arremessados para o leste pela inércia."
+    },
+    {
+      "inicio": 30.4,
+      "fim": 36.8,
+      "texto": "O ar também não para. Ventos de quinhentos quilômetros por hora varrem as ruas.",
+      "legenda": "O ar também não para. Ventos de 500 km/h varrem as ruas."
+    },
+    {
+      "inicio": 37.4,
+      "fim": 44.6,
+      "texto": "E continuam acelerando, até romper a barreira do som."
+    },
+    {
+      "inicio": 45.4,
+      "fim": 54.4,
+      "texto": "Árvores são arrancadas pela raiz. Prédios inteiros se desfazem como castelos de areia."
+    },
+    {
+      "inicio": 55.2,
+      "fim": 59.4,
+      "texto": "A rotação chega a zero."
+    },
+    {
+      "inicio": 60.0,
+      "fim": 64.4,
+      "texto": "E então... os oceanos vêm."
+    },
+    {
+      "inicio": 65.8,
+      "fim": 72.4,
+      "texto": "Toda a água do planeta avança sobre os continentes. Nenhuma cidade fica de pé."
+    },
+    {
+      "inicio": 73.6,
+      "fim": 79.4,
+      "texto": "Felizmente, a Terra nunca vai parar de girar. Pelo menos... não de repente.",
+      "legenda": "Felizmente, a Terra nunca vai parar de girar.\nPelo menos... não de repente."
+    }
+  ],
+  "eventos": {
+    "inicioFreio": 12,
+    "rachaduras": [
+      13.5,
+      16,
+      19,
+      22.5,
+      26
+    ],
+    "arremessos": [
+      19,
+      20.5,
+      22,
+      23.5,
+      25,
+      26.5,
+      28
+    ],
+    "semaforos": [
+      33.5,
+      35.2,
+      36.9,
+      38.6,
+      40.3
+    ],
+    "arvores": [
+      39,
+      48
+    ],
+    "desabamentos": [
+      38.5,
+      40,
+      41.3,
+      42.6,
+      44,
+      46.2,
+      47.6,
+      49,
+      50.5,
+      52,
+      53.4
+    ],
+    "barreiraSom": 45.7,
+    "zeroRotacao": 55,
+    "tsunamiInicio": 55,
+    "impactoTsunami": 64.6,
+    "vidro": [
+      66.0,
+      67.4
+    ],
+    "telaPreta": 73
+  }
+}

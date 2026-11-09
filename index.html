@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>E se a Terra parasse de girar?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Playfair+Display:ital,wght@0,600;1,600&family=Roboto+Mono:wght@700&display=block" rel="stylesheet">
+<style>
+  :root { --bg: #05070b; --fg: #f3f6fa; --accent: #ffd23f; --rec: #ff3b3b; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg); font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; overflow: hidden; }
+  #stage { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+  #view { height: 100%; max-width: 100%; aspect-ratio: 9 / 16; object-fit: contain; display: block; background: #000; }
+  #ui { position: fixed; left: 0; right: 0; bottom: 0; padding: 16px 16px calc(16px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 10px; align-items: center;
+        background: linear-gradient(transparent, rgba(0,0,0,0.85)); transition: opacity .4s; }
+  #ui.hidden { opacity: 0; pointer-events: none; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; width: 100%; max-width: 520px; }
+  button, .btn { flex: 1 1 140px; min-height: 52px; border: 0; border-radius: 14px; font-size: 17px; font-weight: 700; cursor: pointer; color: #111; background: var(--accent); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+  button.rec { background: var(--rec); color: #fff; }
+  button.sec, .btn.sec { background: rgba(255,255,255,0.14); color: var(--fg); }
+  button:disabled { opacity: .45; }
+  #status { font-size: 14px; opacity: .85; text-align: center; min-height: 1.2em; max-width: 520px; }
+  #bar { width: 100%; max-width: 520px; height: 5px; background: rgba(255,255,255,.15); border-radius: 3px; overflow: hidden; }
+  #bar > i { display: block; height: 100%; width: 0; background: var(--accent); }
+  select { min-height: 44px; border-radius: 12px; background: rgba(255,255,255,0.14); color: var(--fg); border: 0; padding: 0 12px; font-size: 15px; }
+  body.capture #ui { display: none; }
+</style>
+</head>
+<body>
+<div id="stage"><canvas id="view" width="1080" height="1920"></canvas></div>
+<div id="ui">
+  <div id="bar"><i></i></div>
+  <div id="status">Carregando cena 3D…</div>
+  <div class="row">
+    <button id="play" disabled>▶ Play</button>
+    <button id="rec" class="rec" disabled>● Gravar Vídeo</button>
+  </div>
+  <div class="row">
+    <select id="quality" aria-label="Qualidade">
+      <option value="0.5">Qualidade: leve (celular)</option>
+      <option value="0.75" selected>Qualidade: média</option>
+      <option value="1">Qualidade: máxima (1080p)</option>
+    </select>
+    <a id="mp4" class="btn sec" href="what_if_video.mp4" download hidden>⬇ Baixar MP4 renderizado</a>
+  </div>
+</div>
+
+<script type="module">
+import { createApp, windAt, DUR, SONIC_T, WAVE_HIT } from './js/scene.js';
+
+const params = new URLSearchParams(location.search);
+const CAPTURE = params.has('capture');
+if (CAPTURE) document.body.classList.add('capture');
+
+const view = document.getElementById('view'), vctx = view.getContext('2d');
+const $ = (id) => document.getElementById(id);
+const status = (s) => { $('status').textContent = s; };
+
+const script = await (await fetch('roteiro.json')).json();
+// garante que as fontes estejam carregadas antes de desenhar textos no canvas
+try {
+  await Promise.race([
+    Promise.all(['400 100px "Anton"', '600 60px "Playfair Display"', 'italic 600 60px "Playfair Display"', '700 60px "Roboto Mono"'].map((f) => document.fonts.load(f))),
+    new Promise((r) => setTimeout(r, 8000)),
+  ]);
+} catch (e) { /* sem fontes web: usa fallback */ }
+
+let quality = CAPTURE ? 1 : parseFloat(params.get('q') || $('quality').value);
+if (!CAPTURE && params.get('q')) $('quality').value = params.get('q');
+let app = await createApp({ quality, script });
+const blit = () => vctx.drawImage(app.canvas, 0, 0);
+blit();
+
+// --------------------------------------------------------------- modo captura (GitHub Actions)
+window.APP = {
+  ready: true, DUR, fps: script.fps || 30,
+  frameJPEG: (t, q) => app.frameJPEG(t, q),
+  render: (t) => { app.renderFrame(t); blit(); },
+  stats: () => app.stats(),
+  app: () => app,
+};
+if (CAPTURE) { status(''); }
+
+// --------------------------------------------------------------- modo web (tempo real)
+if (!CAPTURE) {
+  status('Pronto! Toque em ▶ Play para assistir ou ● Gravar para salvar um vídeo.');
+  $('play').disabled = $('rec').disabled = false;
+  fetch('what_if_video.mp4', { method: 'HEAD' }).then((r) => { if (r.ok) $('mp4').hidden = false; }).catch(() => {});
+
+  $('quality').addEventListener('change', async () => {
+    if (running) return;
+    quality = parseFloat($('quality').value);
+    status('Recriando cena…');
+    app.renderer.dispose();
+    app = await createApp({ quality, script }); blit();
+    status('Pronto!');
+  });
+
+  let running = false, recorder = null, chunks = [];
+  let actx = null, recDest = null, mixEl = null, sfx = null, t0 = 0, spoken = new Set();
+
+  async function setupAudio() {
+    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    await actx.resume();
+    recDest = recDest || actx.createMediaStreamDestination();
+    // 1) tenta a trilha final gerada pelo GitHub Actions (voz neural + efeitos)
+    if (!mixEl) {
+      try {
+        const r = await fetch('audio/mix.mp3', { method: 'HEAD' });
+        if (r.ok) {
+          mixEl = new Audio('audio/mix.mp3'); mixEl.crossOrigin = 'anonymous'; mixEl.preload = 'auto';
+          const src = actx.createMediaElementSource(mixEl); src.connect(actx.destination); src.connect(recDest);
+        }
+      } catch (e) { mixEl = null; }
+    }
+    // 2) fallback: efeitos procedurais Web Audio + voz do navegador
+    if (!mixEl && !sfx) sfx = buildSfx(actx, [actx.destination, recDest]);
+  }
+
+  function buildSfx(ac, outs) {
+    const len = ac.sampleRate * 4, buf = ac.createBuffer(2, len, ac.sampleRate);
+    for (let c = 0; c < 2; c++) { const d = buf.getChannelData(c); let b = 0; for (let i = 0; i < len; i++) { b = 0.98 * b + 0.02 * (Math.random() * 2 - 1); d[i] = b * 6 + (Math.random() * 2 - 1) * 0.15; } }
+    const noise = ac.createBufferSource(); noise.buffer = buf; noise.loop = true;
+    const lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 400;
+    const bp = ac.createBiquadFilter(); bp.type = 'bandpass'; bp.Q.value = 6; bp.frequency.value = 700;
+    const g = ac.createGain(); g.gain.value = 0; const gw = ac.createGain(); gw.gain.value = 0;
+    const master = ac.createGain(); master.gain.value = 0.9;
+    noise.connect(lp).connect(g).connect(master); noise.connect(bp).connect(gw).connect(master);
+    outs.forEach((o) => master.connect(o));
+    noise.start();
+    const boom = (when, strength = 1, f = 50) => {
+      const o = ac.createOscillator(), og = ac.createGain(); o.frequency.setValueAtTime(f * 2, when); o.frequency.exponentialRampToValueAtTime(f * 0.5, when + 1.2);
+      og.gain.setValueAtTime(0.0001, when); og.gain.exponentialRampToValueAtTime(0.9 * strength, when + 0.02); og.gain.exponentialRampToValueAtTime(0.0001, when + 1.6);
+      o.connect(og).connect(master); o.start(when); o.stop(when + 1.7);
+    };
+    return {
+      schedule(base, from) {
+        const ev = script.eventos;
+        [...ev.desabamentos, ev.barreiraSom, ev.impactoTsunami, ...ev.vidro, ev.telaPreta].forEach((tt, i) => { if (tt >= from) boom(base + tt - from, tt === ev.barreiraSom || tt === ev.impactoTsunami ? 1.6 : 0.8, 45 + (i % 3) * 10); });
+      },
+      update(t) {
+        const w = windAt(t) / 1670, under = t >= WAVE_HIT && t < 73;
+        const now = ac.currentTime;
+        g.gain.setTargetAtTime(t >= 73 ? 0 : under ? 0.35 : 0.08 + w * 0.6 + (t > 55 ? 0.3 : 0), now, 0.1);
+        lp.frequency.setTargetAtTime(under ? 250 : 300 + w * 2500, now, 0.1);
+        gw.gain.setTargetAtTime(under || t >= 73 ? 0 : w * 0.25, now, 0.1);
+        bp.frequency.setTargetAtTime(500 + w * 1500 + Math.sin(t * 2) * 200, now, 0.1);
+      },
+      stop() { g.gain.setTargetAtTime(0, ac.currentTime, 0.2); gw.gain.setTargetAtTime(0, ac.currentTime, 0.2); },
+    };
+  }
+
+  function speak(f) {
+    if (!('speechSynthesis' in window)) return;
+    const u = new SpeechSynthesisUtterance(f.texto); u.lang = 'pt-BR'; u.rate = 1.0; u.pitch = 0.7;
+    const v = speechSynthesis.getVoices().find((x) => /pt[-_]BR/i.test(x.lang) && /male|antonio|daniel|masc/i.test(x.name)) || speechSynthesis.getVoices().find((x) => /pt[-_]BR/i.test(x.lang));
+    if (v) u.voice = v;
+    speechSynthesis.speak(u);
+  }
+
+  const curT = () => mixEl ? mixEl.currentTime : actx.currentTime - t0;
+
+  async function start(record) {
+    if (running) return;
+    running = true; $('rec').disabled = $('quality').disabled = true; $('play').textContent = '■ Parar';
+    status('Preparando áudio…');
+    await setupAudio();
+    spoken.clear();
+    if (record) {
+      const stream = view.captureStream(30);
+      recDest.stream.getAudioTracks().forEach((tr) => stream.addTrack(tr));
+      const types = ['video/mp4;codecs=avc1.42E01E,mp4a.40.2', 'video/mp4', 'video/webm;codecs=vp9,opus', 'video/webm;codecs=vp8,opus', 'video/webm'];
+      const mime = types.find((m) => window.MediaRecorder && MediaRecorder.isTypeSupported(m)) || '';
+      recorder = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 12_000_000 });
+      chunks = []; recorder.ondataavailable = (e) => e.data.size && chunks.push(e.data);
+      const rec = recorder;
+      rec.onstop = () => {
+        const blob = new Blob(chunks, { type: rec.mimeType || 'video/webm' });
+        const ext = /mp4/.test(blob.type) ? 'mp4' : 'webm';
+        const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `e_se_a_terra_parasse.${ext}`;
+        document.body.appendChild(a); a.click(); a.remove();
+        status(`Vídeo gravado (${ext.toUpperCase()}, ${(blob.size / 1e6).toFixed(1)} MB). Para o MP4 em alta qualidade use o GitHub Actions.`);
+      };
+      recorder.start(1000);
+    }
+    if (mixEl) { mixEl.currentTime = 0; await mixEl.play(); }
+    else { t0 = actx.currentTime + 0.05; sfx.schedule(t0, 0); }
+    $('ui').classList.add('hidden');
+    status(record ? '● Gravando… (não feche a tela)' : '');
+    requestAnimationFrame(loop);
+  }
+
+  function loop() {
+    const t = Math.max(0, curT());
+    app.renderFrame(t); blit();
+    $('bar').firstElementChild.style.width = `${(t / DUR) * 100}%`;
+    if (!mixEl) {
+      sfx.update(t);
+      for (const f of script.frases) if (t >= f.inicio && !spoken.has(f)) { spoken.add(f); speak(f); }
+    }
+    if (!running) return;
+    if (t < DUR) requestAnimationFrame(loop); else stop();
+  }
+
+  function stop() {
+    running = false;
+    if (mixEl) mixEl.pause();
+    if (sfx) sfx.stop();
+    if ('speechSynthesis' in window) speechSynthesis.cancel();
+    if (recorder && recorder.state !== 'inactive') recorder.stop();
+    recorder = null;
+    $('ui').classList.remove('hidden');
+    $('play').disabled = $('rec').disabled = $('quality').disabled = false; $('play').textContent = '▶ Play';
+    if (!$('status').textContent.startsWith('Vídeo')) status('Fim! Toque em ▶ Play para assistir de novo.');
+  }
+
+  $('play').addEventListener('click', () => (running ? stop() : start(false)));
+  $('rec').addEventListener('click', () => start(true));
+  view.addEventListener('click', () => { if (running) { $('ui').classList.toggle('hidden'); } });
+}
+</script>
+</body>
+</html>

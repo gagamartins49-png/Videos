@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Projeto E se? — E se o Sol apagasse?</title>
+<title>Projeto E se? — E se a Lua caísse na Terra?</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Playfair+Display:ital,wght@0,600;1,600&family=Roboto+Mono:wght@700&display=block" rel="stylesheet">
@@ -140,7 +140,7 @@ if (!CAPTURE) {
     return {
       schedule(base, from) {
         const ev = script.eventos;
-        [ev.escuridao, ...ev.saltosTempo, ev.blackout, ...ev.quedas, ...ev.trincas, ev.telaPreta].forEach((tt, i) => { if (tt >= from) boom(base + tt - from, tt === ev.escuridao || tt === ev.telaPreta ? 1.6 : 0.8, 45 + (i % 3) * 10); });
+        [0, ev.luaQuebra, ...ev.impactos.map((x) => x.t), ev.ondaFogo[0], ev.ondaFogo[1], ev.telaPreta].forEach((tt, i) => { if (tt >= from) boom(base + tt - from, tt === ev.luaQuebra || tt === ev.ondaFogo[1] ? 1.6 : 0.9, 45 + (i % 3) * 10); });
       },
       update(t) {
         const w = windLevel(t), under = false;

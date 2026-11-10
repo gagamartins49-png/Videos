@@ -1,4 +1,4 @@
-# E se o Sol apagasse de repente? — gerador automático de Shorts/TikTok
+# Projeto E se? — gerador automático de Shorts/TikTok (atual: "E se a Lua caísse na Terra?")
 
 Vídeo vertical **9:16 · 1080×1920 · 30 fps · 80 s** no estilo "What if…", gerado 100% por código:
 cena 3D low-poly em **Three.js**, narração neural em **pt-BR** com **edge-tts** (`pt-BR-AntonioNeural`)
@@ -9,9 +9,9 @@ e efeitos sonoros procedurais em **Python (numpy/scipy)**. O MP4 final é render
 1. Todo `push` na branch `main` (ou **Actions → Renderizar vídeo → Run workflow**) inicia a renderização.
 2. Leva ~20–30 min (8 partes renderizadas em paralelo).
 3. Baixe o vídeo de um destes jeitos:
-   - **Mais fácil:** aba **Releases** → `video-mais-recente` → toque em **e_se_o_sol_apagasse_simulacao_3d.mp4** (com narração) ou **e_se_o_sol_apagasse_simulacao_3d_sem_narracao.mp4** (só efeitos sonoros). O nome vem do campo `arquivo` em `roteiro.json`. Download direto, sem zip.
+   - **Mais fácil:** aba **Releases** → `video-mais-recente` → toque em **e_se_a_lua_caisse_na_terra_simulacao_3d.mp4** (com narração) ou **e_se_a_lua_caisse_na_terra_simulacao_3d_sem_narracao.mp4** (só efeitos sonoros). O nome vem do campo `arquivo` em `roteiro.json`. Download direto, sem zip.
    - **Actions** → execução mais recente → seção *Artifacts* (vem dentro de um .zip).
-   - **GitHub Pages** (se ativado): `https://<seu-usuário>.github.io/<repo>/e_se_o_sol_apagasse_simulacao_3d.mp4`.
+   - **GitHub Pages** (se ativado): `https://<seu-usuário>.github.io/<repo>/e_se_a_lua_caisse_na_terra_simulacao_3d.mp4`.
 
 ## ▶ Assistir / gravar no navegador (GitHub Pages)
 
@@ -25,23 +25,23 @@ workflow publica o site com a trilha final (voz neural + efeitos). Abra a págin
 Sem o Pages pelo Actions (ex.: abrindo o `index.html` direto da branch), a página usa a voz do próprio
 navegador e efeitos via Web Audio como alternativa.
 
-## 🎬 Roteiro (80 s) — "E se o Sol apagasse de repente?"
+## 🎬 Roteiro (80 s) — "E se a Lua caísse na Terra?" (Experimento #003)
 
 | Tempo | Cena |
 |---|---|
-| 0–12 s | Rua movimentada ao meio-dia. Aos 8 s o Sol some do céu, mas tudo continua claro (a luz leva 8 minutos para chegar). HUD `TEMPO: 8 MINUTOS · TEMP: 24°C` |
-| 12–25 s | A última luz chega: céu negro com estrelas. Postes e faróis acendem sozinhos, pessoas param assustadas olhando para o céu |
-| 25–45 s | 24 horas → 7 dias: temperatura cai para -70°C, nevasca, árvores perdem as folhas, carros cobertos de gelo, postes piscam e apagam (rede elétrica em colapso) |
-| 45–65 s | 1 ano depois: -150°C, ventos congelantes derrubam estruturas, oxigênio liquefeito cai como "neve azulada" |
-| 65–73 s | -240°C: a lente da câmera congela e trinca; texto **"APENAS BACTÉRIAS NO FUNDO DO OCEANO SOBREVIVEM"** |
-| 73–80 s | Tela preta: resumo final e, de 76 a 80 s, *"Mas tudo isso começa com uma simples pergunta:"* — que emenda no "E se o Sol apagasse… de repente?" do 0,0 s (loop infinito) |
+| 0–12 s | Avenida costeira ao entardecer, Lua no tamanho normal sobre o mar. HUD `DISTÂNCIA DA LUA: 384.400 KM · MARÉ: NORMAL` |
+| 12–30 s | A distância cai para 100.000 km: a Lua fica gigante no céu, o mar sobe e invade a avenida, inundando o primeiro andar dos prédios |
+| 30–50 s | 18.000 km (limite de Roche): a Lua racha, explode em milhares de fragmentos incandescentes que formam um anel de fogo no céu; carros e destroços flutuam |
+| 50–65 s | Chuva de meteoros: impactos derrubam prédios com explosões alaranjadas e ondas de choque (alguns caem no mar) |
+| 65–73 s | Impacto gigante no horizonte: a onda de choque de fogo avança e consome a câmera |
+| 73–80 s | Tela preta: "A Terra viraria um mundo de fogo." e, de 76 a 80 s, *"Mas tudo isso começa com uma simples pergunta:"* — que emenda no 0,0 s (loop) |
 
 As frases, tempos e eventos sonoros ficam em **`roteiro.json`** — a cena, as legendas e o áudio
 leem o mesmo arquivo, então tudo continua sincronizado se você editar o texto ou os tempos.
 
 ## 🔁 Retenção e identidade ("Projeto E se?")
 
-- Selo fixo no topo: `PROJETO E SE? | EXPERIMENTO #002` (campos `projeto` e `experimento` em `roteiro.json`).
+- Selo fixo no topo: `PROJETO E SE? | EXPERIMENTO #003` (campos `projeto` e `experimento` em `roteiro.json`).
 - 0,0 s: impacto grave (sub-bass drop) junto com a primeira palavra da narração.
 - Loop infinito: a última frase termina exatamente aos 80 s e se conecta com a frase do 0,0 s.
 - O MP4 é exportado com palavras-chave do tema (campo `arquivo`).
@@ -65,5 +65,5 @@ pip install edge-tts numpy scipy
 python audio/generate_audio.py --out build/audio
 cd render && npm install && npx playwright install chromium && cd ..
 node render/capture.mjs --out build/video.mp4            # ou --start 0 --end 90 para testar
-ffmpeg -i build/video.mp4 -i build/audio/mix.wav -c:v copy -c:a aac -shortest e_se_o_sol_apagasse_simulacao_3d.mp4
+ffmpeg -i build/video.mp4 -i build/audio/mix.wav -c:v copy -c:a aac -shortest e_se_a_lua_caisse_na_terra_simulacao_3d.mp4
 ```

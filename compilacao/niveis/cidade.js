@@ -307,7 +307,7 @@ export async function createApp({ level, width = 1920, height = 1080, quality = 
   const comp = document.createElement('canvas'); comp.width = W; comp.height = H;
   const ctx = comp.getContext('2d');
   function post(u) {
-    const vg = ctx.createRadialGradient(W / 2, H / 2, H * 0.35, W / 2, H / 2, W * 0.62);
+    const vg = ctx.createRadialGradient(W / 2, H / 2, Math.min(W, H) * 0.35, W / 2, H / 2, Math.max(W, H) * 0.62);
     vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,0.55)'); ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
     if (level === 1) {
       const d = smooth(10, 14, u) * (1 - 0.6 * smooth(44, 50, u)); if (d > 0) { ctx.save(); ctx.globalCompositeOperation = 'saturation'; ctx.fillStyle = `rgba(128,128,128,${0.75 * d})`; ctx.fillRect(0, 0, W, H); ctx.restore(); }

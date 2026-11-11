@@ -9,6 +9,8 @@ on:
       - '.gitignore'
       - 'compilacao/**'
       - '.github/workflows/render-compilation.yml'
+      - 'short_oxigenio/**'
+      - '.github/workflows/render-short-oxigenio.yml'
 
 concurrency:
   group: render-video-${{ github.ref }}

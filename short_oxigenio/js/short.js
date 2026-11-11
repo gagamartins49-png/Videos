@@ -34,7 +34,7 @@ export async function createShort({ cfg, envelope = null }) {
   const W = cfg.largura || 1080, H = cfg.altura || 1920, DUR = cfg.duracao || 75, FPS = cfg.fps || 30;
   const comp = document.createElement('canvas'); comp.width = W; comp.height = H;
   const ctx = comp.getContext('2d');
-  const city = await createCity({ level: 1, width: W, height: H, quality: cfg.qualidade3d || 0.8, fov: 72 });
+  const city = await createCity({ level: 1, width: W, height: H, quality: cfg.qualidade3d || 0.8, fov: 72, shakeScale: cfg.tremor ?? 0.4 });
   const mascot = await createInterrogador({ width: 540, height: 960, quality: 0.5, corner: 560, levels: [] });
 
   const talkAt = (t) => {

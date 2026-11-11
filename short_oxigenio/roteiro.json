@@ -12,16 +12,138 @@
   "velocidade": "-4%",
   "tom": "-7Hz",
   "frases": [
-    { "inicio": 0.0,  "fim": 5.6,  "texto": "E se todo o oxigênio da Terra sumisse por apenas cinco segundos?", "legenda": "E se todo o oxigênio da Terra sumisse por apenas 5 segundos?" },
-    { "inicio": 5.9,  "fim": 11.8, "texto": "Prender a respiração é fácil, mas o que acontece ao redor é aterrorizante." },
-    { "inicio": 12.2, "fim": 19.6, "texto": "Instantaneamente, o céu azul fica completamente negro em pleno dia," },
-    { "inicio": 19.9, "fim": 27.8, "texto": "motores apagam e todos os prédios de concreto perdem a ligação química..." },
-    { "inicio": 28.4, "fim": 37.5, "texto": "...desmoronando instantaneamente em pó cinza, como castelos de areia, sem fazer barulho." },
-    { "inicio": 50.3, "fim": 59.0, "texto": "O cronômetro zera, o oxigênio volta, mas a cidade inteira já virou uma cratera de ruínas." },
-    { "inicio": 70.0, "fim": 75.0, "texto": "...deixando o mundo destruído em segundos. Tudo por causa de uma simples pergunta:", "ancorarFim": true }
+    {
+      "inicio": 0.0,
+      "fim": 5.6,
+      "texto": "E se todo o oxigênio da Terra sumisse por apenas cinco segundos?",
+      "legenda": "E se todo o oxigênio da Terra sumisse por apenas 5 segundos?"
+    },
+    {
+      "inicio": 5.9,
+      "fim": 11.8,
+      "texto": "Prender a respiração é fácil, mas o que acontece ao redor é aterrorizante."
+    },
+    {
+      "inicio": 12.2,
+      "fim": 19.6,
+      "texto": "Instantaneamente, o céu azul fica completamente negro em pleno dia,"
+    },
+    {
+      "inicio": 19.9,
+      "fim": 27.8,
+      "texto": "motores apagam e todos os prédios de concreto perdem a ligação química..."
+    },
+    {
+      "inicio": 28.4,
+      "fim": 37.5,
+      "texto": "...desmoronando instantaneamente em pó cinza, como castelos de areia, sem fazer barulho."
+    },
+    {
+      "inicio": 50.3,
+      "fim": 59.0,
+      "texto": "O cronômetro zera, o oxigênio volta, mas a cidade inteira já virou uma cratera de ruínas."
+    },
+    {
+      "inicio": 70.0,
+      "fim": 75.0,
+      "texto": "...deixando o mundo destruído em segundos. Tudo por causa de uma simples pergunta:",
+      "ancorarFim": true
+    }
   ],
-  "humor": [[0, 0], [11.8, 0], [12.4, 1], [24.5, 1], [25.5, 2], [49.5, 2], [52, 0.8], [66, 0.25], [72, 0], [75, 0]],
-  "panico": [[0, 0], [12, 0], [12.5, 0.45], [16, 0.25], [24.5, 0.25], [25.5, 0.55], [49.5, 0.55], [51.5, 0], [75, 0]],
-  "sustos": [12.0, 25.2, 50.0],
-  "eventos": { "subDrop": 0.0, "ceuNegro": 12.0, "colapso": [25.0, 50.0], "oxigenioVolta": 50.0, "loop": 70.0 }
+  "humor": [
+    [
+      0,
+      0
+    ],
+    [
+      11.8,
+      0
+    ],
+    [
+      12.4,
+      1
+    ],
+    [
+      24.5,
+      1
+    ],
+    [
+      25.5,
+      2
+    ],
+    [
+      49.5,
+      2
+    ],
+    [
+      52,
+      0.8
+    ],
+    [
+      66,
+      0.25
+    ],
+    [
+      72,
+      0
+    ],
+    [
+      75,
+      0
+    ]
+  ],
+  "panico": [
+    [
+      0,
+      0
+    ],
+    [
+      12,
+      0
+    ],
+    [
+      12.5,
+      0.45
+    ],
+    [
+      16,
+      0.25
+    ],
+    [
+      24.5,
+      0.25
+    ],
+    [
+      25.5,
+      0.55
+    ],
+    [
+      49.5,
+      0.55
+    ],
+    [
+      51.5,
+      0
+    ],
+    [
+      75,
+      0
+    ]
+  ],
+  "sustos": [
+    12.0,
+    25.2,
+    50.0
+  ],
+  "eventos": {
+    "subDrop": 0.0,
+    "ceuNegro": 12.0,
+    "colapso": [
+      25.0,
+      50.0
+    ],
+    "oxigenioVolta": 50.0,
+    "loop": 70.0
+  },
+  "tremor": 0.4
 }

@@ -71,7 +71,7 @@ const diskTexture = () => canvasTex(512, 512, (g, w) => {
 });
 
 // ============================================================================
-export async function createApp({ level, width = 1920, height = 1080, quality = 1, fov = 55 }) {
+export async function createApp({ level, width = 1920, height = 1080, quality = 1, fov = 55, shakeScale = 1 }) {
   const W = width, H = height;
   const rnd = mulberry32(777 + level * 31);
   const glCanvas = document.createElement('canvas');
@@ -413,7 +413,7 @@ export async function createApp({ level, width = 1920, height = 1080, quality = 
       P.set(px, py, pz); S.set(Math.max(sx, 1e-4), Math.max(sy, 1e-4), Math.max(sz, 1e-4)); M.compose(P, Q, S); chunkMesh.setMatrixAt(i, M);
     }
     chunkMesh.instanceMatrix.needsUpdate = true; fxAttr.needsUpdate = true;
-    shake += 0.4 * maxFall;
+    shake += 0.3 * maxFall;
 
     // ---------------- montes de pó (nível 1)
     for (const p of piles) { const k = smooth(p.b.tc, p.b.tc + 4, u); const s = Math.max(0.001, k); p.m.scale.set(p.b.w * 0.55 * s, p.b.h * 0.14 * s, p.b.d * 0.55 * s); p.m.position.y = p.b.h * 0.07 * s; }
@@ -547,12 +547,12 @@ export async function createApp({ level, width = 1920, height = 1080, quality = 
       warpU.uK.value = 0.7 * bhK;
     }
     // ---------------- câmera final
-    const si = shake;
-    const sx = si * (0.55 * Math.sin(u * 53.1) + 0.3 * Math.sin(u * 31.7 + 1.3) + 0.15 * Math.sin(u * 89.3)) * 0.4;
-    const sy = si * (0.5 * Math.sin(u * 47.3 + 0.7) + 0.35 * Math.sin(u * 27.9 + 2.1)) * 0.3;
+    const si = shake * shakeScale;
+    const sx = si * (0.55 * Math.sin(u * 11.3) + 0.3 * Math.sin(u * 7.1 + 1.3) + 0.15 * Math.sin(u * 17.9)) * 0.4;
+    const sy = si * (0.5 * Math.sin(u * 9.7 + 0.7) + 0.35 * Math.sin(u * 6.3 + 2.1)) * 0.3;
     camera.position.set(Math.sin(u * 0.21) * 0.5 + sx, cy + sy, cz);
     camera.lookAt(look.x + sx * 2, look.y + sy * 2, look.z);
-    camera.rotateZ(roll + si * 0.015 * Math.sin(u * 41.3));
+    camera.rotateZ(roll + si * 0.015 * Math.sin(u * 8.3));
     if (camera.fov !== fv) { camera.fov = fv; camera.updateProjectionMatrix(); }
     sky.position.copy(camera.position);
   }

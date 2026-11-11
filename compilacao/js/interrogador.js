@@ -91,9 +91,9 @@ function buildMascot() {
   function update(T, { talk = 0, mood = 0, surprise = 0, panic = 0, gesture = 1, look = 0 } = {}) {
     const col = moodColor(mood);
     const shakeA = panic * 0.05;
-    const jx = shakeA * Math.sin(T * 47), jy = shakeA * Math.sin(T * 53 + 1);
+    const jx = shakeA * Math.sin(T * 9.3), jy = shakeA * Math.sin(T * 11.7 + 1);
     body.position.set(jx, 1.0 + 0.08 * Math.sin(T * 2.1) + 0.35 * surprise + jy, 0);
-    body.rotation.set(0.04 * Math.sin(T * 1.3) - 0.15 * surprise, look + 0.12 * Math.sin(T * 0.7), 0.05 * Math.sin(T * 1.7) + panic * 0.06 * Math.sin(T * 31));
+    body.rotation.set(0.04 * Math.sin(T * 1.3) - 0.15 * surprise, look + 0.12 * Math.sin(T * 0.7), 0.05 * Math.sin(T * 1.7) + panic * 0.06 * Math.sin(T * 7.9));
     dot.position.set(0.05 * Math.sin(T * 1.1), 0.32 + 0.07 * Math.sin(T * 2.9 + 1.3), 0.05 * Math.cos(T * 1.4));
     dot.rotation.y = T * 0.9; dotRing.rotation.z = T * 2;
     // lente e LEDs pulsando com a voz
@@ -110,7 +110,7 @@ function buildMascot() {
       a.sh.rotation.set(-0.35 + g * 0.6 - panic * 2.2, 0, a.s * (1.05 + 0.3 * e * gesture + panic * 0.5));
       a.el.rotation.set(-0.9 - 0.6 * e * gesture - panic * 0.6 + 0.1 * Math.sin(T * 2 + a.s), 0, -a.s * 0.5);
       a.claw.rotation.y = T * 1.5 * (1 + panic * 6);
-      if (panic > 0) a.sh.rotation.z += a.s * 0.25 * panic * Math.sin(T * 25 + a.s);
+      if (panic > 0) a.sh.rotation.z += a.s * 0.25 * panic * Math.sin(T * 6.1 + a.s);
     }
     // raios de energia (zigue-zague que muda 15x por segundo)
     rayMat.color.copy(col).lerp(new THREE.Color(0xffffff), 0.3); rayMat.opacity = 0.35 + 0.45 * e + 0.3 * panic;

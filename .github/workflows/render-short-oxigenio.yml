@@ -33,7 +33,13 @@ jobs:
         with:
           python-version: '3.12'
       - name: Instalar FFmpeg
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+        run: |
+          for i in 1 2 3; do
+            sudo timeout 240 apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=20 update -qq && \
+            sudo timeout 300 apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=20 install -y -qq ffmpeg && break
+            echo "apt falhou (tentativa $i), tentando de novo..."; sleep 15
+          done
+          ffmpeg -version | head -1
       - name: Instalar dependências Python
         run: pip install edge-tts numpy scipy
       - name: Gerar trilha (75 s, loop)
@@ -68,7 +74,13 @@ jobs:
         with:
           node-version: '20'
       - name: Instalar FFmpeg e fontes
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+        run: |
+          for i in 1 2 3; do
+            sudo timeout 240 apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=20 update -qq && \
+            sudo timeout 300 apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=20 install -y -qq ffmpeg fonts-dejavu-core && break
+            echo "apt falhou (tentativa $i), tentando de novo..."; sleep 15
+          done
+          ffmpeg -version | head -1
       - name: Instalar Playwright + Chromium
         working-directory: short_oxigenio
         run: |
@@ -95,7 +107,13 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: Instalar FFmpeg
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+        run: |
+          for i in 1 2 3; do
+            sudo timeout 240 apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=20 update -qq && \
+            sudo timeout 300 apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=20 install -y -qq ffmpeg && break
+            echo "apt falhou (tentativa $i), tentando de novo..."; sleep 15
+          done
+          ffmpeg -version | head -1
       - uses: actions/download-artifact@v4
         with:
           pattern: parte-*

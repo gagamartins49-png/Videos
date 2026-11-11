@@ -34,12 +34,18 @@ jobs:
           python-version: '3.12'
       - name: Instalar FFmpeg
         run: |
-          for i in 1 2 3; do
-            sudo timeout 240 apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=20 update -qq && \
-            sudo timeout 300 apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=20 install -y -qq ffmpeg && break
-            echo "apt falhou (tentativa $i), tentando de novo..."; sleep 15
-          done
-          ffmpeg -version | head -1
+          # 1) apt (rápido quando o espelho funciona) — com tempo-limite curto
+          if ! command -v ffmpeg >/dev/null; then
+            (sudo timeout 120 apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=15 update -qq && \
+             sudo timeout 180 apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=15 install -y -qq ffmpeg) || echo "apt indisponível"
+          fi
+          # 2) se o apt falhar, baixa um FFmpeg estático (com libx264/mp3) das releases do GitHub
+          if ! command -v ffmpeg >/dev/null; then
+            curl -fsSL --retry 5 --retry-delay 5 -o /tmp/ffmpeg.tar.xz https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz
+            sudo mkdir -p /opt/ffmpeg && sudo tar -xJf /tmp/ffmpeg.tar.xz -C /opt/ffmpeg --strip-components=1
+            sudo ln -sf /opt/ffmpeg/bin/ffmpeg /usr/local/bin/ffmpeg && sudo ln -sf /opt/ffmpeg/bin/ffprobe /usr/local/bin/ffprobe
+          fi
+          command -v ffmpeg && ffmpeg -hide_banner -version | head -1
       - name: Instalar dependências Python
         run: pip install edge-tts numpy scipy
       - name: Gerar trilha (75 s, loop)
@@ -75,17 +81,23 @@ jobs:
           node-version: '20'
       - name: Instalar FFmpeg e fontes
         run: |
-          for i in 1 2 3; do
-            sudo timeout 240 apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=20 update -qq && \
-            sudo timeout 300 apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=20 install -y -qq ffmpeg fonts-dejavu-core && break
-            echo "apt falhou (tentativa $i), tentando de novo..."; sleep 15
-          done
-          ffmpeg -version | head -1
+          # 1) apt (rápido quando o espelho funciona) — com tempo-limite curto
+          if ! command -v ffmpeg >/dev/null; then
+            (sudo timeout 120 apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=15 update -qq && \
+             sudo timeout 180 apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=15 install -y -qq ffmpeg) || echo "apt indisponível"
+          fi
+          # 2) se o apt falhar, baixa um FFmpeg estático (com libx264/mp3) das releases do GitHub
+          if ! command -v ffmpeg >/dev/null; then
+            curl -fsSL --retry 5 --retry-delay 5 -o /tmp/ffmpeg.tar.xz https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz
+            sudo mkdir -p /opt/ffmpeg && sudo tar -xJf /tmp/ffmpeg.tar.xz -C /opt/ffmpeg --strip-components=1
+            sudo ln -sf /opt/ffmpeg/bin/ffmpeg /usr/local/bin/ffmpeg && sudo ln -sf /opt/ffmpeg/bin/ffprobe /usr/local/bin/ffprobe
+          fi
+          command -v ffmpeg && ffmpeg -hide_banner -version | head -1
       - name: Instalar Playwright + Chromium
         working-directory: short_oxigenio
         run: |
           npm ci --no-audit --no-fund
-          npx playwright install --with-deps chromium
+          timeout 600 npx playwright install --with-deps chromium || npx playwright install chromium
       - name: Baixar envelope da voz (sincronia do Interrogador)
         uses: actions/download-artifact@v4
         with:
@@ -108,12 +120,18 @@ jobs:
     steps:
       - name: Instalar FFmpeg
         run: |
-          for i in 1 2 3; do
-            sudo timeout 240 apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=20 update -qq && \
-            sudo timeout 300 apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=20 install -y -qq ffmpeg && break
-            echo "apt falhou (tentativa $i), tentando de novo..."; sleep 15
-          done
-          ffmpeg -version | head -1
+          # 1) apt (rápido quando o espelho funciona) — com tempo-limite curto
+          if ! command -v ffmpeg >/dev/null; then
+            (sudo timeout 120 apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=15 update -qq && \
+             sudo timeout 180 apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=15 install -y -qq ffmpeg) || echo "apt indisponível"
+          fi
+          # 2) se o apt falhar, baixa um FFmpeg estático (com libx264/mp3) das releases do GitHub
+          if ! command -v ffmpeg >/dev/null; then
+            curl -fsSL --retry 5 --retry-delay 5 -o /tmp/ffmpeg.tar.xz https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz
+            sudo mkdir -p /opt/ffmpeg && sudo tar -xJf /tmp/ffmpeg.tar.xz -C /opt/ffmpeg --strip-components=1
+            sudo ln -sf /opt/ffmpeg/bin/ffmpeg /usr/local/bin/ffmpeg && sudo ln -sf /opt/ffmpeg/bin/ffprobe /usr/local/bin/ffprobe
+          fi
+          command -v ffmpeg && ffmpeg -hide_banner -version | head -1
       - uses: actions/download-artifact@v4
         with:
           pattern: parte-*

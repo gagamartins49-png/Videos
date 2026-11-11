@@ -1,0 +1,136 @@
+name: Renderizar Short — sem oxigênio por 5 s (9:16, 75 s)
+
+# Projeto E se? • Experimento #001 • protagonista: O Interrogador.
+# Quadros JPEG vão direto (stdin/pipe) para o FFmpeg — nada é salvo em disco.
+# O vídeo é dividido em partes paralelas e unido no final em short_oxigenio.mp4.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'short_oxigenio/**'
+      - '.github/workflows/render-short-oxigenio.yml'
+
+concurrency:
+  group: render-short-oxigenio-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+env:
+  PARTES: 8
+
+jobs:
+  audio:
+    name: Narração (edge-tts) + efeitos + envelope da voz
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Instalar FFmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Instalar dependências Python
+        run: pip install edge-tts numpy scipy
+      - name: Gerar trilha (75 s, loop)
+        run: python short_oxigenio/gerar_audio.py --out short_oxigenio/build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: audio-short
+          path: |
+            short_oxigenio/build/audio_short.wav
+            short_oxigenio/build/audio_short_sem_narracao.wav
+            short_oxigenio/build/audio_short.mp3
+            short_oxigenio/build/narracao_tempos.json
+          retention-days: 3
+      - uses: actions/upload-artifact@v4
+        with:
+          name: envelope-short
+          path: short_oxigenio/build/envelope.json
+          retention-days: 3
+
+  render:
+    name: Render (parte ${{ matrix.parte }})
+    needs: audio
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        parte: [0, 1, 2, 3, 4, 5, 6, 7]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Instalar FFmpeg e fontes
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+      - name: Instalar Playwright + Chromium
+        working-directory: short_oxigenio
+        run: |
+          npm ci --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Baixar envelope da voz (sincronia do Interrogador)
+        uses: actions/download-artifact@v4
+        with:
+          name: envelope-short
+          path: short_oxigenio/build
+      - name: Renderizar quadros -> FFmpeg (pipe)
+        run: node short_oxigenio/render.mjs --parte ${{ matrix.parte }} --partes ${{ env.PARTES }} --out short_oxigenio/build/parte_${{ matrix.parte }}.mp4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: parte-${{ matrix.parte }}
+          path: short_oxigenio/build/parte_${{ matrix.parte }}.mp4
+          compression-level: 0
+          retention-days: 2
+
+  montar:
+    name: Montar short_oxigenio.mp4
+    needs: [audio, render]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Instalar FFmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: parte-*
+          path: build/partes
+          merge-multiple: true
+      - uses: actions/download-artifact@v4
+        with:
+          name: audio-short
+          path: build/audio
+      - name: Unir partes + áudio
+        run: |
+          ls build/partes/parte_*.mp4 | sort -V | sed "s#^#file '$PWD/#; s#\$#'#" > build/lista.txt
+          cat build/lista.txt
+          ffmpeg -y -v error -f concat -safe 0 -i build/lista.txt -c copy build/video_mudo.mp4
+          for pair in "audio_short.wav:short_oxigenio.mp4" "audio_short_sem_narracao.wav:short_oxigenio_sem_narracao.mp4"; do
+            a="${pair%%:*}"; o="${pair##*:}"
+            ffmpeg -y -v error -i build/video_mudo.mp4 -i "build/audio/$a" -map 0:v:0 -map 1:a:0 -c:v copy \
+              -c:a aac -b:a 192k -ar 44100 -t 75 -movflags +faststart "$o"
+            ffprobe -v error -show_entries format=duration,size:stream=codec_name,width,height,r_frame_rate -of compact "$o"
+          done
+      - name: Salvar MP4 como Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: short_oxigenio
+          path: |
+            short_oxigenio.mp4
+            short_oxigenio_sem_narracao.mp4
+          compression-level: 0
+          retention-days: 30
+      - name: Publicar na Release "short-oxigenio" (download direto no celular)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete short-oxigenio --yes --cleanup-tag -R "$GITHUB_REPOSITORY" || true
+          gh release create short-oxigenio short_oxigenio.mp4 short_oxigenio_sem_narracao.mp4 -R "$GITHUB_REPOSITORY" \
+            --target "${GITHUB_SHA}" \
+            --title "Projeto E se? #001 — Sem oxigênio por 5 segundos (Short 9:16)" \
+            --notes "Renderizado automaticamente a partir do commit ${GITHUB_SHA}. short_oxigenio.mp4 = com narração; short_oxigenio_sem_narracao.mp4 = só efeitos."

@@ -230,7 +230,14 @@ def trim_silence(x, thr=0.01):
     return x[max(0, idx[0] - int(0.02 * SR)): idx[-1] + int(0.08 * SR)]
 
 
+def _shift(value, unit, delta):
+    """Soma delta a valores do edge-tts como '-4%' ou '+0Hz'."""
+    v = int(str(value).replace(unit, "").replace("+", "")) + delta
+    return f"{v:+d}{unit}"
+
+
 def build_voice(script, outdir, use_tts, dur):
+    natural = bool(script.get("narracao_natural", False))
     voice = np.zeros(int(dur * SR), dtype=np.float32)
     vdir = outdir / "voz"
     vdir.mkdir(parents=True, exist_ok=True)
@@ -240,10 +247,13 @@ def build_voice(script, outdir, use_tts, dur):
         if not use_tts:
             continue
         mp3 = vdir / f"{i:02d}.mp3"
+        rate, pitch = script.get("velocidade", "-6%"), script.get("tom", "-7Hz")
+        if natural:  # pequenas variações de ritmo/tom entre frases, como uma pessoa falando (sem monotonia)
+            rate = _shift(rate, "%", [0, 3, -2, 2, -3, 1, 4, -1][i % 8])
+            pitch = _shift(pitch, "Hz", [0, -2, 2, -1, 1, -3, 2, 0][i % 8])
         for attempt in range(6):
             try:
-                asyncio.run(tts_line(f["texto"], script.get("voz", "pt-BR-AntonioNeural"),
-                                     script.get("velocidade", "-6%"), script.get("tom", "-7Hz"), mp3))
+                asyncio.run(tts_line(f["texto"], script.get("voz", "pt-BR-AntonioNeural"), rate, pitch, mp3))
                 if mp3.stat().st_size > 1000:
                     break
             except Exception as e:  # rede instável no runner: tenta de novo
@@ -254,9 +264,15 @@ def build_voice(script, outdir, use_tts, dur):
         x = trim_silence(decode_mono(mp3))
         d = len(x) / SR
         tempo = 1.0
-        if d > slot:  # acelera (sem mudar o tom) para caber exatamente no tempo do roteiro
-            tempo = min(1.45, d / slot)
+        limit = 1.10 if natural else 1.45            # no modo natural quase não acelera a fala
+        if d > slot * (1.02 if natural else 1.0):    # acelera (sem mudar o tom) para caber no tempo do roteiro
+            tempo = min(limit, d / slot)
             x = trim_silence(decode_mono(mp3, tempo))
+            if natural and len(x) / SR > slot + 0.05:
+                print(f"  aviso: frase {i} passa {len(x) / SR - slot:.2f}s do espaço previsto (mantida no ritmo natural)", flush=True)
+        if natural:                                  # pontas suaves: sem cortes secos no começo/fim da fala
+            fi, fo = min(len(x) // 4, int(0.02 * SR)), min(len(x) // 4, int(0.06 * SR))
+            x[:fi] *= np.linspace(0, 1, fi); x[len(x) - fo:] *= np.linspace(1, 0, fo)
         report.append({"frase": i, "inicio": f["inicio"], "fim": f["fim"], "dur_original": round(d, 2), "atempo": round(tempo, 3), "dur_final": round(len(x) / SR, 2)})
         print(f"  [{i:02d}] {f['inicio']:5.1f}s  {d:5.2f}s -> {len(x) / SR:5.2f}s (slot {slot:.2f}s)  {f['texto'][:50]}", flush=True)
         i0 = int(f["inicio"] * SR)
@@ -265,6 +281,16 @@ def build_voice(script, outdir, use_tts, dur):
         m = min(len(x), len(voice) - i0)
         voice[i0:i0 + m] += x[:m]
     (outdir / "narracao_tempos.json").write_text(json.dumps(report, ensure_ascii=False, indent=2))
+    if np.max(np.abs(voice)) > 0 and natural:
+        # tratamento leve, de locução real: passa-altas, um pouco de calor, compressão suave e sala discreta
+        voice = sos_filter(voice, "highpass", 80, 2)
+        voice = voice + sos_filter(voice, "lowpass", 200, 2) * 0.18
+        env = np.sqrt(sos_filter(voice ** 2, "lowpass", 12, 1).clip(1e-10))
+        thr = np.percentile(env[env > 1e-4], 80) if np.any(env > 1e-4) else 1.0
+        gain = np.where(env > thr, (env / thr) ** (1 / 2.5 - 1), 1.0)   # compressor 2,5:1 acima do limiar
+        voice = voice * sos_filter(gain.astype(np.float32), "lowpass", 30, 1)
+        voice = reverb(voice, 0.5, 0.05, seed=11)
+        return normalize(voice, 0.85)
     if np.max(np.abs(voice)) > 0:
         voice = sos_filter(voice, "highpass", 70, 2)
         # leve realce de graves (voz "de trailer") + compressão suave + reverb curto

@@ -6,6 +6,9 @@ on:
     branches: [main]
     paths-ignore:
       - 'README.md'
+      - '.gitignore'
+      - 'compilacao/**'
+      - '.github/workflows/render-compilation.yml'
 
 concurrency:
   group: render-video-${{ github.ref }}

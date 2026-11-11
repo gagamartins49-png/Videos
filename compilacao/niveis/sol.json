@@ -1,0 +1,134 @@
+{
+  "titulo": "E se o Sol apagasse de repente?",
+  "projeto": "PROJETO E SE?",
+  "experimento": "002",
+  "arquivo": "e_se_o_sol_apagasse_simulacao_3d",
+  "duracao": 80,
+  "fps": 30,
+  "voz": "pt-BR-AntonioNeural",
+  "velocidade": "-6%",
+  "tom": "-7Hz",
+  "frases": [
+    {
+      "inicio": 0.0,
+      "fim": 3.9,
+      "texto": "E se o Sol apagasse... de repente?"
+    },
+    {
+      "inicio": 4.4,
+      "fim": 11.9,
+      "texto": "A luz do Sol leva oito minutos para chegar até nós. Então, por alguns minutos... nada mudaria.",
+      "legenda": "A luz do Sol leva 8 minutos para chegar até nós. Então, por alguns minutos... nada mudaria."
+    },
+    {
+      "inicio": 12.8,
+      "fim": 18.4,
+      "texto": "Até que a última luz chega. E o céu fica completamente negro."
+    },
+    {
+      "inicio": 18.9,
+      "fim": 24.6,
+      "texto": "Sem o Sol, a Terra mergulha numa noite que nunca mais vai acabar."
+    },
+    {
+      "inicio": 25.6,
+      "fim": 31.4,
+      "texto": "Em vinte e quatro horas, a temperatura despenca abaixo de zero.",
+      "legenda": "Em 24 horas, a temperatura despenca abaixo de zero."
+    },
+    {
+      "inicio": 31.9,
+      "fim": 38.0,
+      "texto": "Em uma semana, chega a setenta graus negativos. Tudo congela.",
+      "legenda": "Em uma semana, chega a -70°C. Tudo congela."
+    },
+    {
+      "inicio": 38.5,
+      "fim": 44.6,
+      "texto": "Sem combustível e com a rede elétrica em colapso, as luzes se apagam uma a uma."
+    },
+    {
+      "inicio": 45.6,
+      "fim": 51.4,
+      "texto": "Depois de um ano, a superfície chega a cento e cinquenta graus negativos.",
+      "legenda": "Depois de um ano, a superfície chega a -150°C."
+    },
+    {
+      "inicio": 51.9,
+      "fim": 58.4,
+      "texto": "Até o oxigênio do ar se liquefaz, e cai do céu como uma neve azulada."
+    },
+    {
+      "inicio": 58.9,
+      "fim": 64.4,
+      "texto": "Estruturas congeladas e quebradiças desabam com o vento."
+    },
+    {
+      "inicio": 65.6,
+      "fim": 72.6,
+      "texto": "A duzentos e quarenta graus negativos, apenas bactérias no fundo do oceano sobreviveriam.",
+      "legenda": "A -240°C, apenas bactérias no fundo do oceano sobreviveriam."
+    },
+    {
+      "inicio": 73.3,
+      "fim": 75.8,
+      "texto": "Sem o Sol, a Terra seria só uma pedra congelada."
+    },
+    {
+      "inicio": 76.0,
+      "fim": 80.0,
+      "texto": "Mas tudo isso começa com uma simples pergunta:",
+      "ancorarFim": true
+    }
+  ],
+  "eventos": {
+    "solApaga": 8.0,
+    "escuridao": 12.5,
+    "postesAcendem": 13.2,
+    "farois": 13.7,
+    "pessoasParam": 14.0,
+    "saltosTempo": [
+      25.0,
+      34.5,
+      45.0,
+      65.0
+    ],
+    "nevasca": [
+      26.0,
+      65.0
+    ],
+    "folhas": [
+      27.0,
+      36.0
+    ],
+    "falhaEnergia": [
+      38.6,
+      39.3,
+      39.9,
+      40.4,
+      41.0,
+      41.5,
+      42.0,
+      42.6,
+      43.1
+    ],
+    "blackout": 43.3,
+    "oxigenio": 52.0,
+    "quedas": [
+      50.6,
+      53.2,
+      55.6,
+      57.9,
+      60.2,
+      62.4
+    ],
+    "geloLente": 65.2,
+    "trincas": [
+      66.6,
+      67.9,
+      69.2
+    ],
+    "telaPreta": 73.0,
+    "subDrop": 0.0
+  }
+}

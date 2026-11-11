@@ -67,3 +67,43 @@ cd render && npm install && npx playwright install chromium && cd ..
 node render/capture.mjs --out build/video.mp4            # ou --start 0 --end 90 para testar
 ffmpeg -i build/video.mp4 -i build/audio/mix.wav -c:v copy -c:a aac -shortest e_se_a_lua_caisse_na_terra_simulacao_3d.mp4
 ```
+
+
+---
+
+# 🎬 Compilação 16:9 (YouTube, 10 min): "7 simulações do Projeto E se?"
+
+Vídeo horizontal **1920×1080 · 30 fps · 600 s (18.000 quadros)** apresentado pelo mascote 3D **O Interrogador**
+(um robô metálico em forma de "?", com lente azul neon, painel de LED, braços articulados, raios de energia e a
+esfera da base flutuando). A lente e os LEDs pulsam junto com a voz narrada.
+
+**Baixar pelo celular:** aba **Releases** → `compilacao-mais-recente` → `compilacao_7_simulacoes_projeto_e_se.mp4`
+(ou em Actions → *Renderizar compilação* → Artifacts).
+
+| Bloco | Duração | Conteúdo |
+|---|---|---|
+| 0 | 30 s | Boas-vindas no laboratório (holograma da Terra, painel "7 níveis") |
+| 1 | 80 s | Nível 1 — sem oxigênio por 5 s (céu negro, motores param, concreto vira pó) |
+| 2 | 80 s | Nível 2 — a Terra para de girar (inércia, ventos supersônicos, mega-tsunami) |
+| 3 | 80 s | Nível 3 — +10 °C por segundo (asfalto ferve, árvores em chamas, rio de lava) |
+| 4 | 80 s | Nível 4 — gravidade de 1 G a 100 G (carros esmagados, postes dobrando, prédios desabando) |
+| 5 | 80 s | Nível 5 — o Sol apaga (escuridão, nevasca, oxigênio líquido, lente congelada) |
+| 6 | 80 s | Nível 6 — a Lua cai (marés, limite de Roche, anel de fogo, meteoros) |
+| 7 | 80 s | Nível 7 — buraco negro de 2 cm (espaguetificação, disco de acreção, tudo é engolido) |
+| 8 | 10 s | Encerramento: "Qual nível você aguentaria?" + inscreva-se |
+
+Em cada nível, o Interrogador apresenta o teste no laboratório (0–15 s) e depois vai para o canto inferior
+direito da simulação, reagindo em azul (calmo), laranja (alerta) e vermelho (pânico).
+
+**Arquitetura anti-travamento:** os 9 blocos (`bloco_0.mp4` … `bloco_8.mp4`) são renderizados em partes paralelas
+no GitHub Actions. Cada parte abre um navegador próprio e manda cada quadro JPEG **direto para o FFmpeg via stdin**
+(nenhum quadro é salvo em disco); no fim, o navegador é fechado e a memória é liberada. Os blocos são unidos com
+`ffmpeg -f concat` e recebem a trilha completa (voz + efeitos).
+
+Arquivos: `compilacao/roteiro.json` (blocos, falas e reações), `compilacao/js/interrogador.js` (mascote e
+laboratório), `compilacao/js/compilacao.js` (compositor, HUD e legendas), `compilacao/niveis/` (as 7 simulações),
+`compilacao/gerar_audio.py` (narração, efeitos e envelope da voz), `compilacao/render_bloco.mjs` e
+`.github/workflows/render-compilation.yml`.
+
+Rodar localmente: `python compilacao/gerar_audio.py` e depois `node compilacao/render_bloco.mjs --todos`.
+Para gastar menos minutos do Actions, diminua `qualidade3d` em `compilacao/roteiro.json` (0,75 por padrão).

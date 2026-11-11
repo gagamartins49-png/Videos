@@ -1,0 +1,43 @@
+{
+  "titulo": "E se a Lua caísse na Terra?",
+  "projeto": "PROJETO E SE?",
+  "experimento": "003",
+  "arquivo": "e_se_a_lua_caisse_na_terra_simulacao_3d",
+  "duracao": 80,
+  "fps": 30,
+  "voz": "pt-BR-AntonioNeural",
+  "velocidade": "-6%",
+  "tom": "-7Hz",
+  "frases": [
+    { "inicio": 0.0,  "fim": 3.8,  "texto": "E se a Lua caísse... em direção à Terra?" },
+    { "inicio": 4.3,  "fim": 11.7, "texto": "Hoje, ela está a trezentos e oitenta e quatro mil quilômetros daqui. E controla as marés dos oceanos.", "legenda": "Hoje, ela está a 384.400 km daqui. E controla as marés dos oceanos." },
+    { "inicio": 12.2, "fim": 18.2, "texto": "Mas, se ela começasse a cair, cada quilômetro mais perto mudaria tudo." },
+    { "inicio": 18.7, "fim": 24.4, "texto": "A cada hora, ela fica maior no céu." },
+    { "inicio": 24.9, "fim": 30.4, "texto": "A cem mil quilômetros, sua gravidade puxa os oceanos para dentro das cidades.", "legenda": "A 100.000 km, sua gravidade puxa os oceanos para dentro das cidades." },
+    { "inicio": 30.9, "fim": 37.4, "texto": "A dezoito mil quilômetros, ela cruza o limite de Roche.", "legenda": "A 18.000 km, ela cruza o limite de Roche." },
+    { "inicio": 37.9, "fim": 44.2, "texto": "E a gravidade da Terra começa a despedaçar a própria Lua." },
+    { "inicio": 44.7, "fim": 50.4, "texto": "Os fragmentos formam um anel de fogo... e até os carros começam a flutuar." },
+    { "inicio": 50.9, "fim": 57.2, "texto": "Então, os pedaços começam a cair. Meteoros do tamanho de montanhas." },
+    { "inicio": 57.7, "fim": 64.4, "texto": "Cada impacto libera mais energia do que todas as bombas nucleares juntas." },
+    { "inicio": 65.0, "fim": 71.2, "texto": "A onda de choque varre o planeta... e nada sobrevive." },
+    { "inicio": 73.3, "fim": 75.8, "texto": "A Terra viraria um mundo de fogo." },
+    { "inicio": 76.0, "fim": 80.0, "texto": "Mas tudo isso começa com uma simples pergunta:", "ancorarFim": true }
+  ],
+  "eventos": {
+    "subDrop": 0.0,
+    "inundacao": [12.0, 30.0],
+    "sirenes": [14.5, 31.0],
+    "apagao": 27.5,
+    "rachaduras": [35.8, 36.7, 37.5, 38.2],
+    "luaQuebra": 39.0,
+    "flutuacao": [42.0, 50.0],
+    "impactos": [
+      { "t": 50.8, "tipo": "predio" }, { "t": 52.1, "tipo": "mar" }, { "t": 53.3, "tipo": "predio" },
+      { "t": 54.5, "tipo": "predio" }, { "t": 55.8, "tipo": "mar" }, { "t": 56.9, "tipo": "predio" },
+      { "t": 58.2, "tipo": "predio" }, { "t": 59.4, "tipo": "mar" }, { "t": 60.6, "tipo": "predio" },
+      { "t": 61.8, "tipo": "predio" }, { "t": 63.0, "tipo": "predio" }
+    ],
+    "ondaFogo": [64.8, 69.6],
+    "telaPreta": 73.0
+  }
+}

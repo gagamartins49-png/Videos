@@ -1,0 +1,592 @@
+{
+ "titulo": "Compilação: 7 simulações do Projeto E se?",
+ "projeto": "PROJETO E SE?",
+ "arquivo": "compilacao_7_simulacoes_projeto_e_se",
+ "largura": 1920,
+ "altura": 1080,
+ "fps": 30,
+ "qualidade3d": 0.75,
+ "intro": 15,
+ "voz": "pt-BR-AntonioNeural",
+ "velocidade": "-4%",
+ "tom": "-7Hz",
+ "blocos": [
+  {
+   "dur": 30,
+   "nivel": 0,
+   "titulo": "Laboratório do Projeto E Se",
+   "hud": null,
+   "modulo": null,
+   "humor": [
+    8,
+    25
+   ],
+   "sustos": [],
+   "frases": [
+    {
+     "inicio": 0.4,
+     "fim": 6.0,
+     "texto": "Bem-vindo ao laboratório do Projeto E Se. Eu sou o Interrogador."
+    },
+    {
+     "inicio": 6.5,
+     "fim": 13.0,
+     "texto": "Hoje, vamos testar sete níveis de catástrofe na nossa cidade virtual."
+    },
+    {
+     "inicio": 13.5,
+     "fim": 20.8,
+     "texto": "Do nível mais silencioso... até a destruição total do espaço-tempo."
+    },
+    {
+     "inicio": 21.3,
+     "fim": 29.2,
+     "texto": "Fique até o final, porque cada nível é pior que o anterior. Vamos começar."
+    }
+   ]
+  },
+  {
+   "dur": 80,
+   "nivel": 1,
+   "titulo": "Sem oxigênio por 5 segundos",
+   "hud": "oxigenio",
+   "modulo": null,
+   "humor": [
+    10,
+    33
+   ],
+   "sustos": [
+    10,
+    18,
+    44.5
+   ],
+   "frases": [
+    {
+     "inicio": 0.5,
+     "fim": 7.0,
+     "texto": "Nível um. E se a Terra perdesse todo o oxigênio por apenas cinco segundos?"
+    },
+    {
+     "inicio": 7.5,
+     "fim": 14.5,
+     "texto": "Prender o fôlego por cinco segundos parece fácil... mas veja o que acontece com o concreto da cidade."
+    },
+    {
+     "inicio": 15.5,
+     "fim": 21.5,
+     "texto": "Tudo parece normal. Vinte e um por cento do ar que respiramos é oxigênio."
+    },
+    {
+     "inicio": 22.0,
+     "fim": 28.0,
+     "texto": "Quando ele desaparece, o ar fica rarefeito e o céu escurece em pleno dia."
+    },
+    {
+     "inicio": 28.5,
+     "fim": 34.5,
+     "texto": "Os motores dos carros morrem na hora. Nada mais consegue queimar."
+    },
+    {
+     "inicio": 35.0,
+     "fim": 42.0,
+     "texto": "Em câmera lenta, você vê o pior: o oxigênio ajuda a manter o concreto unido."
+    },
+    {
+     "inicio": 42.5,
+     "fim": 50.0,
+     "texto": "Sem ele, os prédios viram pó cinza... e desmoronam como castelos de areia."
+    },
+    {
+     "inicio": 50.5,
+     "fim": 57.0,
+     "texto": "A cidade inteira se desfaz em apenas cinco segundos."
+    },
+    {
+     "inicio": 58.0,
+     "fim": 64.0,
+     "texto": "E quando o oxigênio volta, encontra apenas ruínas e poeira."
+    },
+    {
+     "inicio": 64.5,
+     "fim": 71.5,
+     "texto": "Uma tempestade de pó cobre tudo o que um dia foi uma cidade."
+    },
+    {
+     "inicio": 72.5,
+     "fim": 79.2,
+     "texto": "Mas esse foi só o nível um. Agora, as coisas vão começar a se mover."
+    }
+   ]
+  },
+  {
+   "dur": 80,
+   "nivel": 2,
+   "titulo": "A Terra parando de girar",
+   "hud": "terra",
+   "modulo": "terra",
+   "humor": [
+    4,
+    30
+   ],
+   "sustos": [
+    4,
+    12,
+    37.7,
+    56.6
+   ],
+   "frases": [
+    {
+     "inicio": 0.5,
+     "fim": 7.0,
+     "texto": "Nível dois. E se a Terra parasse de girar de repente?"
+    },
+    {
+     "inicio": 7.5,
+     "fim": 14.5,
+     "texto": "Agora, vamos puxar o freio de mão do planeta, a mil seiscentos e setenta quilômetros por hora."
+    },
+    {
+     "inicio": 15.5,
+     "fim": 20.5,
+     "texto": "Neste exato momento, você está girando junto com o chão."
+    },
+    {
+     "inicio": 21.0,
+     "fim": 27.5,
+     "texto": "Mas quando o planeta freia, tudo que está sobre ele continua em movimento."
+    },
+    {
+     "inicio": 28.0,
+     "fim": 34.5,
+     "texto": "Carros e pessoas são arremessados para o leste pela inércia."
+    },
+    {
+     "inicio": 35.0,
+     "fim": 42.0,
+     "texto": "O ar também não para. Ventos de centenas de quilômetros por hora varrem as ruas."
+    },
+    {
+     "inicio": 42.5,
+     "fim": 50.5,
+     "texto": "Prédios inteiros se desfazem em milhares de blocos."
+    },
+    {
+     "inicio": 51.0,
+     "fim": 55.5,
+     "texto": "O vento rompe a barreira do som."
+    },
+    {
+     "inicio": 61.0,
+     "fim": 63.6,
+     "texto": "A rotação chega a zero."
+    },
+    {
+     "inicio": 64.0,
+     "fim": 67.6,
+     "texto": "E então... os oceanos vêm."
+    },
+    {
+     "inicio": 68.0,
+     "fim": 72.0,
+     "texto": "Um mega-tsunami engole a avenida."
+    },
+    {
+     "inicio": 72.5,
+     "fim": 79.2,
+     "texto": "O oceano agora está aqui. Nenhuma cidade fica de pé."
+    }
+   ]
+  },
+  {
+   "dur": 80,
+   "nivel": 3,
+   "titulo": "Temperatura +10°C por segundo",
+   "hud": "calor",
+   "modulo": null,
+   "humor": [
+    6,
+    22
+   ],
+   "sustos": [
+    12.5,
+    22.5,
+    44
+   ],
+   "frases": [
+    {
+     "inicio": 0.5,
+     "fim": 7.0,
+     "texto": "Nível três. E se a temperatura subisse dez graus por segundo?"
+    },
+    {
+     "inicio": 7.5,
+     "fim": 14.5,
+     "texto": "Vou girar o termostato do planeta... e ele não vai parar de subir."
+    },
+    {
+     "inicio": 15.5,
+     "fim": 21.0,
+     "texto": "Em poucos segundos, passamos dos cinquenta graus. As ruas ficam vazias."
+    },
+    {
+     "inicio": 21.5,
+     "fim": 27.5,
+     "texto": "Aos cem graus, a água ferve. Aos duzentos, o asfalto começa a borbulhar."
+    },
+    {
+     "inicio": 28.0,
+     "fim": 34.5,
+     "texto": "As árvores entram em combustão espontânea."
+    },
+    {
+     "inicio": 35.0,
+     "fim": 41.5,
+     "texto": "A quatrocentos graus, os carros pegam fogo e explodem."
+    },
+    {
+     "inicio": 42.0,
+     "fim": 49.0,
+     "texto": "O céu fica vermelho, como o interior de um forno."
+    },
+    {
+     "inicio": 49.5,
+     "fim": 56.0,
+     "texto": "Aos setecentos graus, o vidro das janelas começa a amolecer."
+    },
+    {
+     "inicio": 56.5,
+     "fim": 64.0,
+     "texto": "As estruturas começam a ceder como cera."
+    },
+    {
+     "inicio": 64.5,
+     "fim": 71.5,
+     "texto": "Acima de mil graus, até o aço e o concreto derretem."
+    },
+    {
+     "inicio": 72.0,
+     "fim": 79.2,
+     "texto": "Os prédios desabam... e a avenida vira um rio de lava."
+    }
+   ]
+  },
+  {
+   "dur": 80,
+   "nivel": 4,
+   "titulo": "Gravidade dobrando",
+   "hud": "gravidade",
+   "modulo": null,
+   "humor": [
+    8,
+    26
+   ],
+   "sustos": [
+    18,
+    26,
+    34
+   ],
+   "frases": [
+    {
+     "inicio": 0.5,
+     "fim": 7.0,
+     "texto": "Nível quatro. E se a gravidade dobrasse sem parar?"
+    },
+    {
+     "inicio": 7.5,
+     "fim": 14.5,
+     "texto": "Vou aumentar a massa do planeta, pouco a pouco, até cem vezes a gravidade normal."
+    },
+    {
+     "inicio": 15.5,
+     "fim": 21.5,
+     "texto": "Tudo começa com um leve peso nos ombros."
+    },
+    {
+     "inicio": 22.0,
+     "fim": 28.0,
+     "texto": "Com o dobro da gravidade, ninguém consegue mais ficar de pé."
+    },
+    {
+     "inicio": 28.5,
+     "fim": 35.0,
+     "texto": "Com cinco vezes, as árvores se partem e os postes dobram ao meio."
+    },
+    {
+     "inicio": 35.5,
+     "fim": 42.0,
+     "texto": "A dez gravidades, os carros são esmagados contra o chão."
+    },
+    {
+     "inicio": 42.5,
+     "fim": 49.0,
+     "texto": "O asfalto afunda. O chão já não aguenta o peso da cidade."
+    },
+    {
+     "inicio": 49.5,
+     "fim": 56.5,
+     "texto": "Os prédios desabam verticalmente, andar por andar."
+    },
+    {
+     "inicio": 57.0,
+     "fim": 64.0,
+     "texto": "Com cinquenta gravidades, até as montanhas começam a se achatar."
+    },
+    {
+     "inicio": 64.5,
+     "fim": 71.5,
+     "texto": "A cem gravidades, nada fica de pé."
+    },
+    {
+     "inicio": 72.0,
+     "fim": 79.2,
+     "texto": "Tudo é esmagado até virar uma camada plana de destroços."
+    }
+   ]
+  },
+  {
+   "dur": 80,
+   "nivel": 5,
+   "titulo": "O Sol apagando",
+   "hud": "sol",
+   "modulo": "sol",
+   "humor": [
+    4.5,
+    37
+   ],
+   "sustos": [
+    0,
+    4.5,
+    30.6,
+    57.2
+   ],
+   "frases": [
+    {
+     "inicio": 0.5,
+     "fim": 7.0,
+     "texto": "Nível cinco. E se o Sol apagasse de repente?"
+    },
+    {
+     "inicio": 7.5,
+     "fim": 14.5,
+     "texto": "Vou desligar a estrela do sistema no painel. Mas a luz dela ainda leva oito minutos para chegar."
+    },
+    {
+     "inicio": 15.5,
+     "fim": 19.2,
+     "texto": "O Sol apagou... mas ainda está claro."
+    },
+    {
+     "inicio": 19.8,
+     "fim": 25.5,
+     "texto": "Até que a última luz chega, e o céu fica completamente negro."
+    },
+    {
+     "inicio": 26.0,
+     "fim": 31.8,
+     "texto": "Os postes e os faróis acendem sozinhos. As pessoas param, assustadas."
+    },
+    {
+     "inicio": 32.5,
+     "fim": 39.5,
+     "texto": "Em vinte e quatro horas, a temperatura despenca abaixo de zero."
+    },
+    {
+     "inicio": 42.0,
+     "fim": 49.5,
+     "texto": "Em uma semana, setenta graus negativos. A rede elétrica entra em colapso."
+    },
+    {
+     "inicio": 52.5,
+     "fim": 58.5,
+     "texto": "Depois de um ano, a superfície chega a cento e cinquenta graus negativos."
+    },
+    {
+     "inicio": 59.0,
+     "fim": 65.5,
+     "texto": "Até o oxigênio do ar se liquefaz, e cai como uma neve azulada."
+    },
+    {
+     "inicio": 66.0,
+     "fim": 71.5,
+     "texto": "Estruturas congeladas desabam com o vento."
+    },
+    {
+     "inicio": 72.5,
+     "fim": 79.2,
+     "texto": "A duzentos e quarenta graus negativos, até a lente da câmera congela."
+    }
+   ]
+  },
+  {
+   "dur": 80,
+   "nivel": 6,
+   "titulo": "A Lua caindo na Terra",
+   "hud": "lua",
+   "modulo": "lua",
+   "humor": [
+    10,
+    31
+   ],
+   "sustos": [
+    31,
+    42.8,
+    56.8
+   ],
+   "frases": [
+    {
+     "inicio": 0.5,
+     "fim": 7.0,
+     "texto": "Nível seis. E se a Lua caísse em direção à Terra?"
+    },
+    {
+     "inicio": 7.5,
+     "fim": 14.5,
+     "texto": "Vou alterar a órbita da Lua aqui no painel... e trazê-la cada vez mais perto."
+    },
+    {
+     "inicio": 15.5,
+     "fim": 21.5,
+     "texto": "Hoje, ela está a trezentos e oitenta e quatro mil quilômetros daqui."
+    },
+    {
+     "inicio": 22.0,
+     "fim": 29.0,
+     "texto": "Mas a cada hora mais perto, ela fica maior no céu."
+    },
+    {
+     "inicio": 29.5,
+     "fim": 36.5,
+     "texto": "E sua gravidade puxa os oceanos para dentro das cidades."
+    },
+    {
+     "inicio": 37.5,
+     "fim": 44.5,
+     "texto": "A dezoito mil quilômetros, ela cruza o limite de Roche."
+    },
+    {
+     "inicio": 45.5,
+     "fim": 51.5,
+     "texto": "E a gravidade da Terra despedaça a própria Lua."
+    },
+    {
+     "inicio": 52.0,
+     "fim": 57.5,
+     "texto": "Os fragmentos formam um anel de fogo, e até os carros flutuam."
+    },
+    {
+     "inicio": 58.0,
+     "fim": 64.5,
+     "texto": "Então, os pedaços caem. Meteoros do tamanho de montanhas."
+    },
+    {
+     "inicio": 65.0,
+     "fim": 71.0,
+     "texto": "Cada impacto libera mais energia que todas as bombas nucleares juntas."
+    },
+    {
+     "inicio": 72.0,
+     "fim": 78.5,
+     "texto": "E a onda de choque de fogo consome tudo."
+    }
+   ]
+  },
+  {
+   "dur": 80,
+   "nivel": 7,
+   "titulo": "Buraco negro de 2 cm na rua",
+   "hud": "buraco",
+   "modulo": null,
+   "humor": [
+    3,
+    14
+   ],
+   "sustos": [
+    3,
+    13,
+    20,
+    44
+   ],
+   "frases": [
+    {
+     "inicio": 0.5,
+     "fim": 7.5,
+     "texto": "Nível sete. O teste final. O nível máximo de destruição."
+    },
+    {
+     "inicio": 8.0,
+     "fim": 14.6,
+     "texto": "Vou colocar um buraco negro, com a massa da Terra inteira, numa esfera de apenas dois centímetros."
+    },
+    {
+     "inicio": 15.5,
+     "fim": 22.0,
+     "texto": "Ele aparece no fim da avenida. Pequeno como uma bola de gude."
+    },
+    {
+     "inicio": 22.5,
+     "fim": 29.0,
+     "texto": "Mas tem a mesma massa do planeta inteiro."
+    },
+    {
+     "inicio": 29.5,
+     "fim": 36.0,
+     "texto": "Os carros são puxados para trás, cada vez mais rápido."
+    },
+    {
+     "inicio": 36.5,
+     "fim": 43.5,
+     "texto": "A gravidade é tão intensa que estica a matéria como espaguete."
+    },
+    {
+     "inicio": 44.0,
+     "fim": 51.0,
+     "texto": "Os prédios se desfazem em espiral... e caem dentro do disco de acreção."
+    },
+    {
+     "inicio": 51.5,
+     "fim": 58.0,
+     "texto": "Nem a luz consegue escapar."
+    },
+    {
+     "inicio": 58.5,
+     "fim": 65.5,
+     "texto": "A rua, as árvores, o próprio chão... tudo é engolido."
+    },
+    {
+     "inicio": 66.0,
+     "fim": 72.0,
+     "texto": "Em instantes, a Terra inteira caberia na palma da sua mão."
+    },
+    {
+     "inicio": 73.0,
+     "fim": 79.2,
+     "texto": "E o espaço-tempo, aqui, simplesmente deixa de existir."
+    }
+   ]
+  },
+  {
+   "dur": 10,
+   "nivel": 8,
+   "titulo": "Encerramento",
+   "hud": null,
+   "modulo": null,
+   "humor": [
+    8,
+    25
+   ],
+   "sustos": [],
+   "frases": [
+    {
+     "inicio": 0.3,
+     "fim": 4.0,
+     "texto": "A qual desses sete níveis você sobreviveria por mais tempo?"
+    },
+    {
+     "inicio": 4.2,
+     "fim": 9.9,
+     "texto": "Deixe nos comentários qual experimento devemos simular no próximo vídeo, e inscreva-se no Projeto E Se!"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,177 @@
+name: Renderizar compilação (16:9, 10 min, 9 blocos)
+
+# Compilação "7 simulações do Projeto E se?" — 1920x1080, 30 fps, 600 s (18.000 quadros).
+# Arquitetura anti-travamento: o vídeo é dividido em 9 blocos (bloco_0..bloco_8);
+# os blocos longos são renderizados em partes paralelas. Cada parte abre um
+# navegador próprio, envia cada quadro JPEG direto para o FFmpeg via stdin
+# (nenhum PNG/JPEG é salvo em disco) e fecha tudo no final, liberando a memória.
+# No fim, as partes viram bloco_N.mp4 e os 9 blocos são unidos com ffmpeg -f concat.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'compilacao/**'
+      - '.github/workflows/render-compilation.yml'
+
+concurrency:
+  group: render-compilacao-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write   # para publicar o MP4 na Release "compilacao-mais-recente"
+
+jobs:
+  # ------------------------------------------------------------------ 1) narração + efeitos + envelope da voz
+  audio:
+    name: Narração (edge-tts) + efeitos + envelope da voz
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Instalar FFmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Instalar dependências Python
+        run: pip install edge-tts numpy scipy
+      - name: Gerar trilha completa (600 s)
+        run: python compilacao/gerar_audio.py --out compilacao/build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: audio-compilacao
+          path: |
+            compilacao/build/audio_compilacao.wav
+            compilacao/build/audio_compilacao.mp3
+            compilacao/build/envelope.json
+            compilacao/build/narracao_tempos.json
+          retention-days: 2
+      - uses: actions/upload-artifact@v4
+        with:
+          name: envelope-voz
+          path: compilacao/build/envelope.json
+          retention-days: 2
+
+  # ------------------------------------------------------------------ 2) blocos de vídeo (partes em paralelo)
+  render:
+    name: Bloco ${{ matrix.bloco }} • parte ${{ matrix.parte }}
+    needs: audio
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { bloco: 0, parte: 0, partes: 2 }
+          - { bloco: 0, parte: 1, partes: 2 }
+          - { bloco: 1, parte: 0, partes: 4 }
+          - { bloco: 1, parte: 1, partes: 4 }
+          - { bloco: 1, parte: 2, partes: 4 }
+          - { bloco: 1, parte: 3, partes: 4 }
+          - { bloco: 2, parte: 0, partes: 4 }
+          - { bloco: 2, parte: 1, partes: 4 }
+          - { bloco: 2, parte: 2, partes: 4 }
+          - { bloco: 2, parte: 3, partes: 4 }
+          - { bloco: 3, parte: 0, partes: 4 }
+          - { bloco: 3, parte: 1, partes: 4 }
+          - { bloco: 3, parte: 2, partes: 4 }
+          - { bloco: 3, parte: 3, partes: 4 }
+          - { bloco: 4, parte: 0, partes: 4 }
+          - { bloco: 4, parte: 1, partes: 4 }
+          - { bloco: 4, parte: 2, partes: 4 }
+          - { bloco: 4, parte: 3, partes: 4 }
+          - { bloco: 5, parte: 0, partes: 4 }
+          - { bloco: 5, parte: 1, partes: 4 }
+          - { bloco: 5, parte: 2, partes: 4 }
+          - { bloco: 5, parte: 3, partes: 4 }
+          - { bloco: 6, parte: 0, partes: 4 }
+          - { bloco: 6, parte: 1, partes: 4 }
+          - { bloco: 6, parte: 2, partes: 4 }
+          - { bloco: 6, parte: 3, partes: 4 }
+          - { bloco: 7, parte: 0, partes: 4 }
+          - { bloco: 7, parte: 1, partes: 4 }
+          - { bloco: 7, parte: 2, partes: 4 }
+          - { bloco: 7, parte: 3, partes: 4 }
+          - { bloco: 8, parte: 0, partes: 1 }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Instalar FFmpeg e fontes
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+      - name: Instalar Playwright + Chromium
+        working-directory: compilacao
+        run: |
+          npm ci --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Baixar envelope da voz (sincronia do mascote)
+        uses: actions/download-artifact@v4
+        with:
+          name: envelope-voz
+          path: compilacao/build
+      - name: Renderizar quadros -> FFmpeg (pipe)
+        run: node compilacao/render_bloco.mjs --bloco ${{ matrix.bloco }} --parte ${{ matrix.parte }} --partes ${{ matrix.partes }} --out compilacao/build/seg_b${{ matrix.bloco }}_p${{ matrix.parte }}.mp4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: seg-b${{ matrix.bloco }}-p${{ matrix.parte }}
+          path: compilacao/build/seg_b${{ matrix.bloco }}_p${{ matrix.parte }}.mp4
+          compression-level: 0
+          retention-days: 1
+
+  # ------------------------------------------------------------------ 3) montar bloco_0..bloco_8 e o MP4 final
+  montar:
+    name: Montar compilacao_7_simulacoes_projeto_e_se.mp4
+    needs: [audio, render]
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar FFmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: seg-*
+          path: build/segs
+          merge-multiple: true
+      - uses: actions/download-artifact@v4
+        with:
+          name: audio-compilacao
+          path: build/audio
+      - name: Unir partes -> bloco_N.mp4 -> vídeo completo + áudio
+        run: |
+          NOME=$(python3 -c "import json;print(json.load(open('compilacao/roteiro.json'))['arquivo'])")
+          echo "NOME=$NOME" >> "$GITHUB_ENV"
+          cd build
+          ls -la segs
+          : > blocos.txt
+          for b in 0 1 2 3 4 5 6 7 8; do
+            ls segs/seg_b${b}_p*.mp4 | sort -V | sed "s#^#file '$PWD/#; s#\$#'#" > lista_$b.txt
+            ffmpeg -y -v error -f concat -safe 0 -i lista_$b.txt -c copy bloco_$b.mp4
+            echo "file '$PWD/bloco_$b.mp4'" >> blocos.txt
+            ffprobe -v error -show_entries format=duration -of csv=p=0 bloco_$b.mp4 | xargs echo "bloco_$b.mp4 (s):"
+          done
+          ffmpeg -y -v error -f concat -safe 0 -i blocos.txt -c copy compilacao_sem_audio.mp4
+          ffmpeg -y -v error -i compilacao_sem_audio.mp4 -i audio/audio_compilacao.wav \
+            -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 192k -ar 44100 -t 600 \
+            -movflags +faststart "../$NOME.mp4"
+          cd ..
+          ffprobe -v error -show_entries format=duration,size:stream=codec_name,width,height,r_frame_rate -of compact "$NOME.mp4"
+      - name: Salvar MP4 como Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.NOME }}
+          path: ${{ env.NOME }}.mp4
+          compression-level: 0
+          retention-days: 5
+      - name: Publicar na Release "compilacao-mais-recente" (download direto no celular)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete compilacao-mais-recente --yes --cleanup-tag || true
+          gh release create compilacao-mais-recente "$NOME.mp4" \
+            --target "${GITHUB_SHA}" \
+            --title "Compilação: 7 simulações do Projeto E se? (10 min, 16:9)" \
+            --notes "Renderizado automaticamente a partir do commit ${GITHUB_SHA}. Toque em $NOME.mp4 para baixar."

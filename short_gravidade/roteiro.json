@@ -10,21 +10,215 @@
   "qualidade3d": 0.8,
   "tremor": 0.5,
   "voz": "pt-BR-AntonioNeural",
-  "velocidade": "-4%",
-  "tom": "-7Hz",
-  "gravidade": [[0, 1], [12, 1], [20, 2], [28, 5], [38, 14], [48, 40], [56, 70], [62, 100], [99, 100]],
-  "frases": [
-    { "inicio": 0.0,  "fim": 5.0,  "texto": "E se a gravidade do planeta dobrasse a cada dez segundos?", "legenda": "E se a gravidade do planeta dobrasse a cada 10 segundos?" },
-    { "inicio": 5.5,  "fim": 11.5, "texto": "Você conseguiria ficar de pé?" },
-    { "inicio": 12.3, "fim": 27.6, "texto": "Com cinco G, os pedestres caem no chão sem conseguir levantar, e as suspensões dos carros estouram até encostar no asfalto.", "legenda": "Com 5 G, os pedestres caem no chão sem conseguir levantar, e as suspensões dos carros estouram até encostar no asfalto." },
-    { "inicio": 28.4, "fim": 40.0, "texto": "A quarenta G, o asfalto afunda, postes dobram ao meio, e o topo dos prédios começa a desabar verticalmente.", "legenda": "A 40 G, o asfalto afunda, postes dobram ao meio e o topo dos prédios começa a desabar verticalmente." },
-    { "inicio": 50.3, "fim": 61.0, "texto": "A cem G, seu corpo pesaria toneladas, e toda a cidade colapsa em uma pilha plana de escombros.", "legenda": "A 100 G, seu corpo pesaria toneladas e toda a cidade colapsa em uma pilha plana de escombros." },
-    { "inicio": 70.0, "fim": 75.0, "texto": "...esmagando tudo sob o próprio peso. Mas esse colapso nasce de uma única pergunta:", "ancorarFim": true }
+  "velocidade": "+2%",
+  "tom": "+0Hz",
+  "narracao_natural": true,
+  "gravidade": [
+    [
+      0,
+      1
+    ],
+    [
+      12,
+      1
+    ],
+    [
+      20,
+      2
+    ],
+    [
+      28,
+      5
+    ],
+    [
+      38,
+      14
+    ],
+    [
+      48,
+      40
+    ],
+    [
+      56,
+      70
+    ],
+    [
+      62,
+      100
+    ],
+    [
+      99,
+      100
+    ]
   ],
-  "humor":  [[0, 0], [11.8, 0], [12.6, 1], [29.4, 1], [30.6, 2], [70, 1.7], [73, 0], [75, 0]],
-  "panico": [[0, 0], [29.5, 0], [30.6, 0.65], [49.5, 0.65], [51, 0.2], [70, 0.2], [72, 0], [75, 0]],
-  "balanca": [[0, 0], [12, 0], [12.8, 1], [29, 1], [30, 0], [75, 0]],
-  "abaixa": [[0, 0], [49.5, 0], [52, 1], [70, 1], [72.5, 0], [75, 0]],
-  "sustos": [12.0, 30.0, 50.0],
-  "marcos": [2, 5, 10, 20, 40, 100]
+  "frases": [
+    {
+      "inicio": 0.0,
+      "fim": 5.0,
+      "texto": "E se a gravidade do planeta dobrasse a cada dez segundos?",
+      "legenda": "E se a gravidade do planeta dobrasse a cada 10 segundos?"
+    },
+    {
+      "inicio": 5.5,
+      "fim": 11.8,
+      "texto": "Você conseguiria ficar de pé?"
+    },
+    {
+      "inicio": 12.3,
+      "fim": 27.6,
+      "texto": "Com cinco G, os pedestres caem no chão sem conseguir levantar, e as suspensões dos carros estouram até encostar no asfalto.",
+      "legenda": "Com 5 G, os pedestres caem no chão sem conseguir levantar, e as suspensões dos carros estouram até encostar no asfalto."
+    },
+    {
+      "inicio": 28.4,
+      "fim": 40.0,
+      "texto": "A quarenta G, o asfalto afunda, postes dobram ao meio, e o topo dos prédios começa a desabar verticalmente.",
+      "legenda": "A 40 G, o asfalto afunda, postes dobram ao meio e o topo dos prédios começa a desabar verticalmente."
+    },
+    {
+      "inicio": 50.3,
+      "fim": 61.0,
+      "texto": "A cem G, seu corpo pesaria toneladas, e toda a cidade colapsa em uma pilha plana de escombros.",
+      "legenda": "A 100 G, seu corpo pesaria toneladas e toda a cidade colapsa em uma pilha plana de escombros."
+    },
+    {
+      "inicio": 70.0,
+      "fim": 75.0,
+      "texto": "Esmagando tudo sob o próprio peso. Mas esse colapso nasce de uma única pergunta:",
+      "ancorarFim": true
+    }
+  ],
+  "humor": [
+    [
+      0,
+      0
+    ],
+    [
+      11.8,
+      0
+    ],
+    [
+      12.6,
+      1
+    ],
+    [
+      29.4,
+      1
+    ],
+    [
+      30.6,
+      2
+    ],
+    [
+      70,
+      1.7
+    ],
+    [
+      73,
+      0
+    ],
+    [
+      75,
+      0
+    ]
+  ],
+  "panico": [
+    [
+      0,
+      0
+    ],
+    [
+      29.5,
+      0
+    ],
+    [
+      30.6,
+      0.65
+    ],
+    [
+      49.5,
+      0.65
+    ],
+    [
+      51,
+      0.2
+    ],
+    [
+      70,
+      0.2
+    ],
+    [
+      72,
+      0
+    ],
+    [
+      75,
+      0
+    ]
+  ],
+  "balanca": [
+    [
+      0,
+      0
+    ],
+    [
+      12,
+      0
+    ],
+    [
+      12.8,
+      1
+    ],
+    [
+      29,
+      1
+    ],
+    [
+      30,
+      0
+    ],
+    [
+      75,
+      0
+    ]
+  ],
+  "abaixa": [
+    [
+      0,
+      0
+    ],
+    [
+      49.5,
+      0
+    ],
+    [
+      52,
+      1
+    ],
+    [
+      70,
+      1
+    ],
+    [
+      72.5,
+      0
+    ],
+    [
+      75,
+      0
+    ]
+  ],
+  "sustos": [
+    12.0,
+    30.0,
+    50.0
+  ],
+  "marcos": [
+    2,
+    5,
+    10,
+    20,
+    40,
+    100
+  ]
 }

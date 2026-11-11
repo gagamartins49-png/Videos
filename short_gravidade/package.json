@@ -1,0 +1,12 @@
+{
+  "name": "projeto-e-se-short-gravidade",
+  "private": true,
+  "type": "module",
+  "description": "Renderiza o Short 9:16 sem oxigênio por 5 s (Playwright + FFmpeg via pipe).",
+  "scripts": {
+    "render": "node render.mjs"
+  },
+  "dependencies": {
+    "playwright": "1.63.0"
+  }
+}

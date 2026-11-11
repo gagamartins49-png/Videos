@@ -71,7 +71,11 @@ const diskTexture = () => canvasTex(512, 512, (g, w) => {
 });
 
 // ============================================================================
-export async function createApp({ level, width = 1920, height = 1080, quality = 1, fov = 55, shakeScale = 1 }) {
+export async function createApp({ level, width = 1920, height = 1080, quality = 1, fov = 55, shakeScale = 1, gravityFn = gravityAt, simEnd = SIM }) {
+  // nível 4 é dirigido pelo VALOR da gravidade (G), não por tempo fixo: quem chama pode passar sua própria curva G(u)
+  const gfn = gravityFn;
+  const tCache = new Map();
+  const tAtG = (g) => { if (tCache.has(g)) return tCache.get(g); let r = Infinity; for (let u = 0; u <= simEnd; u += 0.05) if (gfn(u) >= g) { r = u; break; } tCache.set(g, r); return r; };
   const W = width, H = height;
   const rnd = mulberry32(777 + level * 31);
   const glCanvas = document.createElement('canvas');
@@ -150,7 +154,7 @@ export async function createApp({ level, width = 1920, height = 1080, quality = 
     const cm = new THREE.MeshBasicMaterial({ color: 0x0a0a0a });
     for (let i = 0; i < 26; i++) {
       const c = new THREE.Mesh(new THREE.PlaneGeometry(0.25 + rnd() * 0.4, 6 + rnd() * 14), cm);
-      c.rotation.x = -Math.PI / 2; c.rotation.z = (rnd() - 0.5) * 1.4; c.position.set((rnd() - 0.5) * 9, 0.1, 10 - rnd() * 90); c.userData.t = 30 + rnd() * 12; cracks.add(c);
+      c.rotation.x = -Math.PI / 2; c.rotation.z = (rnd() - 0.5) * 1.4; c.position.set((rnd() - 0.5) * 9, 0.1, 10 - rnd() * 90); c.userData.g = 12 + rnd() * 18; cracks.add(c);
     }
   }
 
@@ -170,7 +174,7 @@ export async function createApp({ level, width = 1920, height = 1080, quality = 
     b.i = i;
     if (level === 1) b.tc = 18 + b.r * 18 + clamp(-b.z / 300) * 6;                       // vira pó
     if (level === 3) b.tm = 44 + b.r * 8;                                                // derrete
-    if (level === 4) b.tc = timeAtG(12 + (1 - clamp((b.h - 12) / 70)) * 45 + b.r * 6);  // desaba (mais altos primeiro)
+    if (level === 4) b.tc = tAtG(12 + (1 - clamp((b.h - 12) / 70)) * 45 + b.r * 6);  // desaba (mais altos primeiro)
   });
   const CH = [];
   for (const b of buildings) {
@@ -259,7 +263,7 @@ export async function createApp({ level, width = 1920, height = 1080, quality = 
     const v = 7 + rnd() * 5;
     cars.push({ g, body, dir, x: dir > 0 ? 2.6 : -2.6, v, z0: zf - dir * v * 11, zf, fire, boom, tIgn: 21 + rnd() * 5, gFlat: 8 + rnd() * 6, tp: 13 + rnd() * 9, sp: (rnd() - 0.5) * 3, ph: rnd() * 6.28, baseColor: body.color.clone() });
   });
-  const carStopT = level === 1 ? 10 : level === 3 ? 3 : level === 4 ? 8 : 6;
+  const carStopT = level === 1 ? 10 : level === 3 ? 3 : level === 4 ? Math.min(simEnd, tAtG(2)) : 6;
   const carDisp = (u) => (u < carStopT ? u : u < carStopT + 2 ? carStopT + (u - carStopT) - 0.25 * (u - carStopT) ** 2 : carStopT + 1);
   cars.forEach((c) => { c.z0 = c.zf - c.dir * c.v * (carStopT + 1); });
   // ------------------------------------------------------------ pedestres
@@ -318,7 +322,7 @@ export async function createApp({ level, width = 1920, height = 1080, quality = 
       // ondas de calor (deslocamento de faixas horizontais na metade de baixo)
       const hz = smooth(6, 30, u); if (hz > 0) { for (let i = 0; i < 18; i++) { const y = H * 0.5 + i * (H * 0.5 / 18), dx = Math.sin(u * 9 + i * 1.7) * 6 * hz; ctx.drawImage(comp, 0, y, W, H * 0.5 / 18, dx, y, W, H * 0.5 / 18); } }
     }
-    if (level === 4) { const k = smooth(20, 60, u); if (k > 0) { ctx.fillStyle = `rgba(20,25,40,${0.35 * k})`; ctx.fillRect(0, 0, W, H); } }
+    if (level === 4) { const k = smooth(Math.log(8), Math.log(100), Math.log(gfn(u))); if (k > 0) { ctx.fillStyle = `rgba(20,25,40,${0.35 * k})`; ctx.fillRect(0, 0, W, H); } }
     if (level === 7) {
       // "lente gravitacional": zoom radial em direção ao buraco negro
       const k = smooth(14, 58, u);
@@ -327,7 +331,7 @@ export async function createApp({ level, width = 1920, height = 1080, quality = 
       const app = u - 3; if (app > 0 && app < 1.2) { ctx.fillStyle = `rgba(255,240,220,${0.7 * Math.exp(-app * 4)})`; ctx.fillRect(0, 0, W, H); }
       const end = smooth(60.5, 63.5, u); if (end > 0) { ctx.fillStyle = `rgba(0,0,0,${end})`; ctx.fillRect(0, 0, W, H); }
     }
-    const fade = smooth(63.8, 64.9, u); if (fade > 0) { ctx.fillStyle = `rgba(0,0,0,${fade})`; ctx.fillRect(0, 0, W, H); }
+    const fade = smooth(simEnd - 1.2, simEnd - 0.1, u); if (fade > 0) { ctx.fillStyle = `rgba(0,0,0,${fade})`; ctx.fillRect(0, 0, W, H); }
   }
 
   // ============================================================ atualização por tempo
@@ -337,7 +341,7 @@ export async function createApp({ level, width = 1920, height = 1080, quality = 
 
   function update(u) {
     shake = 0;
-    const G = level === 4 ? gravityAt(u) : 1;
+    const G = level === 4 ? gfn(u) : 1, lg = Math.log(G);
     const bhK = level === 7 ? Math.pow(smooth(4, 60, u), 1.4) : 0;
     // ---------------- céu e luz por nível
     let top = new THREE.Color(0x2f7fd8), bot = new THREE.Color(0xcfe9ff), fogC = new THREE.Color(0xcfe6ff), fogD = 0.0026, hemiI = 1.0, sunI = 2.8, sunVis = 1;
@@ -353,7 +357,7 @@ export async function createApp({ level, width = 1920, height = 1080, quality = 
       fogC.lerp(new THREE.Color(0xd8642a), h).lerp(new THREE.Color(0x5a1a08), s); fogD += 0.006 * h + 0.008 * s; sunI = 2.8 + 1.2 * h; hemiI = 1 + 0.4 * h;
     }
     if (level === 4) {
-      const k = smooth(18, 60, u);
+      const k = smooth(Math.log(6), Math.log(100), lg);
       top.lerp(new THREE.Color(0x0e1a3a), k); bot.lerp(new THREE.Color(0x7a8aa0), k); fogC.lerp(new THREE.Color(0x56607a), k); fogD += 0.01 * k; hemiI = 1 - 0.4 * k;
     }
     if (level === 7) {
@@ -366,7 +370,7 @@ export async function createApp({ level, width = 1920, height = 1080, quality = 
 
     // ---------------- câmera
     let cy = 3.6, cz = 22 - u * 0.08, look = new THREE.Vector3(0, 7, -40), fv = fov, roll = 0;
-    if (level === 4) { cy = lerp(3.6, 1.3, smooth(10, 50, u)); look.y = lerp(7, 4, smooth(20, 55, u)); }
+    if (level === 4) { cy = lerp(3.6, 1.3, smooth(Math.log(2.5), Math.log(60), lg)); look.y = lerp(7, 4, smooth(Math.log(5), Math.log(100), lg)); }
     if (level === 7) {
       const pull = smooth(44, 61, u);
       cz = lerp(22 - u * 0.08, BH.z + 6, Math.pow(pull, 1.6)); cy = lerp(3.6, BH.y, pull); look.copy(BH); fv = fov + 25 * pull; roll = pull * pull * 1.6;
@@ -421,9 +425,9 @@ export async function createApp({ level, width = 1920, height = 1080, quality = 
     // ---------------- asfalto (nível 3 ferve / nível 4 afunda)
     if (level === 3) { const boil = smooth(9, 20, u); roadMat.emissive.setRGB(0.5 * boil, 0.12 * boil, 0.02 * boil); roadMat.emissiveIntensity = 0.6 + 0.4 * Math.sin(u * 6); roadMat.color.copy(mixColor(0xffffff, 0x2a1a14, boil)); }
     if (level === 4) {
-      const sink = -1.6 * smooth(28, 48, u);
+      const sink = -1.6 * smooth(Math.log(15), Math.log(60), lg);
       road.position.y = 0.04 + sink; for (const w of walks) w.position.y = w.userData.y0 + sink;
-      cracks.children.forEach((c) => { c.visible = u > c.userData.t; c.position.y = 0.1 + sink; c.scale.y = smooth(c.userData.t, c.userData.t + 2, u) + 0.001; });
+      cracks.children.forEach((c) => { c.visible = G > c.userData.g; c.position.y = 0.1 + sink; c.scale.y = smooth(Math.log(c.userData.g), Math.log(c.userData.g * 1.6), lg) + 0.001; });
     }
     // lava (nível 3)
     lava.visible = level === 3 && u > 44;
@@ -442,7 +446,7 @@ export async function createApp({ level, width = 1920, height = 1080, quality = 
       }
       if (level === 4) {
         const bend = smooth(Math.log(3), Math.log(tr.gSnap), Math.log(G)); tr.crown.position.y = 4.4 - 1.2 * bend; tr.crown.scale.set(1 + 0.2 * bend, 1 - 0.5 * bend, 1 + 0.2 * bend);
-        const snap = smooth(timeAtG(tr.gSnap), timeAtG(tr.gSnap) + 0.8, u); tr.g.rotation.z = -tr.side * 1.45 * snap; tr.g.rotation.x = 0.1 * bend; if (snap > 0) tr.crown.scale.multiplyScalar(1 - 0.45 * snap);
+        const snap = smooth(tAtG(tr.gSnap), tAtG(tr.gSnap) + 0.8, u); tr.g.rotation.z = -tr.side * 1.45 * snap; tr.g.rotation.x = 0.1 * bend; if (snap > 0) tr.crown.scale.multiplyScalar(1 - 0.45 * snap);
       }
       if (level === 7) {
         const lean = bhK * 0.4; V.copy(BH).sub(tr.g.position); tr.g.rotation.x = -lean * Math.sign(V.z) * 0.6; tr.g.rotation.z = lean * -Math.sign(V.x) * 0.3;
@@ -455,7 +459,7 @@ export async function createApp({ level, width = 1920, height = 1080, quality = 
       L.top.rotation.set(0, 0, 0); L.g.rotation.set(0, 0, 0); L.g.position.set(L.x, 0.22, L.z); L.g.scale.setScalar(1);
       L.head.material.emissiveIntensity = 0;
       if (level === 3) L.head.material.emissiveIntensity = 0;
-      if (level === 4) { const b = smooth(timeAtG(L.gb), timeAtG(L.gb) + 1.4, u); L.top.rotation.z = L.side * 1.7 * b; L.g.position.y = 0.22 - 1.6 * smooth(28, 48, u) * 0.6; }
+      if (level === 4) { const b = smooth(tAtG(L.gb), tAtG(L.gb) + 1.4, u); L.top.rotation.z = L.side * 1.7 * b; L.g.position.y = 0.22 - 1.6 * smooth(Math.log(15), Math.log(60), lg) * 0.6; }
       if (level === 7) {
         V.copy(BH).sub(L.g.position).normalize(); L.g.rotation.x = -V.z * 0.35 * bhK; L.g.rotation.z = V.x * 0.35 * bhK;
         const dt = u - L.ts; if (dt > 0) { const k = smooth(0, 3, dt); L.g.position.lerp(BH, Math.pow(k, 1.5)); L.g.scale.setScalar(Math.max(0.001, 1 - k)); L.g.rotation.y = k * 8; }
@@ -473,7 +477,7 @@ export async function createApp({ level, width = 1920, height = 1080, quality = 
         if (ex > 0 && ex < 2) { c.boom.material.opacity = Math.exp(-ex * 2.2); c.boom.scale.setScalar(4 + 22 * Math.pow(smooth(0, 0.6, ex), 0.6)); shake = Math.max(shake, 0.35 * Math.exp(-ex * 3)); c.g.position.y = Math.max(0, 3 * ex - 6 * ex * ex); }
         if (u > 50) c.g.position.y = -smooth(50, 62, u) * 1.2;
       }
-      if (level === 4) { const k = smooth(Math.log(c.gFlat), Math.log(c.gFlat * 3), Math.log(G)); c.g.scale.set(1 + 0.15 * k, 1 - 0.75 * k, 1 + 0.08 * k); c.g.position.y = -1.6 * smooth(28, 48, u) * 0.9; }
+      if (level === 4) { const susp = smooth(Math.log(2.5), Math.log(5), lg), k = smooth(Math.log(c.gFlat), Math.log(c.gFlat * 3), lg); c.g.scale.set(1 + 0.15 * k, (1 - 0.14 * susp) * (1 - 0.7 * k), 1 + 0.08 * k); c.g.position.y = -1.6 * smooth(Math.log(15), Math.log(60), lg) * 0.9; c.g.rotation.x = 0.04 * susp * Math.sin(c.ph); }
       if (level === 7) {
         const dt = u - c.tp;
         if (dt > 0) {
@@ -492,7 +496,7 @@ export async function createApp({ level, width = 1920, height = 1080, quality = 
       let vis = true, crouch = 0, walk = 1;
       if (level === 1) { walk = 1 - smooth(10, 12, u); crouch = smooth(13 + p.r * 3, 16 + p.r * 3, u); vis = u < 30; }
       if (level === 3) { vis = u < 2 + p.r * 1.5; }
-      if (level === 4) { walk = 1 - smooth(4, 7, u); crouch = smooth(5 + p.r * 2, 9 + p.r * 2, u); vis = u < 18; }
+      if (level === 4) { walk = 1 - smooth(Math.log(1.3), Math.log(1.9), lg); crouch = smooth(Math.log(1.6 + p.r * 0.6), Math.log(2.8 + p.r * 1.2), lg); vis = G < 16; }
       if (level === 7) { vis = u < 10 + p.r * 2; walk = 1 + smooth(5, 8, u); }
       p.g.visible = vis; if (!vis) continue;
       const ph = u * p.v * 4.2 * walk + p.ph, sw = Math.sin(ph) * 0.55 * Math.min(1, walk);
@@ -524,7 +528,7 @@ export async function createApp({ level, width = 1920, height = 1080, quality = 
     if (level === 4) {
       op = 0.6 * maxFall; pMat.color.setHex(0x9a958c);
       for (let i = 0; i < NP; i++) { const s = pSeed[i], b = s.b, age = u - b.tc; if (age < 0 || age > 6) { pPos[i * 3 + 1] = -50; continue; } const rr = b.w * 0.5 + age * 6 * s.x; pPos[i * 3] = b.x + Math.cos(s.a) * rr; pPos[i * 3 + 1] = s.y * 6 * Math.min(1, age); pPos[i * 3 + 2] = b.z + Math.sin(s.a) * rr; }
-      op = 0.7 * smooth(14, 18, u);
+      op = 0.7 * smooth(Math.log(4.5), Math.log(6), lg);
     }
     if (level === 7) {
       op = 0.9 * smooth(4, 10, u); pMat.color.setHex(0xffc890);
@@ -558,7 +562,7 @@ export async function createApp({ level, width = 1920, height = 1080, quality = 
   }
 
   function renderFrame(u) {
-    u = clamp(u, 0, SIM);
+    u = clamp(u, 0, simEnd);
     update(u);
     renderer.render(scene, camera);
     ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';

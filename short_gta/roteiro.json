@@ -151,23 +151,23 @@
       "texto": "E aquele salto de rampa? É como cair do quarto andar."
     },
     {
-      "inicio": 41.0,
-      "fim": 46.8,
+      "inicio": 40.9,
+      "fim": 47.0,
       "texto": "O carro bate no chão a mais de cinquenta por hora. A suspensão estoura e as rodas saem voando.",
       "legenda": "O carro bate no chão a mais de 50 por hora. A suspensão estoura e as rodas saem voando."
     },
     {
-      "inicio": 47.2,
+      "inicio": 47.3,
       "fim": 51.6,
       "texto": "E o que sobra vira um trenó de faísca no asfalto."
     },
     {
-      "inicio": 52.6,
-      "fim": 57.6,
-      "texto": "No jogo, é só apertar recomeçar. Na vida real, não tem essa. Usa o cinto."
+      "inicio": 52.3,
+      "fim": 58.8,
+      "texto": "No jogo, é só recomeçar. Na vida real, não tem essa. Usa o cinto."
     },
     {
-      "inicio": 58.6,
+      "inicio": 59.2,
       "fim": 62.0,
       "texto": "Então, pensa comigo:",
       "ancorarFim": true

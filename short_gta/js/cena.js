@@ -471,7 +471,7 @@ export async function createScene({ cfg, width = 1080, height = 1920, quality = 
         camLook(F.LANE - 4.5, Math.max(4, cb.y + 2.8), cb.z + 15, cb.x - 0.6, cb.y + 0.4, cb.z, 62);
       } else if (t < 46.6) {                               // pouso em câmera lenta
         const [sx, sy] = shakeAt(t, T.rampa.pouso, 0.05), lz = lerp(F.ZLAND - 1, cb.z, smooth(42.5, 46.6, t));
-        camLook(F.LANE + 9.5 + sx, 1.9 + sy, F.ZLAND + 6.5 - smooth(42, 46.6, t) * 12, cb.x, 0.9, lz, 62);
+        camLook(-3.0 + sx, 1.8 + sy, cb.z + 6.5, cb.x + 1.3, 0.9, cb.z - 0.6, 62);   // pista contrária (livre), carro à esquerda do Interrogador   // pista contrária (livre), longe dos prédios
       } else {                                             // arrasto e parada
         const k = smooth(46.6, 52, t);
         camLook(cb.x + 5 + k * 2, 2.2 + k * 0.8, cb.z + 9 - k * 2, cb.x, 0.9, cb.z - 1, 56);

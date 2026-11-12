@@ -1,5 +1,5 @@
 {
-  "titulo": "E se as batidas do GTA 6 fossem reais?",
+  "titulo": "E se as batidas do GTA 6 fossem de verdade?",
   "projeto": "PROJETO E SE?",
   "experimento": "005",
   "arquivo": "short_gta6_batida_real",
@@ -13,31 +13,350 @@
   "tom": "+0Hz",
   "narracao_natural": true,
   "tempos": {
-    "gancho": { "taxa": 0.018 },
-    "jogo": { "inicio": 3.6 },
-    "realidade": { "inicio": 15.0, "impacto": 17.4,
-      "taxa": [[15, 1], [16.95, 1], [17.25, 0.025], [23.4, 0.025], [24.6, 0.33], [28.6, 0.33], [29.6, 1], [35, 1]] },
-    "rampa": { "inicio": 35.0, "pouso": 40.75,
-      "taxa": [[35, 1], [40.3, 1], [40.7, 0.12], [43.6, 0.12], [44.6, 0.5], [46.5, 0.5], [47.4, 1], [62, 1]] },
-    "final": { "inicio": 52.0 },
-    "glitches": [[14.35, 15.15], [34.7, 35.2]]
+    "gancho": {
+      "taxa": 0.018
+    },
+    "jogo": {
+      "inicio": 3.6
+    },
+    "realidade": {
+      "inicio": 15.0,
+      "impacto": 17.4,
+      "taxa": [
+        [
+          15,
+          1
+        ],
+        [
+          16.95,
+          1
+        ],
+        [
+          17.25,
+          0.025
+        ],
+        [
+          23.4,
+          0.025
+        ],
+        [
+          24.6,
+          0.33
+        ],
+        [
+          28.6,
+          0.33
+        ],
+        [
+          29.6,
+          1
+        ],
+        [
+          35,
+          1
+        ]
+      ]
+    },
+    "rampa": {
+      "inicio": 35.0,
+      "pouso": 40.75,
+      "taxa": [
+        [
+          35,
+          1
+        ],
+        [
+          40.3,
+          1
+        ],
+        [
+          40.7,
+          0.12
+        ],
+        [
+          43.6,
+          0.12
+        ],
+        [
+          44.6,
+          0.5
+        ],
+        [
+          46.5,
+          0.5
+        ],
+        [
+          47.4,
+          1
+        ],
+        [
+          62,
+          1
+        ]
+      ]
+    },
+    "final": {
+      "inicio": 52.0
+    },
+    "glitches": [
+      [
+        14.35,
+        15.15
+      ],
+      [
+        34.7,
+        35.2
+      ]
+    ]
   },
   "frases": [
-    { "inicio": 0.0, "fim": 3.8, "texto": "E se as batidas do GTA seis acontecessem na vida real?", "legenda": "E se as batidas do GTA 6 acontecessem na vida real?" },
-    { "inicio": 4.2, "fim": 9.8, "texto": "No jogo, você bate a duzentos por hora, sai do carro e segue a missão.", "legenda": "No jogo, você bate a 200 km/h, sai do carro e segue a missão." },
-    { "inicio": 10.8, "fim": 14.3, "texto": "Mas e se a física fosse de verdade?" },
-    { "inicio": 15.3, "fim": 20.8, "texto": "A duzentos por hora, o carro para em quatro centésimos de segundo.", "legenda": "A 200 km/h, o carro para em 0,04 segundo." },
-    { "inicio": 21.2, "fim": 24.4, "texto": "Uma desaceleração de mais de cem G.", "legenda": "Uma desaceleração de mais de 100 G." },
-    { "inicio": 24.8, "fim": 31.6, "texto": "Sem cinto, o corpo continua a duzentos por hora e é arremessado a mais de cinquenta metros.", "legenda": "Sem cinto, o corpo continua a 200 km/h e é arremessado a mais de 50 metros." },
-    { "inicio": 35.3, "fim": 40.4, "texto": "E aquele salto de rampa? O carro despenca de mais de dez metros.", "legenda": "E aquele salto de rampa? O carro despenca de mais de 10 metros." },
-    { "inicio": 41.0, "fim": 46.8, "texto": "Toca o chão a mais de cinquenta por hora. A suspensão estoura e as rodas voam.", "legenda": "Toca o chão a mais de 50 km/h. A suspensão estoura e as rodas voam." },
-    { "inicio": 47.2, "fim": 51.6, "texto": "O chassi se arrasta pelo asfalto, soltando faíscas." },
-    { "inicio": 52.6, "fim": 57.6, "texto": "Na vida real, não existe botão de recomeçar. Use o cinto." },
-    { "inicio": 58.4, "fim": 62.0, "texto": "Por isso, pense de novo nessa pergunta:", "ancorarFim": true }
+    {
+      "inicio": 0.0,
+      "fim": 3.8,
+      "texto": "E se as batidas do GTA seis fossem de verdade?",
+      "legenda": "E se as batidas do GTA 6 fossem de verdade?"
+    },
+    {
+      "inicio": 4.2,
+      "fim": 9.8,
+      "texto": "No jogo, você enfia o carro no muro a duzentos por hora, sai andando e segue a missão.",
+      "legenda": "No jogo, você enfia o carro no muro a 200 por hora, sai andando e segue a missão."
+    },
+    {
+      "inicio": 10.8,
+      "fim": 14.3,
+      "texto": "Agora olha o que acontece de verdade."
+    },
+    {
+      "inicio": 15.3,
+      "fim": 20.4,
+      "texto": "O carro para em quatro centésimos de segundo. Menos que um piscar de olhos.",
+      "legenda": "O carro para em 0,04 segundo. Menos que um piscar de olhos."
+    },
+    {
+      "inicio": 20.7,
+      "fim": 24.4,
+      "texto": "Por um instante, é como se você pesasse cem vezes mais.",
+      "legenda": "Por um instante, é como se você pesasse 100 vezes mais."
+    },
+    {
+      "inicio": 24.8,
+      "fim": 31.6,
+      "texto": "E sem cinto? O corpo continua a duzentos, atravessa o vidro e só para lá na areia.",
+      "legenda": "E sem cinto? O corpo continua a 200, atravessa o vidro e só para lá na areia."
+    },
+    {
+      "inicio": 35.3,
+      "fim": 40.4,
+      "texto": "E aquele salto de rampa? É como cair do quarto andar."
+    },
+    {
+      "inicio": 41.0,
+      "fim": 46.8,
+      "texto": "O carro bate no chão a mais de cinquenta por hora. A suspensão estoura e as rodas saem voando.",
+      "legenda": "O carro bate no chão a mais de 50 por hora. A suspensão estoura e as rodas saem voando."
+    },
+    {
+      "inicio": 47.2,
+      "fim": 51.6,
+      "texto": "E o que sobra vira um trenó de faísca no asfalto."
+    },
+    {
+      "inicio": 52.6,
+      "fim": 57.6,
+      "texto": "No jogo, é só apertar recomeçar. Na vida real, não tem essa. Usa o cinto."
+    },
+    {
+      "inicio": 58.6,
+      "fim": 62.0,
+      "texto": "Então, pensa comigo:",
+      "ancorarFim": true
+    }
   ],
-  "humor": [[0, 1.6], [3.4, 1.6], [3.9, 0], [10.0, 0], [10.3, 0.3], [14.3, 0.3], [15.0, 1], [17.3, 1], [17.6, 2], [30, 2], [32, 1], [40.6, 1], [40.9, 2], [48, 2], [52, 1], [58, 0.5], [61.5, 1.6], [62, 1.6]],
-  "panico": [[0, 0.5], [3.4, 0.5], [3.9, 0], [17.3, 0], [17.6, 0.7], [27, 0.7], [30, 0.2], [40.6, 0.2], [40.9, 0.6], [46, 0.6], [48, 0.1], [61.5, 0.1], [62, 0.5]],
-  "balanca": [[0, 0], [11.0, 0], [11.6, 1], [14.0, 1], [14.4, 0], [62, 0]],
-  "abaixa": [[0, 0], [40.5, 0], [41.2, 1], [45, 1], [46.5, 0], [62, 0]],
-  "sustos": [0.22, 10.13, 17.4, 40.75]
+  "humor": [
+    [
+      0,
+      1.6
+    ],
+    [
+      3.4,
+      1.6
+    ],
+    [
+      3.9,
+      0
+    ],
+    [
+      10.0,
+      0
+    ],
+    [
+      10.3,
+      0.3
+    ],
+    [
+      14.3,
+      0.3
+    ],
+    [
+      15.0,
+      1
+    ],
+    [
+      17.3,
+      1
+    ],
+    [
+      17.6,
+      2
+    ],
+    [
+      30,
+      2
+    ],
+    [
+      32,
+      1
+    ],
+    [
+      40.6,
+      1
+    ],
+    [
+      40.9,
+      2
+    ],
+    [
+      48,
+      2
+    ],
+    [
+      52,
+      1
+    ],
+    [
+      58,
+      0.5
+    ],
+    [
+      61.5,
+      1.6
+    ],
+    [
+      62,
+      1.6
+    ]
+  ],
+  "panico": [
+    [
+      0,
+      0.5
+    ],
+    [
+      3.4,
+      0.5
+    ],
+    [
+      3.9,
+      0
+    ],
+    [
+      17.3,
+      0
+    ],
+    [
+      17.6,
+      0.7
+    ],
+    [
+      27,
+      0.7
+    ],
+    [
+      30,
+      0.2
+    ],
+    [
+      40.6,
+      0.2
+    ],
+    [
+      40.9,
+      0.6
+    ],
+    [
+      46,
+      0.6
+    ],
+    [
+      48,
+      0.1
+    ],
+    [
+      61.5,
+      0.1
+    ],
+    [
+      62,
+      0.5
+    ]
+  ],
+  "balanca": [
+    [
+      0,
+      0
+    ],
+    [
+      11.0,
+      0
+    ],
+    [
+      11.6,
+      1
+    ],
+    [
+      14.0,
+      1
+    ],
+    [
+      14.4,
+      0
+    ],
+    [
+      62,
+      0
+    ]
+  ],
+  "abaixa": [
+    [
+      0,
+      0
+    ],
+    [
+      40.5,
+      0
+    ],
+    [
+      41.2,
+      1
+    ],
+    [
+      45,
+      1
+    ],
+    [
+      46.5,
+      0
+    ],
+    [
+      62,
+      0
+    ]
+  ],
+  "sustos": [
+    0.22,
+    10.13,
+    17.4,
+    40.75
+  ]
 }

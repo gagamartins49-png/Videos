@@ -52,7 +52,7 @@ export async function createShort({ cfg, envelope = null }) {
     const pop = 1 + 0.06 * (1 - smooth(0, 0.5, t));
     ctx.translate(W / 2, 200); ctx.scale(pop, pop);
     ctx.lineJoin = 'round'; ctx.lineWidth = 16; ctx.strokeStyle = '#000'; ctx.shadowColor = 'rgba(0,0,0,0.5)'; ctx.shadowBlur = 20;
-    [['E SE AS BATIDAS', '#ffffff'], ['DO GTA 6', '#ff3fa4'], ['FOSSEM REAIS?', '#ffd23f']].forEach(([l, c], i) => { fitFont(l, 400, 108, F_TITLE, 1000); ctx.strokeText(l, 0, i * 116); ctx.fillStyle = c; ctx.fillText(l, 0, i * 116); });
+    [['E SE AS BATIDAS', '#ffffff'], ['DO GTA 6', '#ff3fa4'], ['FOSSEM DE VERDADE?', '#ffd23f']].forEach(([l, c], i) => { fitFont(l, 400, 108, F_TITLE, 1000); ctx.strokeText(l, 0, i * 116); ctx.fillStyle = c; ctx.fillText(l, 0, i * 116); });
     ctx.restore();
   }
   function panel(x, y, w, h, accent, alpha) {

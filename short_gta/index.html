@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projeto E se? #005 — Batidas do GTA 6 na vida real</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Playfair+Display:wght@600&family=Roboto+Mono:wght@700&display=block" rel="stylesheet">
+<style>
+  html, body { margin: 0; height: 100%; background: #04060b; color: #eef4fa; font-family: system-ui, sans-serif; }
+  body { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 12px; box-sizing: border-box; }
+  #view { height: min(80vh, 100%); max-width: 100%; aspect-ratio: 9 / 16; background: #000; border-radius: 10px; display: block; }
+  .row { display: flex; gap: 10px; width: min(560px, 100%); align-items: center; }
+  button { min-height: 44px; border-radius: 10px; border: 0; padding: 0 16px; font-weight: 700; background: #3ad7ff; color: #04121a; }
+  input[type=range] { flex: 1; }
+  body.capture { padding: 0; } body.capture .row { display: none; }
+</style>
+</head>
+<body>
+<canvas id="view" width="1080" height="1920"></canvas>
+<div class="row"><button id="play">▶ Play</button><input id="seek" type="range" min="0" max="62" step="0.1" value="0" aria-label="Tempo"></div>
+<script type="module">
+import { createShort } from './js/short.js';
+const CAPTURE = new URLSearchParams(location.search).has('capture');
+if (CAPTURE) document.body.classList.add('capture');
+const cfg = await (await fetch('roteiro.json')).json();
+try { await Promise.race([Promise.all(['400 100px "Anton"', '600 40px "Playfair Display"', '700 30px "Roboto Mono"'].map((f) => document.fonts.load(f))), new Promise((r) => setTimeout(r, 8000))]); } catch (e) { /* fallback */ }
+let envelope = null;
+try { const r = await fetch('build/envelope.json'); if (r.ok) envelope = await r.json(); } catch (e) { /* sem envelope */ }
+const app = await createShort({ cfg, envelope });
+const view = document.getElementById('view'), vctx = view.getContext('2d');
+const show = (t) => { app.renderFrame(t); vctx.drawImage(app.canvas, 0, 0); };
+show(0);
+window.APP = { ready: true, cfg, frameJPEG: (t, q) => app.frameJPEG(t, q), hasEnvelope: !!envelope };
+if (!CAPTURE) {
+  const seek = document.getElementById('seek'), btn = document.getElementById('play');
+  seek.addEventListener('input', () => show(parseFloat(seek.value)));
+  let playing = false, audio = null, t0 = 0;
+  btn.addEventListener('click', async () => {
+    if (playing) { playing = false; if (audio) audio.pause(); btn.textContent = '▶ Play'; return; }
+    playing = true; btn.textContent = '■ Parar';
+    try { const r = await fetch('build/audio_short.mp3', { method: 'HEAD' }); if (r.ok) { audio = audio || new Audio('build/audio_short.mp3'); audio.currentTime = parseFloat(seek.value); await audio.play(); } } catch (e) { audio = null; }
+    t0 = performance.now() / 1000 - parseFloat(seek.value);
+    const loop = () => { if (!playing) return; let t = audio && !audio.paused ? audio.currentTime : performance.now() / 1000 - t0; if (t >= cfg.duracao) { t = 0; t0 = performance.now() / 1000; if (audio) audio.currentTime = 0; } seek.value = t; show(t); requestAnimationFrame(loop); };
+    loop();
+  });
+}
+</script>
+</body>
+</html>

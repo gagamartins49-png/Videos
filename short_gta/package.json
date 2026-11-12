@@ -1,0 +1,12 @@
+{
+  "name": "projeto-e-se-short-gta",
+  "private": true,
+  "type": "module",
+  "description": "Renderiza o Short 9:16 'E se as batidas do GTA 6 fossem reais?' (Playwright + FFmpeg via pipe).",
+  "scripts": {
+    "render": "node render.mjs"
+  },
+  "dependencies": {
+    "playwright": "1.63.0"
+  }
+}

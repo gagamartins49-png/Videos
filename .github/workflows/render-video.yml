@@ -13,6 +13,8 @@ on:
       - '.github/workflows/render-short-oxigenio.yml'
       - 'short_gravidade/**'
       - '.github/workflows/render-short-gravidade.yml'
+      - 'short_gta/**'
+      - '.github/workflows/render-short-gta.yml'
 
 concurrency:
   group: render-video-${{ github.ref }}

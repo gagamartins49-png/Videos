@@ -392,8 +392,8 @@ export async function createScene({ cfg, width = 1080, height = 1920, quality = 
       else if (k < 1) dummyWorld(V3(x, 0.86 + 0.04 * Math.abs(Math.sin(u * 9)), z), 0, Math.atan2(2.9, 5.3) * 0 + 0.5, walkPose(u * 9));
       else dummyWorld(V3(x, 0.86, z), 0, 0.2, { aRz: 2.5 + 0.3 * Math.sin(t * 8), aLz: -0.15, aRx: 0 });
       info.floor = f.y / F.ANDAR; info.speed = 0;
-      const c = smooth(5.5, 9.8, u);
-      camLook(lerp(1.5, 8, c), lerp(1.6, 62, c), lerp(11, 22, c), lerp(-3.5, 0, c), lerp(1.2, f.y + 1, c), lerp(2.5, SZ, c), 58);
+      const c = smooth(4.8, 9.9, u), cf = Math.pow(c, 1.6);   // grua mais lenta e afastada do poço (sem borrão)
+      camLook(lerp(1.5, 16, c), lerp(1.6, 40, cf), lerp(11, 34, c), lerp(-3.5, 0, c), lerp(1.2, f.y - 6, cf), lerp(2.5, SZ, c), 58);
       focusY = lerp(2, f.y, c);
     }
 

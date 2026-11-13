@@ -13,32 +13,383 @@
   "tom": "+0Hz",
   "narracao_natural": true,
   "tempos": {
-    "gancho": { "taxa": 0.012 },
-    "mito": { "inicio": 3.6, "estalo": 5.0 },
-    "realidade": { "inicio": 15.0, "impacto": 28.3,
-      "taxa": [[15, 1], [16.2, 1], [16.8, 0.27], [27.4, 0.27], [28.0, 0.03], [33.0, 0.03], [34.0, 1], [37.0, 1]] },
-    "freio": { "inicio": 37.0, "estalo": 38.6,
-      "taxa": [[37, 1], [38.5, 1], [38.8, 0.22], [43.0, 0.22], [43.8, 1], [52, 1]] },
-    "final": { "inicio": 52.0 },
-    "glitches": [[14.35, 15.15], [36.7, 37.2]]
+    "gancho": {
+      "taxa": 0.012
+    },
+    "mito": {
+      "inicio": 3.6,
+      "estalo": 5.0
+    },
+    "realidade": {
+      "inicio": 15.0,
+      "impacto": 28.3,
+      "taxa": [
+        [
+          15,
+          1
+        ],
+        [
+          16.2,
+          1
+        ],
+        [
+          16.8,
+          0.27
+        ],
+        [
+          27.4,
+          0.27
+        ],
+        [
+          28.0,
+          0.03
+        ],
+        [
+          33.0,
+          0.03
+        ],
+        [
+          34.0,
+          1
+        ],
+        [
+          37.0,
+          1
+        ]
+      ]
+    },
+    "freio": {
+      "inicio": 37.0,
+      "estalo": 38.6,
+      "taxa": [
+        [
+          37,
+          1
+        ],
+        [
+          38.5,
+          1
+        ],
+        [
+          38.8,
+          0.22
+        ],
+        [
+          43.0,
+          0.22
+        ],
+        [
+          43.8,
+          1
+        ],
+        [
+          52,
+          1
+        ]
+      ]
+    },
+    "final": {
+      "inicio": 52.0
+    },
+    "glitches": [
+      [
+        14.35,
+        15.15
+      ],
+      [
+        36.7,
+        37.2
+      ]
+    ]
   },
   "frases": [
-    { "inicio": 0.0, "fim": 3.8, "texto": "Se o elevador despencar, pular no último segundo te salva?" },
-    { "inicio": 4.2, "fim": 9.9, "texto": "Todo mundo já ouviu essa: o elevador cai, você pula bem na hora e sai andando." },
-    { "inicio": 10.6, "fim": 14.2, "texto": "Mas será que funciona mesmo? Bora testar." },
-    { "inicio": 15.3, "fim": 18.4, "texto": "O cabo arrebenta no vigésimo andar.", "legenda": "O cabo arrebenta no 20º andar." },
-    { "inicio": 18.8, "fim": 24.0, "texto": "Primeira surpresa: lá dentro você flutua. Não tem chão pra pegar impulso." },
-    { "inicio": 24.3, "fim": 28.2, "texto": "Em três segundos e meio, você já está a cento e vinte por hora.", "legenda": "Em 3,5 segundos, você já está a 120 por hora." },
-    { "inicio": 29.6, "fim": 36.4, "texto": "E mesmo que desse pra pular, seria a uns dez por hora. Você ainda bateria a mais de cem.", "legenda": "E mesmo que desse pra pular, seria a uns 10 por hora. Você ainda bateria a mais de 100." },
-    { "inicio": 37.3, "fim": 40.6, "texto": "Mas calma: na vida real, isso quase nunca acontece." },
-    { "inicio": 41.0, "fim": 47.6, "texto": "Elevador tem freio de emergência há mais de cento e cinquenta anos. Se ele acelera demais, garras travam nos trilhos.", "legenda": "Elevador tem freio de emergência há mais de 150 anos. Se ele acelera demais, garras travam nos trilhos." },
-    { "inicio": 48.0, "fim": 51.6, "texto": "E ele para em poucos metros, sem drama." },
-    { "inicio": 52.3, "fim": 58.4, "texto": "Então não, pular não adianta nada. Quem te salva é o freio. Ou a escada." },
-    { "inicio": 59.0, "fim": 62.0, "texto": "Agora, pensa comigo:", "ancorarFim": true }
+    {
+      "inicio": 0.0,
+      "fim": 3.8,
+      "texto": "Se o elevador despencar, pular no último segundo te salva?"
+    },
+    {
+      "inicio": 4.2,
+      "fim": 9.9,
+      "texto": "Todo mundo já ouviu essa: o elevador cai, você pula bem na hora e sai andando."
+    },
+    {
+      "inicio": 10.6,
+      "fim": 14.2,
+      "texto": "Mas será que funciona mesmo? Bora testar."
+    },
+    {
+      "inicio": 15.3,
+      "fim": 18.4,
+      "texto": "O cabo arrebenta no vigésimo andar.",
+      "legenda": "O cabo arrebenta no 20º andar."
+    },
+    {
+      "inicio": 18.7,
+      "fim": 24.2,
+      "texto": "Primeira surpresa: lá dentro você flutua. Não tem chão pra pegar impulso."
+    },
+    {
+      "inicio": 24.4,
+      "fim": 28.2,
+      "texto": "Em três segundos e meio, você já está a cento e vinte por hora.",
+      "legenda": "Em 3,5 segundos, você já está a 120 por hora."
+    },
+    {
+      "inicio": 29.6,
+      "fim": 36.4,
+      "texto": "E mesmo que desse pra pular, seria a uns dez por hora. Você ainda bateria a mais de cem.",
+      "legenda": "E mesmo que desse pra pular, seria a uns 10 por hora. Você ainda bateria a mais de 100."
+    },
+    {
+      "inicio": 37.2,
+      "fim": 41.1,
+      "texto": "Mas calma: na vida real, isso quase nunca acontece."
+    },
+    {
+      "inicio": 41.3,
+      "fim": 48.9,
+      "texto": "Elevador tem freio de emergência há mais de cento e cinquenta anos. Se ele acelera demais, garras travam nos trilhos.",
+      "legenda": "Elevador tem freio de emergência há mais de 150 anos. Se ele acelera demais, garras travam nos trilhos."
+    },
+    {
+      "inicio": 49.1,
+      "fim": 51.8,
+      "texto": "E ele para em poucos metros, sem drama."
+    },
+    {
+      "inicio": 52.2,
+      "fim": 58.7,
+      "texto": "Então não, pular não adianta nada. Quem te salva é o freio. Ou a escada."
+    },
+    {
+      "inicio": 59.0,
+      "fim": 62.0,
+      "texto": "Agora, pensa comigo:",
+      "ancorarFim": true
+    }
   ],
-  "humor": [[0, 1.6], [3.4, 1.6], [3.9, 0], [10.2, 0], [10.6, 0.3], [14.3, 0.3], [15, 1], [16.0, 1.4], [19, 1.2], [27.8, 1.4], [28.4, 2], [35, 2], [37, 1], [38.5, 1], [38.8, 1.6], [43.2, 1.6], [44.5, 0.3], [52, 0], [58, 0.3], [61.5, 1.6], [62, 1.6]],
-  "panico": [[0, 0.5], [3.4, 0.5], [3.9, 0], [16.0, 0], [16.4, 0.5], [27.8, 0.6], [28.4, 0.8], [33, 0.5], [36, 0.1], [38.6, 0.1], [39, 0.5], [43, 0.5], [44.5, 0], [61.5, 0], [62, 0.5]],
-  "balanca": [[0, 0], [10.8, 0], [11.3, 1], [14.0, 1], [14.4, 0], [44.6, 0], [45.2, 1], [47.5, 1], [48, 0], [62, 0]],
-  "abaixa": [[0, 0], [27.6, 0], [28.2, 1], [32, 1], [33.5, 0], [62, 0]],
-  "sustos": [0.0, 5.0, 16.05, 28.3, 38.6]
+  "humor": [
+    [
+      0,
+      1.6
+    ],
+    [
+      3.4,
+      1.6
+    ],
+    [
+      3.9,
+      0
+    ],
+    [
+      10.2,
+      0
+    ],
+    [
+      10.6,
+      0.3
+    ],
+    [
+      14.3,
+      0.3
+    ],
+    [
+      15,
+      1
+    ],
+    [
+      16.0,
+      1.4
+    ],
+    [
+      19,
+      1.2
+    ],
+    [
+      27.8,
+      1.4
+    ],
+    [
+      28.4,
+      2
+    ],
+    [
+      35,
+      2
+    ],
+    [
+      37,
+      1
+    ],
+    [
+      38.5,
+      1
+    ],
+    [
+      38.8,
+      1.6
+    ],
+    [
+      43.2,
+      1.6
+    ],
+    [
+      44.5,
+      0.3
+    ],
+    [
+      52,
+      0
+    ],
+    [
+      58,
+      0.3
+    ],
+    [
+      61.5,
+      1.6
+    ],
+    [
+      62,
+      1.6
+    ]
+  ],
+  "panico": [
+    [
+      0,
+      0.5
+    ],
+    [
+      3.4,
+      0.5
+    ],
+    [
+      3.9,
+      0
+    ],
+    [
+      16.0,
+      0
+    ],
+    [
+      16.4,
+      0.5
+    ],
+    [
+      27.8,
+      0.6
+    ],
+    [
+      28.4,
+      0.8
+    ],
+    [
+      33,
+      0.5
+    ],
+    [
+      36,
+      0.1
+    ],
+    [
+      38.6,
+      0.1
+    ],
+    [
+      39,
+      0.5
+    ],
+    [
+      43,
+      0.5
+    ],
+    [
+      44.5,
+      0
+    ],
+    [
+      61.5,
+      0
+    ],
+    [
+      62,
+      0.5
+    ]
+  ],
+  "balanca": [
+    [
+      0,
+      0
+    ],
+    [
+      10.8,
+      0
+    ],
+    [
+      11.3,
+      1
+    ],
+    [
+      14.0,
+      1
+    ],
+    [
+      14.4,
+      0
+    ],
+    [
+      44.6,
+      0
+    ],
+    [
+      45.2,
+      1
+    ],
+    [
+      47.5,
+      1
+    ],
+    [
+      48,
+      0
+    ],
+    [
+      62,
+      0
+    ]
+  ],
+  "abaixa": [
+    [
+      0,
+      0
+    ],
+    [
+      27.6,
+      0
+    ],
+    [
+      28.2,
+      1
+    ],
+    [
+      32,
+      1
+    ],
+    [
+      33.5,
+      0
+    ],
+    [
+      62,
+      0
+    ]
+  ],
+  "sustos": [
+    0.0,
+    5.0,
+    16.05,
+    28.3,
+    38.6
+  ]
 }

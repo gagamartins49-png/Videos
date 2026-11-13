@@ -1,0 +1,12 @@
+{
+  "name": "projeto-e-se-short-elevador",
+  "private": true,
+  "type": "module",
+  "description": "Renderiza o Short 9:16 'E se você pulasse no último segundo de um elevador despencando?' (Playwright + FFmpeg via pipe).",
+  "scripts": {
+    "render": "node render.mjs"
+  },
+  "dependencies": {
+    "playwright": "1.63.0"
+  }
+}

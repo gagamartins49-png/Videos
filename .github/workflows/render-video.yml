@@ -17,6 +17,8 @@ on:
       - '.github/workflows/render-short-gta.yml'
       - 'short_elevador/**'
       - '.github/workflows/render-short-elevador.yml'
+      - 'short_gta_pulo/**'
+      - '.github/workflows/render-short-gta-pulo.yml'
 
 concurrency:
   group: render-video-${{ github.ref }}

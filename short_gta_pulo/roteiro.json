@@ -1,0 +1,395 @@
+{
+  "titulo": "E se você pulasse do carro andando, igual no GTA 6?",
+  "projeto": "PROJETO E SE?",
+  "experimento": "007",
+  "arquivo": "short_gta6_pular_do_carro",
+  "largura": 1080,
+  "altura": 1920,
+  "fps": 30,
+  "duracao": 62,
+  "qualidade3d": 0.8,
+  "voz": "pt-BR-AntonioNeural",
+  "velocidade": "+2%",
+  "tom": "+0Hz",
+  "narracao_natural": true,
+  "tempos": {
+    "gancho": {
+      "tau0": -0.3,
+      "taxa": 0.153
+    },
+    "jogo": {
+      "inicio": 3.6,
+      "pulo": 6.6
+    },
+    "realidade": {
+      "inicio": 15.0,
+      "pulo": 17.6,
+      "taxa": [
+        [
+          15,
+          1
+        ],
+        [
+          17.0,
+          1
+        ],
+        [
+          17.4,
+          0.08
+        ],
+        [
+          18.6,
+          0.08
+        ],
+        [
+          19.4,
+          0.3
+        ],
+        [
+          23.0,
+          0.3
+        ],
+        [
+          23.6,
+          0.45
+        ],
+        [
+          29.5,
+          0.45
+        ],
+        [
+          30.2,
+          1
+        ],
+        [
+          37,
+          1
+        ]
+      ],
+      "batida": 32.4
+    },
+    "duble": {
+      "inicio": 37.0,
+      "pulo": 39.8,
+      "taxa": [
+        [
+          37,
+          1
+        ],
+        [
+          39.4,
+          1
+        ],
+        [
+          39.7,
+          0.25
+        ],
+        [
+          41.3,
+          0.25
+        ],
+        [
+          41.9,
+          1
+        ],
+        [
+          52,
+          1
+        ]
+      ]
+    },
+    "final": {
+      "inicio": 52.0
+    },
+    "glitches": [
+      [
+        14.35,
+        15.15
+      ],
+      [
+        36.7,
+        37.2
+      ]
+    ]
+  },
+  "frases": [
+    {
+      "inicio": 0.0,
+      "fim": 3.8,
+      "texto": "E se você pulasse de um carro andando, igual no GTA seis?",
+      "legenda": "E se você pulasse de um carro andando, igual no GTA 6?"
+    },
+    {
+      "inicio": 4.2,
+      "fim": 9.9,
+      "texto": "No jogo, você abre a porta a cem por hora, rola no asfalto e levanta como se nada fosse.",
+      "legenda": "No jogo, você abre a porta a 100 por hora, rola no asfalto e levanta como se nada fosse."
+    },
+    {
+      "inicio": 10.6,
+      "fim": 14.2,
+      "texto": "Agora olha isso com física de verdade."
+    },
+    {
+      "inicio": 15.3,
+      "fim": 19.4,
+      "texto": "Quando você pula, seu corpo continua a cem por hora.",
+      "legenda": "Quando você pula, seu corpo continua a 100 por hora."
+    },
+    {
+      "inicio": 19.8,
+      "fim": 25.0,
+      "texto": "Bater no asfalto assim é como cair de um prédio de treze andares.",
+      "legenda": "Bater no asfalto assim é como cair de um prédio de 13 andares."
+    },
+    {
+      "inicio": 25.4,
+      "fim": 30.4,
+      "texto": "E você ainda sai rolando por mais de cinquenta metros.",
+      "legenda": "E você ainda sai rolando por mais de 50 metros."
+    },
+    {
+      "inicio": 30.8,
+      "fim": 36.4,
+      "texto": "E o carro? Ele segue sozinho, sem ninguém, até bater."
+    },
+    {
+      "inicio": 37.3,
+      "fim": 43.6,
+      "texto": "Dublê de verdade até faz essa cena, mas a uns trinta por hora, com proteção e colchão no chão.",
+      "legenda": "Dublê de verdade até faz essa cena, mas a uns 30 por hora, com proteção e colchão no chão."
+    },
+    {
+      "inicio": 44.0,
+      "fim": 51.6,
+      "texto": "A trinta por hora, é como cair de um andar. Mais que triplicar a velocidade deixa o tombo onze vezes pior.",
+      "legenda": "A 30 por hora, é como cair de 1 andar. Mais que triplicar a velocidade deixa o tombo 11 vezes pior."
+    },
+    {
+      "inicio": 52.2,
+      "fim": 58.6,
+      "texto": "No jogo, você renasce no hospital. Na vida real, não tem essa."
+    },
+    {
+      "inicio": 59.0,
+      "fim": 62.0,
+      "texto": "Então, pensa comigo:",
+      "ancorarFim": true
+    }
+  ],
+  "humor": [
+    [
+      0,
+      1.6
+    ],
+    [
+      3.4,
+      1.6
+    ],
+    [
+      3.9,
+      0
+    ],
+    [
+      10.2,
+      0
+    ],
+    [
+      10.6,
+      0.3
+    ],
+    [
+      14.3,
+      0.3
+    ],
+    [
+      15,
+      1
+    ],
+    [
+      17.5,
+      1
+    ],
+    [
+      17.8,
+      1.7
+    ],
+    [
+      20,
+      2
+    ],
+    [
+      30,
+      2
+    ],
+    [
+      31.5,
+      1.6
+    ],
+    [
+      36.5,
+      1
+    ],
+    [
+      39.7,
+      1
+    ],
+    [
+      40.1,
+      1.2
+    ],
+    [
+      42.5,
+      0.3
+    ],
+    [
+      52,
+      0.6
+    ],
+    [
+      58,
+      0.5
+    ],
+    [
+      61.5,
+      1.6
+    ],
+    [
+      62,
+      1.6
+    ]
+  ],
+  "panico": [
+    [
+      0,
+      0.5
+    ],
+    [
+      3.4,
+      0.5
+    ],
+    [
+      3.9,
+      0
+    ],
+    [
+      17.5,
+      0
+    ],
+    [
+      17.8,
+      0.4
+    ],
+    [
+      19.6,
+      0.4
+    ],
+    [
+      20.1,
+      0.75
+    ],
+    [
+      28,
+      0.7
+    ],
+    [
+      30,
+      0.2
+    ],
+    [
+      36,
+      0.1
+    ],
+    [
+      40,
+      0.2
+    ],
+    [
+      42,
+      0
+    ],
+    [
+      61.5,
+      0
+    ],
+    [
+      62,
+      0.5
+    ]
+  ],
+  "balanca": [
+    [
+      0,
+      0
+    ],
+    [
+      10.8,
+      0
+    ],
+    [
+      11.3,
+      1
+    ],
+    [
+      14.0,
+      1
+    ],
+    [
+      14.4,
+      0
+    ],
+    [
+      42.6,
+      0
+    ],
+    [
+      43.1,
+      1
+    ],
+    [
+      45.5,
+      1
+    ],
+    [
+      46,
+      0
+    ],
+    [
+      62,
+      0
+    ]
+  ],
+  "abaixa": [
+    [
+      0,
+      0
+    ],
+    [
+      19.6,
+      0
+    ],
+    [
+      20.2,
+      1
+    ],
+    [
+      24,
+      1
+    ],
+    [
+      25.5,
+      0
+    ],
+    [
+      62,
+      0
+    ]
+  ],
+  "sustos": [
+    1.96,
+    6.6,
+    17.6,
+    20.0,
+    39.8
+  ]
+}

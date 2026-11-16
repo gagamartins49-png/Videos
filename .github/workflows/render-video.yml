@@ -23,6 +23,8 @@ on:
       - '.github/workflows/render-short-praia.yml'
       - 'short_reflexo/**'
       - '.github/workflows/render-short-reflexo.yml'
+      - 'short_seguir/**'
+      - '.github/workflows/render-short-seguir.yml'
 
 concurrency:
   group: render-video-${{ github.ref }}

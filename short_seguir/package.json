@@ -1,0 +1,12 @@
+{
+  "name": "projeto-e-se-short-seguir",
+  "private": true,
+  "type": "module",
+  "description": "Renderiza o Short 9:16 'E se você me seguisse agora?' (TikTok) e 'E se você se inscrevesse agora?' (YouTube) (Playwright + FFmpeg via pipe).",
+  "scripts": {
+    "render": "node render.mjs"
+  },
+  "dependencies": {
+    "playwright": "1.63.0"
+  }
+}

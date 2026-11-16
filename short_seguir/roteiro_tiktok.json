@@ -1,0 +1,180 @@
+{
+  "projeto": "PROJETO E SE?",
+  "experimento": "010",
+  "largura": 1080,
+  "altura": 1920,
+  "fps": 30,
+  "duracao": 40,
+  "qualidade3d": 0.8,
+  "voz": "pt-BR-AntonioNeural",
+  "velocidade": "+4%",
+  "tom": "+0Hz",
+  "narracao_natural": true,
+  "tempos": {
+    "toque": 6.2,
+    "sinal": [
+      7.6,
+      12.6
+    ],
+    "contador": 14.6,
+    "vitrine": [
+      18.0,
+      28.4
+    ],
+    "enquete": [
+      28.6,
+      33.8
+    ],
+    "cta": [
+      33.8,
+      38.6
+    ],
+    "glitch": [
+      [
+        2.9,
+        3.4
+      ]
+    ]
+  },
+  "passados": [
+    [
+      "gravidade",
+      "GRAVIDADE DOBRANDO"
+    ],
+    [
+      "batidas",
+      "BATIDAS DO GTA 6"
+    ],
+    [
+      "elevador",
+      "ELEVADOR DESPENCANDO"
+    ],
+    [
+      "pulo",
+      "PULAR DO CARRO"
+    ],
+    [
+      "helicoptero",
+      "HELICÓPTERO NO MAR"
+    ],
+    [
+      "reflexo",
+      "O REFLEXO"
+    ]
+  ],
+  "enquete": [
+    [
+      "A",
+      "TERRA COM ANÉIS",
+      "aneis"
+    ],
+    [
+      "B",
+      "BURACO QUE ATRAVESSA A TERRA",
+      "buraco"
+    ],
+    [
+      "C",
+      "CARRO NO TETO DO TÚNEL",
+      "tunel"
+    ]
+  ],
+  "humor": [
+    [
+      0,
+      0.3
+    ],
+    [
+      6,
+      0.3
+    ],
+    [
+      6.3,
+      0.8
+    ],
+    [
+      8,
+      0.4
+    ],
+    [
+      14.5,
+      0.4
+    ],
+    [
+      14.8,
+      1.2
+    ],
+    [
+      17.5,
+      0.3
+    ],
+    [
+      40,
+      0.3
+    ]
+  ],
+  "sustos": [
+    6.2,
+    14.6,
+    33.8
+  ],
+  "plataforma": "tiktok",
+  "titulo": "E se você me seguisse agora?",
+  "arquivo": "short_seguir_tiktok",
+  "botao": "SEGUIR",
+  "botao_ok": "SEGUINDO ✓",
+  "contador_rotulo": "SEGUIDORES",
+  "contador_de": 126,
+  "alvo": [
+    1000,
+    1010
+  ],
+  "frases": [
+    {
+      "inicio": 0.0,
+      "fim": 2.8,
+      "texto": "E se você me seguisse agora?"
+    },
+    {
+      "inicio": 3.2,
+      "fim": 7.4,
+      "texto": "Calma, eu fiz a simulação. Você toca no botão aí do lado."
+    },
+    {
+      "inicio": 7.8,
+      "fim": 13.2,
+      "texto": "Seu toque vira um sinal que dá a volta no planeta em menos de um décimo de segundo."
+    },
+    {
+      "inicio": 13.5,
+      "fim": 17.8,
+      "texto": "Aqui no laboratório, um contador sobe. Mais um."
+    },
+    {
+      "inicio": 18.2,
+      "fim": 24.4,
+      "texto": "E você passa a ver todos os experimentos: a gravidade, o elevador, o reflexo."
+    },
+    {
+      "inicio": 24.8,
+      "fim": 28.4,
+      "texto": "E os próximos, antes de todo mundo."
+    },
+    {
+      "inicio": 28.8,
+      "fim": 33.6,
+      "texto": "Me ajuda a escolher o próximo: comenta A, B ou C."
+    },
+    {
+      "inicio": 34.0,
+      "fim": 38.4,
+      "texto": "O botão tá aqui do lado. Um toque, sem efeito colateral."
+    },
+    {
+      "inicio": 38.7,
+      "fim": 40.0,
+      "texto": "Então:",
+      "ancorarFim": true
+    }
+  ]
+}

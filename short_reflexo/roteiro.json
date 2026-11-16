@@ -13,17 +13,66 @@
   "tom": "-2Hz",
   "narracao_natural": true,
   "frases": [
-    { "inicio": 0.0, "fim": 3.9, "texto": "E se, uma noite, o seu reflexo parasse de te imitar?" },
-    { "inicio": 4.4, "fim": 9.2, "texto": "Três da manhã. Você levanta pra lavar o rosto." },
-    { "inicio": 9.7, "fim": 12.7, "texto": "Tudo normal. Por enquanto." },
-    { "inicio": 13.1, "fim": 18.6, "texto": "Aí você pisca. E ele pisca um pouquinho depois." },
-    { "inicio": 19.0, "fim": 22.9, "texto": "Você inclina a cabeça. Ele demora pra vir junto." },
-    { "inicio": 23.4, "fim": 27.4, "texto": "Você olha pra porta. Ele não." },
-    { "inicio": 28.2, "fim": 31.8, "texto": "Ele continua olhando. Pra você." },
-    { "inicio": 32.4, "fim": 38.9, "texto": "O pior é que isso nem é tão absurdo. Seu cérebro leva quase um décimo de segundo pra processar o que você vê." },
-    { "inicio": 39.3, "fim": 43.4, "texto": "Ou seja: você sempre enxerga o passado." },
-    { "inicio": 44.0, "fim": 51.2, "texto": "Então, se um dia ele demorar mais do que isso pra te acompanhar, não pisca." },
-    { "inicio": 51.7, "fim": 58.6, "texto": "Repara no relógio do reflexo. Ele não marca a mesma hora que o seu. Comenta que horas são lá." },
-    { "inicio": 59.1, "fim": 62.0, "texto": "Agora, pensa:", "ancorarFim": true }
+    {
+      "inicio": 0.0,
+      "fim": 3.9,
+      "texto": "E se, uma noite, o seu reflexo parasse de te imitar?"
+    },
+    {
+      "inicio": 4.4,
+      "fim": 9.2,
+      "texto": "Três da manhã. Você levanta pra lavar o rosto."
+    },
+    {
+      "inicio": 9.7,
+      "fim": 12.7,
+      "texto": "Tudo normal. Por enquanto."
+    },
+    {
+      "inicio": 13.1,
+      "fim": 18.6,
+      "texto": "Aí você pisca. E ele pisca um pouquinho depois."
+    },
+    {
+      "inicio": 19.0,
+      "fim": 23.3,
+      "texto": "Você inclina a cabeça. Ele demora pra vir junto."
+    },
+    {
+      "inicio": 23.5,
+      "fim": 27.6,
+      "texto": "Você olha pra porta. Ele não."
+    },
+    {
+      "inicio": 28.2,
+      "fim": 31.8,
+      "texto": "Ele continua olhando. Pra você."
+    },
+    {
+      "inicio": 32.2,
+      "fim": 39.9,
+      "texto": "O pior é que isso nem é tão absurdo. Seu cérebro leva quase um décimo de segundo pra processar o que você vê."
+    },
+    {
+      "inicio": 40.1,
+      "fim": 43.7,
+      "texto": "Ou seja: você sempre enxerga o passado."
+    },
+    {
+      "inicio": 44.0,
+      "fim": 51.2,
+      "texto": "Então, se um dia ele demorar mais do que isso pra te acompanhar, não pisca."
+    },
+    {
+      "inicio": 51.4,
+      "fim": 58.9,
+      "texto": "Repara no relógio do reflexo. Não é a mesma hora que o seu. Comenta que horas são lá."
+    },
+    {
+      "inicio": 59.2,
+      "fim": 62.0,
+      "texto": "Agora, pensa:",
+      "ancorarFim": true
+    }
   ]
 }

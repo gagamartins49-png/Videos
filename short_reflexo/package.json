@@ -1,0 +1,12 @@
+{
+  "name": "projeto-e-se-short-reflexo",
+  "private": true,
+  "type": "module",
+  "description": "Renderiza o Short 9:16 'E se o seu reflexo parasse de te imitar?' (Playwright + FFmpeg via pipe).",
+  "scripts": {
+    "render": "node render.mjs"
+  },
+  "dependencies": {
+    "playwright": "1.63.0"
+  }
+}

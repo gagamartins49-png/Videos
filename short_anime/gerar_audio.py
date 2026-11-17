@@ -265,13 +265,19 @@ def main():
     ap.add_argument("--out", default=str(HERE / "build"))
     ap.add_argument("--eventos", default=None)
     ap.add_argument("--no-tts", action="store_true")
+    ap.add_argument("--voz", default=None, help="voz do edge-tts (substitui a do roteiro)")
+    ap.add_argument("--tag", default="", help="sufixo dos arquivos de saída, ex.: voz_masculina")
     args = ap.parse_args()
     out = Path(args.out); out.mkdir(parents=True, exist_ok=True)
     cfg = json.loads((HERE / "roteiro.json").read_text(encoding="utf-8"))
     ev = json.loads(Path(args.eventos or out / "eventos.json").read_text(encoding="utf-8"))
     dur, fps = float(cfg["duracao"]), cfg.get("fps", 30)
-    print("Narração (edge-tts)…", flush=True)
-    voice = ga.build_voice(cfg, out, not args.no_tts, dur)
+    if args.voz:
+        cfg["voz"] = args.voz
+    sfx_name = f"_{args.tag}" if args.tag else ""
+    vout = out / (args.tag or "voz_padrao"); vout.mkdir(parents=True, exist_ok=True)
+    print(f"Narração (edge-tts, {cfg['voz']})…", flush=True)
+    voice = ga.build_voice(cfg, vout, not args.no_tts, dur)
     print("Música…", flush=True)
     mus = music(dur, ev, ev["poder"], ev["ilusao"])
     print("Efeitos sonoros…", flush=True)
@@ -284,12 +290,12 @@ def main():
     mix = normalize(np.tanh((bed * (1 - 0.45 * venv) + np.stack([voice, voice]) * 1.05) * 1.1) / np.tanh(1.1), 0.97)
     nonarr = normalize(np.tanh(bed * 1.1) / np.tanh(1.1), 0.97)
     from scipy.io import wavfile
-    wavfile.write(out / "audio_short.wav", SR, (mix.T * 32767).astype(np.int16))
+    wavfile.write(out / f"audio_short{sfx_name}.wav", SR, (mix.T * 32767).astype(np.int16))
     wavfile.write(out / "audio_short_sem_narracao.wav", SR, (nonarr.T * 32767).astype(np.int16))
-    subprocess.run(["ffmpeg", "-y", "-v", "error", "-i", str(out / "audio_short.wav"), "-c:a", "libmp3lame", "-b:a", "192k", str(out / "audio_short.mp3")], check=True)
+    subprocess.run(["ffmpeg", "-y", "-v", "error", "-i", str(out / f"audio_short{sfx_name}.wav"), "-c:a", "libmp3lame", "-b:a", "192k", str(out / f"audio_short{sfx_name}.mp3")], check=True)
     env = envelope_from(voice, fps) if np.max(np.abs(voice)) > 0 else []
     (out / "envelope.json").write_text(json.dumps(env))
-    print(f"OK -> {out / 'audio_short.wav'} ({mix.shape[1] / SR:.1f}s), envelope com {len(env)} quadros", flush=True)
+    print(f"OK -> {out / f'audio_short{sfx_name}.wav'} ({mix.shape[1] / SR:.1f}s), envelope com {len(env)} quadros", flush=True)
 
 
 if __name__ == "__main__":

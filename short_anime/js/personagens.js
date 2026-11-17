@@ -2,7 +2,7 @@
 //  Personagens em estilo anime (cel-shading + contorno) — Projeto E se? #011
 //  Dois lutadores ORIGINAIS que só lembram arquétipos de anime (paródia, sem copiar designs):
 //    • "guerreiro": cabelo espetado prateado que fica elétrico na transformação, quimono vinho.
-//    • "ninja": cabelo escuro, faixa na testa com símbolo de onda, cachecol vermelho, olhos roxos na ilusão.
+//    • "ninja": cabelo amarelo espetado, faixa na testa com símbolo de onda, cachecol vermelho, olhos roxos na ilusão.
 //  Esqueleto simples com poses nomeadas; tudo controlado por set(pose, opções).
 // ============================================================================
 import * as THREE from '../../vendor/three.module.min.js';
@@ -95,7 +95,7 @@ export function buildFighter(kind) {
   const G = kind === 'guerreiro';
   const skin = toon(0xf6c9a4);
   const top = toon(G ? 0x8c1c2c : 0x1d2a3a), under = toon(G ? 0x1a1f3a : 0x3c4654), pants = toon(G ? 0x8c1c2c : 0x232c38);
-  const belt = toon(G ? 0x2b54c8 : 0x5a6470), boots = toon(G ? 0x2a1d17 : 0x1a1d22), hairC = G ? 0xd7dde8 : 0x17181e;
+  const belt = toon(G ? 0x2b54c8 : 0x5a6470), boots = toon(G ? 0x2a1d17 : 0x1a1d22), hairC = G ? 0xd7dde8 : 0xf5c42c;
   const hair = toon(hairC, { emissive: 0x000000 });
   const root = new THREE.Group();
   const hips = new THREE.Group(); hips.position.y = 0.95; root.add(hips);

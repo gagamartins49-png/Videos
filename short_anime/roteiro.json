@@ -1,0 +1,29 @@
+{
+  "titulo": "E se o Goku fosse parar no universo do Naruto?",
+  "projeto": "PROJETO E SE?",
+  "experimento": "011",
+  "arquivo": "short_anime_guerreiro_mundo_ninja",
+  "largura": 1080,
+  "altura": 1920,
+  "fps": 30,
+  "duracao": 62,
+  "qualidade3d": 0.8,
+  "voz": "pt-BR-AntonioNeural",
+  "velocidade": "+4%",
+  "tom": "+0Hz",
+  "narracao_natural": true,
+  "frases": [
+    { "inicio": 0.0, "fim": 3.7, "texto": "E se o Goku fosse parar no universo do Naruto?" },
+    { "inicio": 4.1, "fim": 11.0, "texto": "Imagina: abre um portal no céu da vila, e cai um cara de quimono... que levanta como se nada fosse." },
+    { "inicio": 11.4, "fim": 15.5, "texto": "Na força bruta, não tem nem comparação. Ele destrói planetas." },
+    { "inicio": 15.8, "fim": 19.6, "texto": "Lá, o mais forte racha montanha." },
+    { "inicio": 19.9, "fim": 24.6, "texto": "Aí vem os clones. Dez, vinte, cinquenta..." },
+    { "inicio": 24.9, "fim": 30.6, "texto": "E ele derruba um por um, rindo. Kunai explosiva? Nem pisca." },
+    { "inicio": 31.0, "fim": 36.4, "texto": "Só que aí o jogo vira. Ninja não luta só no soco." },
+    { "inicio": 36.7, "fim": 41.8, "texto": "Um olhar, e ele tá preso numa ilusão. Força não resolve isso." },
+    { "inicio": 42.1, "fim": 48.7, "texto": "E a saída dele é a única que ele conhece: aumentar o poder até tudo quebrar." },
+    { "inicio": 49.0, "fim": 55.4, "texto": "Meu palpite? Ele venceria quase todos. Mas não de primeira, e não sem apanhar." },
+    { "inicio": 55.7, "fim": 59.6, "texto": "E aí, quem ganha? Comenta aqui embaixo." },
+    { "inicio": 59.9, "fim": 62.0, "texto": "Só tem um jeito de saber:", "ancorarFim": true }
+  ]
+}

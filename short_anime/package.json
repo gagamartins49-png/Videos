@@ -1,0 +1,12 @@
+{
+  "name": "projeto-e-se-short-anime",
+  "private": true,
+  "type": "module",
+  "description": "Renderiza o Short 9:16 'E se o Goku fosse parar no universo do Naruto?' (paródia em estilo anime) (Playwright + FFmpeg via pipe).",
+  "scripts": {
+    "render": "node render.mjs"
+  },
+  "dependencies": {
+    "playwright": "1.63.0"
+  }
+}

@@ -53,22 +53,16 @@ jobs:
         run: pip install edge-tts numpy scipy
       - name: Calcular instantes dos sons (mesma física do vídeo)
         run: mkdir -p short_anime/build && node short_anime/eventos.mjs > short_anime/build/eventos.json
-      - name: Gerar trilha (62 s, loop) com duas vozes neurais novas (multilíngues, mais fluidas)
+      - name: Gerar trilha (62 s, loop)
         run: |
-          ok=0
-          python short_anime/gerar_audio.py --out short_anime/build --voz en-US-AndrewMultilingualNeural --tag voz_masculina && ok=$((ok+1)) || echo "::warning::voz masculina falhou"
-          python short_anime/gerar_audio.py --out short_anime/build --voz pt-BR-ThalitaMultilingualNeural --tag voz_feminina && ok=$((ok+1)) || echo "::warning::voz feminina falhou"
-          if [ "$ok" = 0 ]; then
-            echo "::warning::vozes novas indisponíveis; usando pt-BR-AntonioNeural"
-            python short_anime/gerar_audio.py --out short_anime/build --voz pt-BR-AntonioNeural --tag voz_padrao
-          fi
-          for f in short_anime/build/*/narracao_tempos.json; do echo "== $f"; cat "$f"; done
+          python short_anime/gerar_audio.py --out short_anime/build --voz pt-BR-AntonioNeural
+          cat short_anime/build/voz_padrao/narracao_tempos.json
       - uses: actions/upload-artifact@v4
         with:
           name: audio-short
           path: |
-            short_anime/build/audio_short_*.wav
-            short_anime/build/audio_short_*.mp3
+            short_anime/build/audio_short*.wav
+            short_anime/build/audio_short*.mp3
           retention-days: 3
       - uses: actions/upload-artifact@v4
         with:
@@ -157,9 +151,9 @@ jobs:
           ls build/partes/parte_*.mp4 | sort -V | sed "s#^#file '$PWD/#; s#\$#'#" > build/lista.txt
           cat build/lista.txt
           ffmpeg -y -v error -f concat -safe 0 -i build/lista.txt -c copy build/video_mudo.mp4
-          for a in build/audio/audio_short_*.wav; do
-            tag=$(basename "$a" .wav); tag=${tag#audio_short_}
-            o="short_anime_guerreiro_mundo_ninja_${tag}.mp4"
+          for a in build/audio/audio_short*.wav; do
+            tag=$(basename "$a" .wav); tag=${tag#audio_short}; tag=${tag#_}
+            o="short_anime_guerreiro_mundo_ninja${tag:+_$tag}.mp4"
             ffmpeg -y -v error -i build/video_mudo.mp4 -i "$a" -map 0:v:0 -map 1:a:0 -c:v copy \
               -c:a aac -b:a 192k -ar 44100 -t 62 -movflags +faststart "$o"
             ffprobe -v error -show_entries format=duration,size:stream=codec_name,width,height,r_frame_rate -of compact "$o"
@@ -168,7 +162,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: short_anime_guerreiro_mundo_ninja
-          path: short_anime_guerreiro_mundo_ninja_*.mp4
+          path: short_anime_guerreiro_mundo_ninja*.mp4
           compression-level: 0
           retention-days: 30
       - name: Publicar na Release "short-anime" (download direto no celular)
@@ -176,7 +170,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release delete short-anime --yes --cleanup-tag -R "$GITHUB_REPOSITORY" || true
-          gh release create short-anime short_anime_guerreiro_mundo_ninja_*.mp4 -R "$GITHUB_REPOSITORY" \
+          gh release create short-anime short_anime_guerreiro_mundo_ninja*.mp4 -R "$GITHUB_REPOSITORY" \
             --target "${GITHUB_SHA}" \
             --title "Projeto E se? #011 — E se o Goku fosse parar no universo do Naruto? (Short 9:16, anime)" \
-            --notes "Renderizado automaticamente a partir do commit ${GITHUB_SHA}. _voz_masculina = narração com voz neural multilíngue masculina; _voz_feminina = voz neural pt-BR feminina; _sem_narracao = só música e efeitos. Paródia: personagens, vila e golpes são designs originais (nenhum personagem, logo ou símbolo oficial)."
+            --notes "Renderizado automaticamente a partir do commit ${GITHUB_SHA}. short_anime_guerreiro_mundo_ninja.mp4 = com narração; _sem_narracao = só música e efeitos. Paródia: personagens, vila e golpes são designs originais (nenhum personagem, logo ou símbolo oficial)."

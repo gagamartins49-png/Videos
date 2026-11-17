@@ -112,7 +112,7 @@ export async function createShort({ cfg }) {
     // "chakra" / técnicas que não dependem de força
     caption(['ILUSÃO'], 420, smooth(33.4, 33.7, t) * (1 - smooth(36.2, 36.6, t)), [150], ['#ff3a4a'], -0.05, 1 + 0.1 * Math.exp(-(t - 33.4) * 6));
     caption(['SELAMENTO'], 420, smooth(37.3, 37.6, t) * (1 - smooth(40.6, 41.0, t)), [140], ['#ff3a4a'], 0.04, 1 + 0.1 * Math.exp(-(t - 37.3) * 6));
-    caption(['FORÇA NÃO', 'RESOLVE ISSO'], 1250, smooth(39.4, 39.7, t) * (1 - smooth(41.7, 42.0, t)), [96, 96], ['#ffffff', '#ffd23f']);
+    caption(['FORÇA NÃO', 'ADIANTA'], 1250, smooth(39.4, 39.7, t) * (1 - smooth(41.7, 42.0, t)), [96, 96], ['#ffffff', '#ffd23f']);
     caption(['NEM PISCA.'], 420, smooth(29.8, 30.0, t) * (1 - smooth(30.8, 31.0, t)), [130], ['#ffffff']);
     caption(['×50'], 430, smooth(21.5, 21.7, t) * (1 - smooth(24.6, 25.0, t)), [170], ['#ffd23f'], -0.06, 1 + 0.15 * Math.exp(-(t - 21.5) * 6));
     caption(['SUBSTITUIÇÃO!'], 440, smooth(47.5, 47.7, t) * (1 - smooth(48.7, 49.0, t)), [120], ['#ff6a4a'], 0.04);
@@ -120,7 +120,7 @@ export async function createShort({ cfg }) {
   function drawVerdict(t) {
     const a = smooth(49.6, 50.0, t) * (1 - smooth(55.2, 55.6, t)); if (a <= 0) return;
     ctx.save(); ctx.globalAlpha = a; ctx.textAlign = 'center'; ctx.font = `700 34px ${F_MONO}`; ctx.fillStyle = '#ffd23f'; ctx.fillText('— VEREDITO —', W / 2, 250); ctx.restore();
-    caption(['VENCERIA', 'QUASE TODOS'], 380, a, [120, 120], ['#ffffff', '#7fd8ff'], -0.03);
+    caption(['GANHA DE', 'QUASE TODOS'], 380, a, [120, 120], ['#ffffff', '#7fd8ff'], -0.03);
     const b = smooth(52.2, 52.5, t) * (1 - smooth(55.2, 55.6, t));
     caption(['...MAS NÃO', 'DE PRIMEIRA'], 680, b, [100, 110], ['#ffffff', '#ff5a3a'], 0.03, 1 + 0.12 * Math.exp(-(t - 52.2) * 7));
   }

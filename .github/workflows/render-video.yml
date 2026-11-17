@@ -25,6 +25,8 @@ on:
       - '.github/workflows/render-short-reflexo.yml'
       - 'short_seguir/**'
       - '.github/workflows/render-short-seguir.yml'
+      - 'short_anime/**'
+      - '.github/workflows/render-short-anime.yml'
 
 concurrency:
   group: render-video-${{ github.ref }}

@@ -31,6 +31,8 @@ on:
       - '.github/workflows/render-short-tempo.yml'
       - 'shorts_gta2d/**'
       - '.github/workflows/render-shorts-gta2d.yml'
+      - 'cortes/**'
+      - '.github/workflows/cortes-video.yml'
 
 concurrency:
   group: render-video-${{ github.ref }}

@@ -1,0 +1,87 @@
+{
+  "titulo": "E se você fosse o primeiro do mundo a jogar GTA 6?",
+  "experimento": "015",
+  "arquivo": "short_gta2d_primeiro_do_mundo",
+  "projeto": "PROJETO E SE?",
+  "largura": 1080,
+  "altura": 1920,
+  "fps": 30,
+  "duracao": 62,
+  "voz": "pt-BR-AntonioNeural",
+  "velocidade": "-5%",
+  "tom": "-1Hz",
+  "narracao_natural": true,
+  "frases": [
+    {
+      "inicio": 0.0,
+      "fim": 3.9,
+      "texto": "E se você fosse o primeiro do mundo a jogar GTA 6?"
+    },
+    {
+      "inicio": 4.2,
+      "fim": 8.8,
+      "texto": "Fila da loja, onze da noite. Frio, e centenas de pessoas atrás de você."
+    },
+    {
+      "inicio": 9.1,
+      "fim": 13.0,
+      "texto": "Meia-noite. A porta abre. E te entregam a primeira cópia."
+    },
+    {
+      "inicio": 13.3,
+      "fim": 17.2,
+      "texto": "Todo mundo grita. Gente filmando. Você vira notícia."
+    },
+    {
+      "inicio": 17.5,
+      "fim": 21.6,
+      "texto": "Você corre pra casa, mão tremendo, coração a mil."
+    },
+    {
+      "inicio": 21.9,
+      "fim": 26.4,
+      "texto": "Liga o console. Instala. Os minutos mais longos da sua vida."
+    },
+    {
+      "inicio": 26.7,
+      "fim": 31.0,
+      "texto": "Abre a live. Cem pessoas. Mil. Cem mil assistindo."
+    },
+    {
+      "inicio": 31.3,
+      "fim": 35.9,
+      "texto": "Todo mundo quer saber: como é o mapa? É grande? É bonito?"
+    },
+    {
+      "inicio": 36.2,
+      "fim": 40.8,
+      "texto": "E você, que esperou mais de dez anos, só consegue ficar parado."
+    },
+    {
+      "inicio": 41.1,
+      "fim": 45.6,
+      "texto": "Porque não é sobre ser o primeiro. É sobre finalmente chegar."
+    },
+    {
+      "inicio": 45.9,
+      "fim": 50.4,
+      "texto": "Aí você aperta o play. E o mundo inteiro aperta junto."
+    },
+    {
+      "inicio": 50.7,
+      "fim": 55.0,
+      "texto": "Milhões de pessoas, no mesmo segundo, sentindo a mesma coisa."
+    },
+    {
+      "inicio": 55.3,
+      "fim": 59.2,
+      "texto": "Você jogaria na hora ou dormiria antes? Comenta."
+    },
+    {
+      "inicio": 59.5,
+      "fim": 62.0,
+      "texto": "E se o primeiro fosse você?",
+      "ancorarFim": true
+    }
+  ]
+}

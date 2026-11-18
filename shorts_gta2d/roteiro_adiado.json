@@ -1,0 +1,87 @@
+{
+  "titulo": "E se o GTA 6 fosse adiado de novo?",
+  "experimento": "013",
+  "arquivo": "short_gta2d_adiado_de_novo",
+  "projeto": "PROJETO E SE?",
+  "largura": 1080,
+  "altura": 1920,
+  "fps": 30,
+  "duracao": 62,
+  "voz": "pt-BR-AntonioNeural",
+  "velocidade": "-2%",
+  "tom": "-1Hz",
+  "narracao_natural": true,
+  "frases": [
+    {
+      "inicio": 0.0,
+      "fim": 3.8,
+      "texto": "E se o GTA 6 fosse adiado... de novo?"
+    },
+    {
+      "inicio": 4.2,
+      "fim": 8.6,
+      "texto": "Meia-noite. Você tá pronto. Controle carregado, pizza na mesa..."
+    },
+    {
+      "inicio": 8.9,
+      "fim": 11.9,
+      "texto": "Três... dois... um..."
+    },
+    {
+      "inicio": 12.3,
+      "fim": 15.2,
+      "texto": "Adiado. Mais um ano."
+    },
+    {
+      "inicio": 15.6,
+      "fim": 20.4,
+      "texto": "Tudo bem. Você espera. Deixa a barba crescer um pouquinho..."
+    },
+    {
+      "inicio": 20.8,
+      "fim": 25.6,
+      "texto": "Aí adiam de novo. E de novo. A barba já tá batendo no chão."
+    },
+    {
+      "inicio": 26.0,
+      "fim": 31.0,
+      "texto": "Seu cabelo fica branco. Seu controle vira peça de museu."
+    },
+    {
+      "inicio": 31.4,
+      "fim": 35.8,
+      "texto": "Um dia, seu neto pergunta: vô, o que é GTA?"
+    },
+    {
+      "inicio": 36.1,
+      "fim": 41.4,
+      "texto": "E você responde: é o jogo que eu tô esperando desde dois mil e treze."
+    },
+    {
+      "inicio": 41.8,
+      "fim": 45.6,
+      "texto": "Até que, numa noite... a tela acende."
+    },
+    {
+      "inicio": 46.0,
+      "fim": 50.4,
+      "texto": "Você aperta o play, com a mão tremendo..."
+    },
+    {
+      "inicio": 50.8,
+      "fim": 55.0,
+      "texto": "e o jogo pede pra atualizar. Cento e cinquenta gigas."
+    },
+    {
+      "inicio": 55.4,
+      "fim": 59.2,
+      "texto": "Quantos anos você esperaria? Comenta aí."
+    },
+    {
+      "inicio": 59.5,
+      "fim": 62.0,
+      "texto": "E se adiassem de novo?",
+      "ancorarFim": true
+    }
+  ]
+}

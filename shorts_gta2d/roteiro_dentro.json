@@ -8,7 +8,7 @@
   "fps": 30,
   "duracao": 62,
   "voz": "pt-BR-AntonioNeural",
-  "velocidade": "-4%",
+  "velocidade": "+0%",
   "tom": "-1Hz",
   "narracao_natural": true,
   "frases": [
@@ -40,7 +40,7 @@
     {
       "inicio": 21.8,
       "fim": 26.6,
-      "texto": "Do lado, um conversível com a chave no contato. Seria falta de educação não pegar."
+      "texto": "Do lado, um conversível com a chave no contato. Seria feio não pegar."
     },
     {
       "inicio": 26.9,
@@ -70,7 +70,7 @@
     {
       "inicio": 51.3,
       "fim": 55.0,
-      "texto": "E você acorda. No sofá. Com o controle na mão."
+      "texto": "E você acorda no sofá, com o controle na mão."
     },
     {
       "inicio": 55.3,

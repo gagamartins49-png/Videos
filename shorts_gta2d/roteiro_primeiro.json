@@ -8,7 +8,7 @@
   "fps": 30,
   "duracao": 62,
   "voz": "pt-BR-AntonioNeural",
-  "velocidade": "-5%",
+  "velocidade": "+0%",
   "tom": "-1Hz",
   "narracao_natural": true,
   "frases": [
@@ -20,17 +20,17 @@
     {
       "inicio": 4.2,
       "fim": 8.8,
-      "texto": "Fila da loja, onze da noite. Frio, e centenas de pessoas atrás de você."
+      "texto": "Fila da loja, onze da noite. Centenas de pessoas atrás de você."
     },
     {
       "inicio": 9.1,
       "fim": 13.0,
-      "texto": "Meia-noite. A porta abre. E te entregam a primeira cópia."
+      "texto": "Meia-noite. A porta abre. A primeira cópia é sua."
     },
     {
       "inicio": 13.3,
       "fim": 17.2,
-      "texto": "Todo mundo grita. Gente filmando. Você vira notícia."
+      "texto": "Gente gritando, filmando... você vira notícia."
     },
     {
       "inicio": 17.5,
@@ -40,17 +40,17 @@
     {
       "inicio": 21.9,
       "fim": 26.4,
-      "texto": "Liga o console. Instala. Os minutos mais longos da sua vida."
+      "texto": "Liga, instala... os minutos mais longos da sua vida."
     },
     {
       "inicio": 26.7,
       "fim": 31.0,
-      "texto": "Abre a live. Cem pessoas. Mil. Cem mil assistindo."
+      "texto": "Abre a live. Cem. Mil. Cem mil assistindo."
     },
     {
       "inicio": 31.3,
       "fim": 35.9,
-      "texto": "Todo mundo quer saber: como é o mapa? É grande? É bonito?"
+      "texto": "Todo mundo quer saber: como é o mapa? É grande?"
     },
     {
       "inicio": 36.2,

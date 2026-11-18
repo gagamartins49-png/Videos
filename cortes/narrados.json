@@ -1,0 +1,23 @@
+{
+  "voz": "pt-BR-AntonioNeural",
+  "velocidade": "+6%",
+  "tom": "+0Hz",
+  "cortes": [
+    {
+      "id": "assalto_lucia",
+      "inicio": 550,
+      "fim": 604,
+      "titulo": ["O PRIMEIRO ASSALTO", "DA LUCIA"],
+      "intro": "Esse é o primeiro assalto da Lucia no GTA 6. Repara como tudo sai do controle.",
+      "outro": "Curtiu? Deixa o like e se inscreve pra ver mais cortes do GTA 6."
+    },
+    {
+      "id": "fuga_hidroaviao",
+      "inicio": 1671,
+      "fim": 1731,
+      "titulo": ["FUGA DE HIDROAVIÃO", "NO GTA 6"],
+      "intro": "No GTA 6, a fuga pode ser de hidroavião. Olha essa decolagem no meio do mangue.",
+      "outro": "Quer mais cenas assim? Deixa o like e se inscreve no canal."
+    }
+  ]
+}

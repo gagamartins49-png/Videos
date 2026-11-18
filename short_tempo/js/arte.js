@@ -106,11 +106,23 @@ export function drawFront(g, x, y, s, o = {}) {
     const n = 7; for (let i = 0; i < n; i++) { const x0 = W - 18 - (i * (2 * W - 36)) / n, x1 = W - 18 - ((i + 1) * (2 * W - 36)) / n, tipY = FY + (i % 2 ? 26 : 10) + 6 * hash(i + 2), dip = FY - 22 - 8 * hash(i); g.quadraticCurveTo((x0 + x1) / 2 + 6, dip, x1 + (i % 2 ? 4 : -4), tipY); }
     g.quadraticCurveTo(-W + 4, -60, -W - 8, -8); g.closePath();
   };
-  hairP(); g.fillStyle = HAIR; g.fill();
-  g.save(); hairP(); g.clip(); g.strokeStyle = rgba(HAIR_HI, 0.9); g.lineWidth = 10; g.beginPath(); g.arc(-10, -40, 140, -2.6, -1.9); g.stroke(); g.lineWidth = 5; g.beginPath(); g.arc(-10, -40, 120, -2.4, -2.0); g.stroke(); g.restore();
+  const HC = mix(HAIR, '#e9e6df', o.gray || 0), HH = mix(HAIR_HI, '#ffffff', o.gray || 0);
+  hairP(); g.fillStyle = HC; g.fill();
+  g.save(); hairP(); g.clip(); g.strokeStyle = rgba(HH, 0.9); g.lineWidth = 10; g.beginPath(); g.arc(-10, -40, 140, -2.6, -1.9); g.stroke(); g.lineWidth = 5; g.beginPath(); g.arc(-10, -40, 120, -2.4, -2.0); g.stroke(); g.restore();
   hairP(); inkStroke(g, 5);
   // tufos no topo
-  for (const [tx, ty, a] of [[-30, -186, -0.5], [20, -192, 0.3], [60, -176, 0.9]]) { g.beginPath(); g.moveTo(tx - 14, ty + 10); g.quadraticCurveTo(tx + 2, ty - 26, tx + 26 * Math.cos(a), ty - 30); g.quadraticCurveTo(tx + 6, ty - 4, tx + 16, ty + 10); g.closePath(); g.fillStyle = HAIR; g.fill(); inkStroke(g, 4); }
+  for (const [tx, ty, a] of [[-30, -186, -0.5], [20, -192, 0.3], [60, -176, 0.9]]) { g.beginPath(); g.moveTo(tx - 14, ty + 10); g.quadraticCurveTo(tx + 2, ty - 26, tx + 26 * Math.cos(a), ty - 30); g.quadraticCurveTo(tx + 6, ty - 4, tx + 16, ty + 10); g.closePath(); g.fillStyle = HC; g.fill(); inkStroke(g, 4); }
+  // ---- rugas, barba longa e óculos (opcionais, para o adulto envelhecendo)
+  const wr = o.wrinkles || 0;
+  if (wr > 0) { g.strokeStyle = rgba(INK, 0.35 * wr); g.lineWidth = 3; for (let k = 0; k < 3; k++) { g.beginPath(); g.moveTo(-50 + k * 6, -100 + k * 14); g.quadraticCurveTo(0, -108 + k * 14, 50 - k * 6, -100 + k * 14); g.stroke(); } for (const sx of [-1, 1]) for (let k = 0; k < 3; k++) { g.beginPath(); g.moveTo(sx * (ex + rx + 6), EY - 4 + k * 9); g.lineTo(sx * (ex + rx + 22), EY - 10 + k * 12); g.stroke(); } g.beginPath(); g.moveTo(-30, NY + 20); g.quadraticCurveTo(-46, NY + 50, -40, MY + 10); g.moveTo(30, NY + 20); g.quadraticCurveTo(46, NY + 50, 40, MY + 10); g.stroke(); }
+  const bd = o.beard || 0;
+  if (bd > 0) {
+    const len = BY + 20 + bd * 520;
+    const beardP = () => { g.beginPath(); g.moveTo(-W + 6, 0); g.bezierCurveTo(-W + 4, 60, -CW - 40, BY - 10, -CW - 30 - 40 * bd, BY + 40); g.quadraticCurveTo(-60 - 60 * bd, len * 0.9, 0, len); g.quadraticCurveTo(60 + 60 * bd, len * 0.9, CW + 30 + 40 * bd, BY + 40); g.bezierCurveTo(CW + 40, BY - 10, W - 4, 60, W - 6, 0); g.quadraticCurveTo(W - 20, 70, CW + 20, JY - 10); g.quadraticCurveTo(0, MY - 10, -CW - 20, JY - 10); g.quadraticCurveTo(-W + 20, 70, -W + 6, 0); g.closePath(); };
+    g.save(); g.globalAlpha = clamp(bd * 4); beardP(); g.fillStyle = HC; g.fill(); g.save(); beardP(); g.clip(); g.strokeStyle = rgba(HH, 0.6); g.lineWidth = 3; for (let k = 0; k < 14; k++) { g.beginPath(); const xx = -90 + k * 14; g.moveTo(xx, BY - 20); g.quadraticCurveTo(xx * 0.8 + 10 * Math.sin(k), (BY + len) / 2, xx * 0.3, len - 20); g.stroke(); } g.restore(); beardP(); inkStroke(g, 4.5);
+    g.beginPath(); g.moveTo(-58, MY - 6); g.quadraticCurveTo(-30, MY - 26, 0, MY - 14); g.quadraticCurveTo(30, MY - 26, 58, MY - 6); g.quadraticCurveTo(30, MY + 4, 0, MY - 4); g.quadraticCurveTo(-30, MY + 4, -58, MY - 6); g.fillStyle = HC; g.fill(); inkStroke(g, 4); g.restore();
+  }
+  if (o.glasses) { for (const sx of [-1, 1]) { g.beginPath(); g.arc(sx * ex, EY + 2, rx + 12, 0, 7); g.strokeStyle = '#3a2a24'; g.lineWidth = 6; g.stroke(); g.fillStyle = 'rgba(200,230,255,0.12)'; g.fill(); } g.beginPath(); g.moveTo(-ex + rx + 12, EY); g.quadraticCurveTo(0, EY - 10, ex - rx - 12, EY); g.stroke(); }
   // ---- lágrima
   const tr = o.tear || 0;
   if (tr > 0) {

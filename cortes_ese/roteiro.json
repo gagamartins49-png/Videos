@@ -1,0 +1,87 @@
+{
+  "titulo": "E se a fuga de hidroavião do GTA 6 fosse na vida real?",
+  "projeto": "PROJETO E SE?",
+  "experimento": "016",
+  "arquivo": "ese_gta6_fuga_hidroaviao",
+  "largura": 1080,
+  "altura": 1920,
+  "fps": 30,
+  "duracao": 62,
+  "voz": "pt-BR-AntonioNeural",
+  "velocidade": "+2%",
+  "tom": "+0Hz",
+  "narracao_natural": true,
+  "frases": [
+    {
+      "inicio": 0.0,
+      "fim": 3.8,
+      "texto": "E se a fuga de hidroavião do GTA 6 fosse na vida real?"
+    },
+    {
+      "inicio": 4.2,
+      "fim": 8.4,
+      "texto": "No jogo, o Jason corre pro píer, pula no avião e decola em segundos."
+    },
+    {
+      "inicio": 8.7,
+      "fim": 12.8,
+      "texto": "Na vida real, primeiro: você precisaria de licença de piloto. E de habilitação pra hidroavião."
+    },
+    {
+      "inicio": 13.1,
+      "fim": 17.9,
+      "texto": "Pra decolar, um avião desses corre uns quinhentos metros na água, a quase cem por hora."
+    },
+    {
+      "inicio": 18.2,
+      "fim": 22.6,
+      "texto": "E os flutuadores precisam subir no degrau, deslizar quase fora d'água, senão ele não sai."
+    },
+    {
+      "inicio": 22.9,
+      "fim": 27.3,
+      "texto": "Agora imagina isso num mangue: água rasa, raiz, galho... um toque e acabou a fuga."
+    },
+    {
+      "inicio": 27.7,
+      "fim": 31.5,
+      "texto": "Mas digamos que deu certo. Você tá no ar."
+    },
+    {
+      "inicio": 31.9,
+      "fim": 36.9,
+      "texto": "Aí vem o detalhe que o jogo esquece: hidroavião só pousa na água."
+    },
+    {
+      "inicio": 37.3,
+      "fim": 41.9,
+      "texto": "A polícia nem precisa te seguir. É só esperar no lago, no rio ou na marina mais perto."
+    },
+    {
+      "inicio": 42.3,
+      "fim": 46.7,
+      "texto": "E com esse barulho de motor no céu aberto, todo mundo na região viu você passar."
+    },
+    {
+      "inicio": 47.1,
+      "fim": 51.6,
+      "texto": "Resumindo: no jogo, é a fuga mais estilosa. Na vida real, é a mais fácil de achar."
+    },
+    {
+      "inicio": 51.9,
+      "fim": 55.2,
+      "texto": "Mas que decolagem bonita, né?"
+    },
+    {
+      "inicio": 55.5,
+      "fim": 59.3,
+      "texto": "Qual fuga do GTA 6 você quer ver na vida real? Comenta e se inscreve."
+    },
+    {
+      "inicio": 59.6,
+      "fim": 62.0,
+      "texto": "E se fosse você no controle?",
+      "ancorarFim": true
+    }
+  ]
+}

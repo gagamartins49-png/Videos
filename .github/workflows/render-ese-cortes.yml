@@ -1,0 +1,71 @@
+name: Renderizar "E se… no GTA 6" (cortes transformados com narração e animação 2D)
+
+# Piloto: "E se a fuga de hidroavião do GTA 6 fosse na vida real?" (Projeto E se? #016).
+# Usa só trechos curtos do vídeo anexado à Release "fonte-cortes", intercalados com
+# animações 2D próprias, narração do começo ao fim e trilha própria.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'cortes_ese/**'
+      - '.github/workflows/render-ese-cortes.yml'
+
+concurrency:
+  group: render-ese-cortes-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Instalar FFmpeg, Python e Playwright
+        run: |
+          (sudo timeout 120 apt-get update -qq && sudo timeout 180 apt-get install -y -qq ffmpeg) || true
+          if ! command -v ffmpeg >/dev/null; then
+            curl -fsSL --retry 5 -o /tmp/ffmpeg.tar.xz https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz
+            sudo mkdir -p /opt/ffmpeg && sudo tar -xJf /tmp/ffmpeg.tar.xz -C /opt/ffmpeg --strip-components=1
+            sudo ln -sf /opt/ffmpeg/bin/ffmpeg /usr/local/bin/ffmpeg && sudo ln -sf /opt/ffmpeg/bin/ffprobe /usr/local/bin/ffprobe
+          fi
+          pip install edge-tts numpy scipy
+          cd cortes_ese && npm ci --no-audit --no-fund && (timeout 600 npx playwright install --with-deps chromium || npx playwright install chromium)
+      - name: Baixar o vídeo-fonte e extrair só os trechos usados
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p /tmp/fonte && gh release download fonte-cortes -R "$GITHUB_REPOSITORY" -D /tmp/fonte
+          f=$(ls -S /tmp/fonte/* | head -1)
+          python cortes_ese/extrair_quadros.py "$f" cortes_ese/build
+          rm -rf /tmp/fonte
+      - name: Trilha (narração + música + som do jogo baixinho)
+        run: |
+          python cortes_ese/gerar_audio.py --quadros cortes_ese/build
+          cat cortes_ese/build/narracao_tempos.json
+      - name: Renderizar quadros -> FFmpeg
+        run: node cortes_ese/render.mjs --out cortes_ese/build/video.mp4
+      - name: Montar e publicar
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          A=ese_gta6_fuga_hidroaviao
+          for pair in "audio_short.wav:${A}.mp4" "audio_short_sem_narracao.wav:${A}_sem_narracao.mp4"; do
+            a="${pair%%:*}"; o="${pair##*:}"
+            ffmpeg -y -v error -i cortes_ese/build/video.mp4 -i "cortes_ese/build/$a" -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 192k -ar 44100 -t 62 -movflags +faststart "$o"
+            ffprobe -v error -show_entries format=duration,size -of compact "$o"
+          done
+          gh release delete ese-gta6-hidroaviao --yes --cleanup-tag -R "$GITHUB_REPOSITORY" || true
+          gh release create ese-gta6-hidroaviao ${A}.mp4 ${A}_sem_narracao.mp4 -R "$GITHUB_REPOSITORY" --target "${GITHUB_SHA}" \
+            --title "Projeto E se? #016 — E se a fuga de hidroavião do GTA 6 fosse na vida real?" \
+            --notes "Trechos curtos do jogo (Grand Theft Auto VI, Rockstar Games) intercalados com roteiro, narração, animações e análise próprios."

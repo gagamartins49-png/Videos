@@ -1,0 +1,67 @@
+name: Cortes verticais (9:16) a partir de um vídeo enviado
+
+# Fonte: um arquivo de vídeo enviado para a pasta cortes/ (Add file → Upload files no site do
+# GitHub) OU cortes/fonte.json com {"url": "<link direto de arquivo>", "n": 10}.
+# Links do YouTube não são baixados. Os cortes saem na Release "cortes-gta".
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'cortes/**'
+      - '.github/workflows/cortes-video.yml'
+
+concurrency:
+  group: cortes-video-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  cortes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Instalar FFmpeg
+        run: |
+          (sudo timeout 120 apt-get update -qq && sudo timeout 180 apt-get install -y -qq ffmpeg fonts-dejavu-core) || true
+          if ! command -v ffmpeg >/dev/null; then
+            curl -fsSL --retry 5 -o /tmp/ffmpeg.tar.xz https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz
+            sudo mkdir -p /opt/ffmpeg && sudo tar -xJf /tmp/ffmpeg.tar.xz -C /opt/ffmpeg --strip-components=1
+            sudo ln -sf /opt/ffmpeg/bin/ffmpeg /usr/local/bin/ffmpeg && sudo ln -sf /opt/ffmpeg/bin/ffprobe /usr/local/bin/ffprobe
+          fi
+      - name: Encontrar o vídeo-fonte
+        id: fonte
+        run: |
+          f=$(ls -S cortes/*.mp4 cortes/*.mov cortes/*.mkv cortes/*.webm 2>/dev/null | head -1 || true)
+          if [ -z "$f" ] && [ -f cortes/fonte.json ]; then
+            url=$(python -c "import json;print(json.load(open('cortes/fonte.json')).get('url',''))")
+            case "$url" in *youtube.com*|*youtu.be*) echo "::error::Links do YouTube não são baixados. Envie o arquivo para a pasta cortes/."; exit 1;; esac
+            if [ -n "$url" ]; then
+              case "$url" in *drive.google.com*) id=$(echo "$url" | sed -E 's#.*/d/([^/]+).*#\1#; s#.*id=([^&]+).*#\1#'); url="https://drive.usercontent.google.com/download?id=${id}&export=download&confirm=t";; esac
+              curl -fL --retry 3 -o /tmp/fonte.mp4 "$url" && f=/tmp/fonte.mp4
+            fi
+          fi
+          if [ -z "$f" ]; then echo "Nenhum vídeo-fonte em cortes/ ainda."; echo "ok=0" >> "$GITHUB_OUTPUT"; exit 0; fi
+          ffprobe -v error -show_entries format=duration,size:stream=codec_name,width,height -of compact "$f"
+          echo "arquivo=$f" >> "$GITHUB_OUTPUT"; echo "ok=1" >> "$GITHUB_OUTPUT"
+          n=$(python -c "import json,os;print(json.load(open('cortes/fonte.json')).get('n',10) if os.path.exists('cortes/fonte.json') else 10)"); echo "n=$n" >> "$GITHUB_OUTPUT"
+      - name: Gerar cortes
+        if: steps.fonte.outputs.ok == '1'
+        run: python cortes/gerar_cortes.py --fonte "${{ steps.fonte.outputs.arquivo }}" --n ${{ steps.fonte.outputs.n }} --out cortes/build && cat cortes/build/cortes.json
+      - name: Publicar na Release "cortes-gta"
+        if: steps.fonte.outputs.ok == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete cortes-gta --yes --cleanup-tag -R "$GITHUB_REPOSITORY" || true
+          gh release create cortes-gta cortes/build/corte_*.mp4 cortes/build/cortes.json -R "$GITHUB_REPOSITORY" \
+            --target "${GITHUB_SHA}" --title "Cortes verticais (9:16)" --notes "Cortes gerados automaticamente a partir do vídeo enviado em cortes/ (commit ${GITHUB_SHA})."

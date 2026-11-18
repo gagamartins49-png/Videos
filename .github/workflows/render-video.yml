@@ -34,6 +34,8 @@ on:
       - 'cortes/**'
       - '.github/workflows/cortes-video.yml'
       - '.github/workflows/cortes-narrados.yml'
+      - 'cortes_ese/**'
+      - '.github/workflows/render-ese-cortes.yml'
 
 concurrency:
   group: render-video-${{ github.ref }}

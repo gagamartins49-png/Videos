@@ -1,11 +1,13 @@
 name: Cortes verticais (9:16) a partir de um vídeo enviado
 
 # Fonte: um arquivo de vídeo enviado para a pasta cortes/ (Add file → Upload files no site do
-# GitHub) OU cortes/fonte.json com {"url": "<link direto de arquivo>", "n": 10}.
+# GitHub), OU anexado a uma Release com a tag "fonte-cortes" (vídeos grandes, até 2 GB), OU cortes/fonte.json com {"url": "<link direto de arquivo>", "n": 10}.
 # Links do YouTube não são baixados. Os cortes saem na Release "cortes-gta".
 
 on:
   workflow_dispatch:
+  release:
+    types: [published]
   push:
     branches: [main]
     paths:
@@ -21,6 +23,7 @@ permissions:
 
 jobs:
   cortes:
+    if: github.event_name != 'release' || github.event.release.tag_name == 'fonte-cortes'
     runs-on: ubuntu-latest
     timeout-minutes: 90
     steps:
@@ -40,8 +43,15 @@ jobs:
           fi
       - name: Encontrar o vídeo-fonte
         id: fonte
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           f=$(ls -S cortes/*.mp4 cortes/*.mov cortes/*.mkv cortes/*.webm 2>/dev/null | head -1 || true)
+          # vídeo grande: anexado a uma Release com a tag "fonte-cortes" (até 2 GB pelo site)
+          if [ -z "$f" ] && gh release view fonte-cortes -R "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            mkdir -p /tmp/fonte && gh release download fonte-cortes -R "$GITHUB_REPOSITORY" -D /tmp/fonte -p '*.mp4' -p '*.mov' -p '*.mkv' -p '*.webm' -p '*.MP4' -p '*.MOV' || true
+            f=$(ls -S /tmp/fonte/* 2>/dev/null | head -1 || true)
+          fi
           if [ -z "$f" ] && [ -f cortes/fonte.json ]; then
             url=$(python -c "import json;print(json.load(open('cortes/fonte.json')).get('url',''))")
             case "$url" in *youtube.com*|*youtu.be*) echo "::error::Links do YouTube não são baixados. Envie o arquivo para a pasta cortes/."; exit 1;; esac

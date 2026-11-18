@@ -1,0 +1,92 @@
+{
+  "titulo": "E se você pudesse voltar no tempo?",
+  "projeto": "PROJETO E SE?",
+  "experimento": "012",
+  "arquivo": "short_tempo_voltar_no_tempo",
+  "largura": 1080,
+  "altura": 1920,
+  "fps": 30,
+  "duracao": 62,
+  "voz": "pt-BR-AntonioNeural",
+  "velocidade": "-8%",
+  "tom": "-2Hz",
+  "narracao_natural": true,
+  "frases": [
+    {
+      "inicio": 0.0,
+      "fim": 4.3,
+      "texto": "E se você pudesse voltar no tempo... só por um dia?"
+    },
+    {
+      "inicio": 4.7,
+      "fim": 9.8,
+      "texto": "Hoje você é adulto. Trabalho, conta pra pagar, sono atrasado..."
+    },
+    {
+      "inicio": 10.1,
+      "fim": 13.2,
+      "texto": "E tá esperando o lançamento de um jogo."
+    },
+    {
+      "inicio": 13.5,
+      "fim": 16.6,
+      "texto": "Mas esse jogo... não é só um jogo."
+    },
+    {
+      "inicio": 17.0,
+      "fim": 19.6,
+      "texto": "Volta comigo. Dois mil e treze."
+    },
+    {
+      "inicio": 20.0,
+      "fim": 24.2,
+      "texto": "Seus pais chegam com um presente, embrulhado meio torto."
+    },
+    {
+      "inicio": 24.5,
+      "fim": 27.3,
+      "texto": "Você rasga o papel... e é ele."
+    },
+    {
+      "inicio": 27.7,
+      "fim": 30.6,
+      "texto": "Naquela noite, você quase não dormiu."
+    },
+    {
+      "inicio": 31.0,
+      "fim": 36.2,
+      "texto": "Ali dentro cabia um mundo inteiro. A cidade, a praia, o pôr do sol."
+    },
+    {
+      "inicio": 36.5,
+      "fim": 41.9,
+      "texto": "Foi ali que você fez amigos, inventou histórias e riu até de madrugada."
+    },
+    {
+      "inicio": 42.4,
+      "fim": 46.3,
+      "texto": "Aí você cresceu. E a vida foi ficando mais séria."
+    },
+    {
+      "inicio": 46.8,
+      "fim": 51.2,
+      "texto": "Agora, mais de dez anos depois, você aperta o play..."
+    },
+    {
+      "inicio": 51.5,
+      "fim": 55.0,
+      "texto": "e por um segundo, você tem dez anos de novo."
+    },
+    {
+      "inicio": 55.5,
+      "fim": 59.0,
+      "texto": "Qual jogo te fez sentir isso? Comenta aqui."
+    },
+    {
+      "inicio": 59.3,
+      "fim": 62.0,
+      "texto": "Porque às vezes... dá pra voltar.",
+      "ancorarFim": true
+    }
+  ]
+}

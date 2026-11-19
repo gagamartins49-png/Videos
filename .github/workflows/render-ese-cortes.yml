@@ -20,9 +20,24 @@ permissions:
   contents: write
 
 jobs:
+  lista:
+    runs-on: ubuntu-latest
+    outputs:
+      eps: ${{ steps.l.outputs.eps }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: l
+        run: echo "eps=$(cat cortes_ese/fila.json | tr -d '\n ')" >> "$GITHUB_OUTPUT"
+
   render:
+    needs: lista
+    name: Episódio ${{ matrix.v }}
     runs-on: ubuntu-latest
     timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        v: ${{ fromJSON(needs.lista.outputs.eps) }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -47,25 +62,27 @@ jobs:
         run: |
           mkdir -p /tmp/fonte && gh release download fonte-cortes -R "$GITHUB_REPOSITORY" -D /tmp/fonte
           f=$(ls -S /tmp/fonte/* | head -1)
-          python cortes_ese/extrair_quadros.py "$f" cortes_ese/build
+          python cortes_ese/extrair_quadros.py ${{ matrix.v }} "$f" cortes_ese/build
           rm -rf /tmp/fonte
       - name: Trilha (narração + música + som do jogo baixinho)
         run: |
-          python cortes_ese/gerar_audio.py --quadros cortes_ese/build
-          cat cortes_ese/build/narracao_tempos.json
+          python cortes_ese/gerar_audio.py --v ${{ matrix.v }} --quadros cortes_ese/build
+          cat cortes_ese/build/${{ matrix.v }}/narracao_tempos.json
       - name: Renderizar quadros -> FFmpeg
-        run: node cortes_ese/render.mjs --out cortes_ese/build/video.mp4
+        run: node cortes_ese/render.mjs --v ${{ matrix.v }} --out cortes_ese/build/${{ matrix.v }}/video.mp4
       - name: Montar e publicar
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          A=ese_gta6_fuga_hidroaviao
+          V=${{ matrix.v }}
+          A=$(python -c "import json;print(json.load(open('cortes_ese/roteiro_$V.json'))['arquivo'])")
+          T=$(python -c "import json;c=json.load(open('cortes_ese/roteiro_$V.json'));print(f\"Projeto E se? #{c['experimento']} — {c['titulo']}\")")
           for pair in "audio_short.wav:${A}.mp4" "audio_short_sem_narracao.wav:${A}_sem_narracao.mp4"; do
             a="${pair%%:*}"; o="${pair##*:}"
-            ffmpeg -y -v error -i cortes_ese/build/video.mp4 -i "cortes_ese/build/$a" -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 192k -ar 44100 -t 62 -movflags +faststart "$o"
+            ffmpeg -y -v error -i cortes_ese/build/$V/video.mp4 -i "cortes_ese/build/$V/$a" -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 192k -ar 44100 -t 62 -movflags +faststart "$o"
             ffprobe -v error -show_entries format=duration,size -of compact "$o"
           done
-          gh release delete ese-gta6-hidroaviao --yes --cleanup-tag -R "$GITHUB_REPOSITORY" || true
-          gh release create ese-gta6-hidroaviao ${A}.mp4 ${A}_sem_narracao.mp4 -R "$GITHUB_REPOSITORY" --target "${GITHUB_SHA}" \
-            --title "Projeto E se? #016 — E se a fuga de hidroavião do GTA 6 fosse na vida real?" \
+          TAG=ese-gta6-$V
+          gh release delete $TAG --yes --cleanup-tag -R "$GITHUB_REPOSITORY" || true
+          gh release create $TAG ${A}.mp4 ${A}_sem_narracao.mp4 -R "$GITHUB_REPOSITORY" --target "${GITHUB_SHA}" --title "$T" \
             --notes "Trechos curtos do jogo (Grand Theft Auto VI, Rockstar Games) intercalados com roteiro, narração, animações e análise próprios."

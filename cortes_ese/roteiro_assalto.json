@@ -1,0 +1,87 @@
+{
+  "titulo": "E se o primeiro assalto da Lucia no GTA 6 fosse na vida real?",
+  "projeto": "PROJETO E SE?",
+  "experimento": "017",
+  "arquivo": "ese_gta6_assalto_lucia",
+  "largura": 1080,
+  "altura": 1920,
+  "fps": 30,
+  "duracao": 62,
+  "voz": "pt-BR-AntonioNeural",
+  "velocidade": "+2%",
+  "tom": "+0Hz",
+  "narracao_natural": true,
+  "frases": [
+    {
+      "inicio": 0.0,
+      "fim": 3.8,
+      "texto": "E se o primeiro assalto da Lucia no GTA 6 fosse na vida real?"
+    },
+    {
+      "inicio": 4.2,
+      "fim": 8.4,
+      "texto": "No jogo, capuz e óculos escuros já resolvem o disfarce."
+    },
+    {
+      "inicio": 8.7,
+      "fim": 13.0,
+      "texto": "Na vida real, tem câmera em todo canto. E sua cara em todas."
+    },
+    {
+      "inicio": 13.3,
+      "fim": 17.6,
+      "texto": "Lá dentro, tudo sai do controle. Gente gritando, segurança reagindo."
+    },
+    {
+      "inicio": 17.9,
+      "fim": 22.4,
+      "texto": "Enquanto isso, alguém já apertou o botão de pânico. Em silêncio."
+    },
+    {
+      "inicio": 22.7,
+      "fim": 27.0,
+      "texto": "No jogo, ela foge correndo e despista a polícia rapidinho."
+    },
+    {
+      "inicio": 27.3,
+      "fim": 31.8,
+      "texto": "Na vida real, câmera de rua e reconhecimento facial te seguem."
+    },
+    {
+      "inicio": 32.1,
+      "fim": 36.6,
+      "texto": "Fugir de carro? Placa anotada na hora. E uma batida acaba com tudo."
+    },
+    {
+      "inicio": 36.9,
+      "fim": 41.0,
+      "texto": "Foi exatamente o que aconteceu com ela."
+    },
+    {
+      "inicio": 41.3,
+      "fim": 46.2,
+      "texto": "A parte que o jogo pula: roubo com arma pode passar de dez anos de prisão."
+    },
+    {
+      "inicio": 46.5,
+      "fim": 51.0,
+      "texto": "Por algumas notas, anos da vida atrás das grades."
+    },
+    {
+      "inicio": 51.3,
+      "fim": 55.2,
+      "texto": "No GTA, você reinicia a missão. Na vida, não tem checkpoint."
+    },
+    {
+      "inicio": 55.5,
+      "fim": 59.3,
+      "texto": "Qual missão do GTA 6 você quer ver na vida real? Comenta!"
+    },
+    {
+      "inicio": 59.6,
+      "fim": 62.0,
+      "texto": "E se fosse você?",
+      "ancorarFim": true
+    }
+  ]
+}

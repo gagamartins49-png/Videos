@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Extrai do vídeo-fonte SÓ os quadros dos trechos curtos usados no piloto (1280x720, 30 fps)
+"""Uso: python cortes_ese/extrair_quadros.py <episodio> <video-fonte> cortes_ese/build
+Extrai do vídeo-fonte SÓ os quadros dos trechos curtos usados no piloto (1280x720, 30 fps)
 e o áudio desses trechos (para ficar baixinho por baixo da narração)."""
 import json, subprocess, sys
 from pathlib import Path
-src, out = sys.argv[1], Path(sys.argv[2])
-ev = json.loads(subprocess.check_output(["node", str(Path(__file__).parent / "eventos.mjs")]))
+v, src, out = sys.argv[1], sys.argv[2], Path(sys.argv[3]) / sys.argv[1]
+ev = json.loads(subprocess.check_output(["node", str(Path(__file__).parent / "eventos.mjs"), v]))
 (out / "quadros").mkdir(parents=True, exist_ok=True); (out / "audio_jogo").mkdir(parents=True, exist_ok=True)
 for s in ev["seg"]:
     if s["tipo"] != "jogo":

@@ -22,11 +22,11 @@
 <div class="row"><button id="play">▶ Play</button><input id="seek" type="range" min="0" max="62" step="0.1" value="0" aria-label="Tempo"></div>
 <script type="module">
 import { createShort } from './js/short.js';
-const CAPTURE = new URLSearchParams(location.search).has('capture');
+const Q = new URLSearchParams(location.search), CAPTURE = Q.has('capture'), V = Q.get('v') || 'hidroaviao';
 if (CAPTURE) document.body.classList.add('capture');
-const cfg = await (await fetch('roteiro.json')).json();
+const cfg = await (await fetch(`roteiro_${V}.json`)).json();
 try { await Promise.race([Promise.all(['400 100px "Anton"', '700 40px "Caveat"', '800 40px "Nunito"', '700 30px "Roboto Mono"'].map((f) => document.fonts.load(f))), new Promise((r) => setTimeout(r, 8000))]); } catch (e) { /* fallback */ }
-const app = await createShort({ cfg });
+const app = await createShort({ cfg, v: V });
 const view = document.getElementById('view'), vctx = view.getContext('2d');
 const show = async (t) => { await app.renderFrame(t); vctx.drawImage(app.canvas, 0, 0); };
 await show(0);

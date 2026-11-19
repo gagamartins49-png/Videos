@@ -24,14 +24,24 @@ env:
   PARTES: 5
 
 jobs:
+  lista:
+    runs-on: ubuntu-latest
+    outputs:
+      eps: ${{ steps.l.outputs.eps }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: l
+        run: echo "eps=$(cat shorts_gta2d/fila.json | tr -d '\n ')" >> "$GITHUB_OUTPUT"
+
   audio:
+    needs: lista
     name: Trilha (${{ matrix.v }})
     runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
-        v: [adiado, dentro, primeiro]
+        v: ${{ fromJSON(needs.lista.outputs.eps) }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -69,13 +79,14 @@ jobs:
           retention-days: 3
 
   render:
+    needs: lista
     name: Render ${{ matrix.v }} (parte ${{ matrix.parte }})
     runs-on: ubuntu-latest
     timeout-minutes: 90
     strategy:
       fail-fast: false
       matrix:
-        v: [adiado, dentro, primeiro]
+        v: ${{ fromJSON(needs.lista.outputs.eps) }}
         parte: [0, 1, 2, 3, 4]
     steps:
       - uses: actions/checkout@v4
@@ -110,26 +121,14 @@ jobs:
 
   montar:
     name: Montar e publicar (${{ matrix.v }})
-    needs: [audio, render]
+    needs: [lista, audio, render]
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - v: adiado
-            arq: short_gta2d_adiado_de_novo
-            tag: short-gta2d-adiado
-            titulo: "Projeto E se? #013 — E se o GTA 6 fosse adiado de novo? (Short 9:16, animação 2D)"
-          - v: dentro
-            arq: short_gta2d_acordar_dentro_do_jogo
-            tag: short-gta2d-dentro
-            titulo: "Projeto E se? #014 — E se você acordasse dentro do GTA 6? (Short 9:16, animação 2D)"
-          - v: primeiro
-            arq: short_gta2d_primeiro_do_mundo
-            tag: short-gta2d-primeiro
-            titulo: "Projeto E se? #015 — E se você fosse o primeiro do mundo a jogar GTA 6? (Short 9:16, animação 2D)"
+        v: ${{ fromJSON(needs.lista.outputs.eps) }}
     steps:
       - name: Instalar FFmpeg
         run: |
@@ -142,6 +141,11 @@ jobs:
             sudo mkdir -p /opt/ffmpeg && sudo tar -xJf /tmp/ffmpeg.tar.xz -C /opt/ffmpeg --strip-components=1
             sudo ln -sf /opt/ffmpeg/bin/ffmpeg /usr/local/bin/ffmpeg && sudo ln -sf /opt/ffmpeg/bin/ffprobe /usr/local/bin/ffprobe
           fi
+      - uses: actions/checkout@v4
+      - name: Dados do vídeo
+        id: d
+        run: |
+          python3 -c "import json;c=json.load(open('shorts_gta2d/roteiro_${{ matrix.v }}.json'));print('arq='+c['arquivo']);print('titulo=Projeto E se? #'+c['experimento']+' — '+c['titulo']+' (Short 9:16, animação 2D)')" >> "$GITHUB_OUTPUT"
       - uses: actions/download-artifact@v4
         with:
           pattern: parte-${{ matrix.v }}-*
@@ -157,7 +161,7 @@ jobs:
           cat build/lista.txt
           test "$(wc -l < build/lista.txt)" = "${{ env.PARTES }}"
           ffmpeg -y -v error -f concat -safe 0 -i build/lista.txt -c copy build/video_mudo.mp4
-          for pair in "audio_short.wav:${{ matrix.arq }}.mp4" "audio_short_sem_narracao.wav:${{ matrix.arq }}_sem_narracao.mp4"; do
+          for pair in "audio_short.wav:${{ steps.d.outputs.arq }}.mp4" "audio_short_sem_narracao.wav:${{ steps.d.outputs.arq }}_sem_narracao.mp4"; do
             a="${pair%%:*}"; o="${pair##*:}"
             ffmpeg -y -v error -i build/video_mudo.mp4 -i "build/audio/$a" -map 0:v:0 -map 1:a:0 -c:v copy \
               -c:a aac -b:a 192k -ar 44100 -t 62 -movflags +faststart "$o"
@@ -167,8 +171,8 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release delete ${{ matrix.tag }} --yes --cleanup-tag -R "$GITHUB_REPOSITORY" || true
-          gh release create ${{ matrix.tag }} ${{ matrix.arq }}.mp4 ${{ matrix.arq }}_sem_narracao.mp4 -R "$GITHUB_REPOSITORY" \
+          gh release delete short-gta2d-${{ matrix.v }} --yes --cleanup-tag -R "$GITHUB_REPOSITORY" || true
+          gh release create short-gta2d-${{ matrix.v }} ${{ steps.d.outputs.arq }}.mp4 ${{ steps.d.outputs.arq }}_sem_narracao.mp4 -R "$GITHUB_REPOSITORY" \
             --target "${GITHUB_SHA}" \
-            --title "${{ matrix.titulo }}" \
-            --notes "Renderizado automaticamente a partir do commit ${GITHUB_SHA}. ${{ matrix.arq }}.mp4 = com narração; _sem_narracao = só música e efeitos. Arte 100% própria (sem logos ou artes oficiais de jogos)."
+            --title "${{ steps.d.outputs.titulo }}" \
+            --notes "Renderizado automaticamente a partir do commit ${GITHUB_SHA}. ${{ steps.d.outputs.arq }}.mp4 = com narração; _sem_narracao = só música e efeitos. Arte 100% própria (sem logos ou artes oficiais de jogos)."

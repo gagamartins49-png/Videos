@@ -1,0 +1,87 @@
+{
+  "titulo": "E se um jacaré entrasse na sua loja (igual no GTA 6)?",
+  "experimento": "018",
+  "arquivo": "short_gta2d_jacare_na_loja",
+  "projeto": "PROJETO E SE?",
+  "largura": 1080,
+  "altura": 1920,
+  "fps": 30,
+  "duracao": 62,
+  "voz": "pt-BR-AntonioNeural",
+  "velocidade": "+2%",
+  "tom": "-1Hz",
+  "narracao_natural": true,
+  "frases": [
+    {
+      "inicio": 0.0,
+      "fim": 3.9,
+      "texto": "E se um jacaré entrasse na loja onde você trabalha... igual no trailer do GTA 6?"
+    },
+    {
+      "inicio": 4.3,
+      "fim": 8.4,
+      "texto": "Madrugada na Flórida. Você no caixa, tudo calmo."
+    },
+    {
+      "inicio": 8.7,
+      "fim": 12.8,
+      "texto": "A porta automática abre... e não tem ninguém. Pelo menos, ninguém em pé."
+    },
+    {
+      "inicio": 13.1,
+      "fim": 17.4,
+      "texto": "Um jacaré de dois metros entra, como se fosse cliente."
+    },
+    {
+      "inicio": 17.7,
+      "fim": 22.0,
+      "texto": "E isso nem é tão absurdo: a Flórida tem mais de um milhão de jacarés."
+    },
+    {
+      "inicio": 22.3,
+      "fim": 26.6,
+      "texto": "Regra número um: não chega perto. O bote é rapidíssimo."
+    },
+    {
+      "inicio": 26.9,
+      "fim": 31.3,
+      "texto": "Correr em zigue-zague? Mito. Corre reto, pra longe."
+    },
+    {
+      "inicio": 31.6,
+      "fim": 36.0,
+      "texto": "Ele vai direto pros salgadinhos. Pelo menos tem bom gosto."
+    },
+    {
+      "inicio": 36.3,
+      "fim": 40.6,
+      "texto": "Você sobe no balcão e liga pro controle de animais."
+    },
+    {
+      "inicio": 40.9,
+      "fim": 45.4,
+      "texto": "Chega o especialista, com uma vara de laço e muita calma."
+    },
+    {
+      "inicio": 45.7,
+      "fim": 50.0,
+      "texto": "Fita no focinho... e o cliente mais estranho da noite vai embora."
+    },
+    {
+      "inicio": 50.3,
+      "fim": 54.8,
+      "texto": "No GTA 6, isso é só mais uma terça-feira na Flórida."
+    },
+    {
+      "inicio": 55.1,
+      "fim": 59.2,
+      "texto": "Qual cena do trailer você quer ver na vida real? Comenta!"
+    },
+    {
+      "inicio": 59.5,
+      "fim": 62.0,
+      "texto": "E se fosse no seu turno?",
+      "ancorarFim": true
+    }
+  ]
+}

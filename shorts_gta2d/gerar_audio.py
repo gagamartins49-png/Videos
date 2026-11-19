@@ -140,6 +140,7 @@ def sfx(kind, d):
     if kind == "brilho": return chime(2.2)
     if kind == "chuva": return ((bandnoise(n, 1500, 9000) * 0.5 + sos_filter(brown(n), "lowpass", 400, 2) * 0.6) * np.minimum(1, tt / 0.5) * np.minimum(1, (d - tt) / 0.5)).astype(np.float32)
     if kind == "bipe": return tone(880, 0.2)
+    if kind == "buzina": return np.asarray(ga.sfx_horn(0.45, 420), dtype=np.float32)
     if kind == "carimbo":
         boom = sfx_boom(1.0, 80, 40, 600, 1.0); cr = sfx_crack(0.4); boom[: len(cr)] += cr * 0.6
         return normalize(boom, 0.9)

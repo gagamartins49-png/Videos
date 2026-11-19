@@ -1,0 +1,87 @@
+{
+  "titulo": "E se você tivesse que atravessar o mapa do GTA 6 a pé?",
+  "experimento": "019",
+  "arquivo": "short_gta2d_mapa_a_pe",
+  "projeto": "PROJETO E SE?",
+  "largura": 1080,
+  "altura": 1920,
+  "fps": 30,
+  "duracao": 62,
+  "voz": "pt-BR-AntonioNeural",
+  "velocidade": "+2%",
+  "tom": "-1Hz",
+  "narracao_natural": true,
+  "frases": [
+    {
+      "inicio": 0.0,
+      "fim": 3.9,
+      "texto": "E se você tivesse que atravessar o mapa do GTA 6 inteiro... a pé?"
+    },
+    {
+      "inicio": 4.3,
+      "fim": 8.5,
+      "texto": "Sem carro, sem moto, sem helicóptero. Só você e um chinelo."
+    },
+    {
+      "inicio": 8.9,
+      "fim": 13.1,
+      "texto": "Dia um: a cidade. Calor de quarenta graus e todo mundo buzinando."
+    },
+    {
+      "inicio": 13.5,
+      "fim": 17.6,
+      "texto": "Uma pessoa anda uns cinco quilômetros por hora. Oito horas por dia, dá quarenta."
+    },
+    {
+      "inicio": 17.9,
+      "fim": 22.0,
+      "texto": "São mais de cinquenta mil passos. Por dia."
+    },
+    {
+      "inicio": 22.4,
+      "fim": 26.5,
+      "texto": "Dia dois: o pântano. Mosquito, lama... e uns olhos amarelos na água."
+    },
+    {
+      "inicio": 26.9,
+      "fim": 30.7,
+      "texto": "Dica: jacaré não é ponte. Dá a volta."
+    },
+    {
+      "inicio": 31.1,
+      "fim": 35.1,
+      "texto": "Dia três: as pontes até as ilhas. Sol na cara e nenhuma sombra."
+    },
+    {
+      "inicio": 35.5,
+      "fim": 39.9,
+      "texto": "A Flórida real, que inspirou o jogo, tem uns setecentos quilômetros de norte a sul."
+    },
+    {
+      "inicio": 40.3,
+      "fim": 44.5,
+      "texto": "Ou seja: quase três semanas andando. Sem contar as bolhas no pé."
+    },
+    {
+      "inicio": 44.9,
+      "fim": 49.1,
+      "texto": "Aí, no último dia, você chega no fim do mapa, destruído..."
+    },
+    {
+      "inicio": 49.5,
+      "fim": 54.6,
+      "texto": "E vê um carro estacionado ali. Com a chave. O tempo todo."
+    },
+    {
+      "inicio": 55.0,
+      "fim": 59.2,
+      "texto": "Quanto tempo você levaria pra atravessar? Comenta!"
+    },
+    {
+      "inicio": 59.5,
+      "fim": 62.0,
+      "texto": "E se fosse a pé?",
+      "ancorarFim": true
+    }
+  ]
+}

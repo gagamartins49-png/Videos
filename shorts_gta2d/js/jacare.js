@@ -1,5 +1,5 @@
 // ============================================================================
-//  #018 — "E se um jacaré entrasse na loja onde você trabalha… igual no trailer do GTA 6?"
+//  #018 — "E se a Lucia e o Jason estivessem na loja quando o jacaré entrou?" (GTA 6, versão 2D)
 //  100% animação 2D própria (sem trechos do jogo). Humor + curiosidades reais e seguras
 //  sobre jacarés (manter distância, mito do zigue-zague, chamar o controle de animais).
 // ============================================================================
@@ -28,6 +28,14 @@ export function scenes(L) {
   const ink = (g, w = 5) => { g.lineWidth = w; g.strokeStyle = A.INK; g.lineJoin = 'round'; g.lineCap = 'round'; g.stroke(); };
   const gatorL = (g, x, y, sc, t, w) => { g.save(); g.translate(x, y); g.scale(-1, 1); gator(g, 0, 0, sc, t, w); g.restore(); };   // olhando para a esquerda
   const UNIF = '#c8442a';   // camisa do uniforme do caixa
+  // versões 2D (fan art no estilo do canal) da Lucia e do Jason
+  const LU = { age: 0.9, fem: true, skin: '#c98a62', hair: 'coque', hairCol: '#1c1210', brincos: true, shirt: 'hoodie', cloth: '#8a8f9a' };
+  const JA = { age: 1, skin: '#e8b48e', bone: '#2a2e38', hairCol: '#5a3a22', barba: true, shirt: 'teen', cloth: '#e8e4da' };
+  function duo(g, t, lu = {}, ja = {}, { yl = 1080, yj = 1100, s = 1.05, bgT = '#e8ecf2', bgB = '#b8bcc6', after } = {}) {
+    bg(g, bgT, bgB); g.save(); g.globalCompositeOperation = 'screen'; glow(g, 540, 700, 900, '#ffffff', 0.15); g.restore();
+    A.drawFront(g, 300, yl, s, { ...LU, ...lu }); A.drawFront(g, 790, yj, s, { ...JA, ...ja });
+    if (after) after(g);
+  }
   // ---------------- loja de conveniência à noite (genérica, sem marcas)
   function prateleira(g, x, y, w, h, seed) {
     g.fillStyle = '#d8dce4'; g.fillRect(x, y, w, h); g.beginPath(); g.rect(x, y, w, h); ink(g, 4);
@@ -67,8 +75,10 @@ export function scenes(L) {
       tint(g, '#3a3a7a', 0.15);
     },
     caixa(g, t, u) {
-      g.save(); cam(g, 540, 960, 1.0 + 0.05 * u); loja(g, t); balcao(g);
-      caixa(g, 300, 1000, 0.75, t, { tired: 0.8, blink: bump(6.4, 6.45, 6.5, 6.6, t), look: [0.4, 0] });
+      g.save(); cam(g, 540, 960, 1.0 + 0.04 * u); loja(g, t);
+      A.drawFront(g, 330, 1060, 0.95, { ...LU, smile: 0.4, look: [0.5, 0] }); A.drawFront(g, 770, 1080, 0.95, { ...JA, smile: 0.2, tired: 0.5, look: [-0.4, 0] });
+      g.save(); g.translate(770, 1400); g.rotate(0.2); rr(g, -60, -80, 120, 160, 12); g.fillStyle = '#ffd36a'; g.fill(); g.lineWidth = 5; g.strokeStyle = A.INK; g.stroke(); g.restore();
+      balcao(g, 1500);
       g.restore();
     },
     porta(g, t, u) {
@@ -83,7 +93,7 @@ export function scenes(L) {
       gatorL(g, lerp(1400, 420, u), 1460, 1.7, t, t * 1.5);
       g.restore();
     },
-    susto(g, t, u) { faceShot(g, t, { bgTop: '#e8ecf2', bgBot: '#b8bcc6', light: '#ffffff', lightA: 0.2, zoom: 1.1, face: { age: 1, cloth: UNIF, shirt: 'teen', open: 0.9, browUp: 1, wonder: 0.2, look: [0.5, 0.3] } }); },
+    susto(g, t, u) { duo(g, t, { open: 0.9, browUp: 1, wonder: 0.2, look: [0.5, 0.4] }, { open: 0.7, browUp: 1, wonder: 0.2, look: [-0.3, 0.4] }); },
     fato(g, t, u) {
       bg(g, '#5ac0e8', '#2a8ab8');
       // península estilizada (forma própria)
@@ -127,9 +137,9 @@ export function scenes(L) {
       g.restore();
     },
     balcao(g, t, u) {
-      faceShot(g, t, { bgTop: '#e8ecf2', bgBot: '#b8bcc6', light: '#ffffff', lightA: 0.15, zoom: 1.0, face: { age: 1, cloth: UNIF, shirt: 'teen', browUp: 0.8, wonder: 0.3, open: 0.3 * Math.abs(Math.sin(t * 9)) * smooth(37.2, 37.4, t), look: [0.6, 0.6] },
-        after: (g2) => { g2.save(); g2.translate(780, 900); g2.rotate(0.3); rr(g2, -40, -110, 80, 220, 18); g2.fillStyle = '#20222a'; g2.fill(); ink(g2, 5); g2.restore(); g2.beginPath(); g2.ellipse(760, 1000, 46, 60, 0, 0, 7); g2.fillStyle = '#f0c39e'; g2.fill(); ink(g2, 4); } });
-      L.bubble(g, 540, 360, 900, ['Alô? Controle de animais?', 'Tem um cliente… diferente.'], smooth(0.15, 0.25, u), { size: 64 });
+      duo(g, t, { browUp: 0.9, open: 0.4, look: [0.3, 0.7] }, { browUp: 0.6, wonder: 0.2, open: 0.3 * Math.abs(Math.sin(t * 9)) * smooth(37.6, 37.8, t), look: [-0.2, 0.6] }, { yl: 980,
+        after: (g2) => { g2.save(); g2.translate(925, 1085); g2.rotate(0.15); rr(g2, -40, -110, 80, 220, 18); g2.fillStyle = '#20222a'; g2.fill(); ink(g2, 5); g2.restore(); g2.beginPath(); g2.ellipse(945, 1185, 46, 60, 0, 0, 7); g2.fillStyle = '#e8b48e'; g2.fill(); ink(g2, 4); } });
+      L.bubble(g, 640, 380, 860, ['Alô? Controle de animais?', 'Tem um cliente… diferente.'], smooth(0.2, 0.3, u), { size: 60, tx: 160 });
     },
     especialista(g, t, u) {
       g.save(); cam(g, 540, 1180, 1.15); loja(g, t, { portaK: 1 });
@@ -147,13 +157,13 @@ export function scenes(L) {
       g.restore();
     },
     moral(g, t, u) {
-      faceShot(g, t, { bgTop: '#e8ecf2', bgBot: '#b8bcc6', light: '#ffd8a0', lightA: 0.25, zoom: 1.05 + 0.05 * u, face: { age: 1, cloth: UNIF, shirt: 'teen', tired: 0.6, smile: 0.5 * smooth(51, 52, t), look: [0, 0] } });
+      duo(g, t, { smile: 0.8, look: [0.6, 0] }, { smile: 0.9, open: 0.3 * Math.abs(Math.sin(t * 7)), look: [-0.6, 0] }, { bgT: '#ffe0b0', bgB: '#e8a87a' });
       L.bigText(g, 'SÓ MAIS UMA TERÇA', 300, smooth(0.15, 0.25, u), { size: 110, col: '#ffffff' });
       L.bigText(g, 'NA FLÓRIDA', 430, smooth(0.2, 0.3, u), { size: 120, col: '#ff8ad0' });
     },
     final(g, t, u) {
-      g.save(); cam(g, 540, 960, 1.0); loja(g, t, { portaK: smooth(EV.rabo - 0.8, EV.rabo, t) }); balcao(g);
-      caixa(g, 300, 1000, 0.75, t, { tired: 0.4, smile: 0.2 });
+      g.save(); cam(g, 540, 960, 1.0); loja(g, t, { portaK: smooth(EV.rabo - 0.8, EV.rabo, t) });
+      A.drawFront(g, 330, 1060, 0.95, { ...LU, smile: 0.5 }); A.drawFront(g, 770, 1080, 0.95, { ...JA, smile: 0.4 }); balcao(g, 1500);
       if (t > EV.rabo - 0.4) { g.save(); g.beginPath(); g.rect(560, 420, 460, 830); g.clip(); gatorL(g, 1250 - 200 * smooth(EV.rabo - 0.4, 61.5, t), 1230, 1.0, t, t); g.restore(); }
       g.restore();
       tint(g, '#100c1e', smooth(61.3, 62, t), 'source-over');
@@ -161,6 +171,6 @@ export function scenes(L) {
   };
 }
 export function overlay(ctx, t, L) {
-  L.title(ctx, t, 'E SE UM JACARÉ ENTRASSE', 'NA SUA LOJA? (IGUAL NO GTA 6)', 3.9, '#7ad870');
-  L.commentCard(ctx, t, 55.3, 59.4, 'Qual cena do trailer você', 'quer ver na vida real?', 'COMENTA E SE INSCREVE ⤵');
+  L.title(ctx, t, 'E SE A LUCIA E O JASON', 'VISSEM O JACARÉ DA LOJA?', 3.9, '#7ad870');
+  L.commentCard(ctx, t, 55.3, 59.4, 'Qual cena do GTA 6 você', 'quer ver em 2D?', 'COMENTA E SE INSCREVE ⤵');
 }

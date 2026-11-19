@@ -30,7 +30,7 @@ export function drawFront(g, x, y, s, o = {}) {
   const shirt = o.shirt || (A > 0.75 ? 'hoodie' : A > 0.35 ? 'teen' : 'kid');
   const SW = lerp(205, 262, A), top = BY + lerp(18, 26, A);
   const torso = () => { g.beginPath(); g.moveTo(-SW, 520); g.bezierCurveTo(-SW, top + 60, -SW * 0.75, top + 6, -60, top); g.lineTo(60, top); g.bezierCurveTo(SW * 0.75, top + 6, SW, top + 60, SW, 520); g.closePath(); };
-  const cloth = shirt === 'hoodie' ? '#5c6472' : shirt === 'teen' ? '#3f6b55' : '#cf4a3c';
+  const cloth = o.cloth || (shirt === 'hoodie' ? '#5c6472' : shirt === 'teen' ? '#3f6b55' : '#cf4a3c');
   if (shirt === 'hoodie' || shirt === 'teen') { g.beginPath(); g.ellipse(0, BY + 8, lerp(150, 170, A), 70, 0, Math.PI, 0); g.fillStyle = mix(cloth, '#000000', 0.25); g.fill(); inkStroke(g); }
   torso(); g.fillStyle = cloth; g.fill();
   if (shirt === 'kid') { g.save(); torso(); g.clip(); g.fillStyle = '#f3ead8'; g.fillRect(-400, top + 120, 800, 34); g.fillRect(-400, top + 196, 800, 18); g.restore(); }

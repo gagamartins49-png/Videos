@@ -28,6 +28,8 @@ on:
       - 'short_anime/**'
       - '.github/workflows/render-short-anime.yml'
       - 'short_tempo/**'
+      - 'short_shopping/**'
+      - '.github/workflows/render-short-shopping.yml'
       - '.github/workflows/render-short-tempo.yml'
       - 'shorts_gta2d/**'
       - '.github/workflows/render-shorts-gta2d.yml'

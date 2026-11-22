@@ -1,0 +1,319 @@
+{
+  "titulo": "E se você ficasse preso no shopping à noite?",
+  "projeto": "PROJETO E SE?",
+  "experimento": "021",
+  "arquivo": "short_shopping_preso_a_noite",
+  "largura": 1080,
+  "altura": 1920,
+  "fps": 30,
+  "duracao": 62,
+  "qualidade3d": 0.8,
+  "voz": "pt-BR-AntonioNeural",
+  "velocidade": "+2%",
+  "tom": "+0Hz",
+  "narracao_natural": true,
+  "frases": [
+    {
+      "inicio": 0.0,
+      "fim": 3.8,
+      "texto": "E se você dormisse no provador e acordasse preso no shopping?"
+    },
+    {
+      "inicio": 4.2,
+      "fim": 8.6,
+      "texto": "As luzes apagam, as portas de aço descem... com você lá dentro."
+    },
+    {
+      "inicio": 8.9,
+      "fim": 13.1,
+      "texto": "Você grita. E o shopping inteiro só devolve o eco."
+    },
+    {
+      "inicio": 13.5,
+      "fim": 17.7,
+      "texto": "Escada rolante parada, fonte desligada, só a luz verde da saída."
+    },
+    {
+      "inicio": 18.1,
+      "fim": 22.3,
+      "texto": "E os manequins... no escuro, parece que eles se mexem."
+    },
+    {
+      "inicio": 22.7,
+      "fim": 26.3,
+      "texto": "Calma. Shopping de madrugada não fica vazio."
+    },
+    {
+      "inicio": 26.6,
+      "fim": 30.8,
+      "texto": "Tem ronda de segurança, câmeras e sensor de movimento."
+    },
+    {
+      "inicio": 31.1,
+      "fim": 35.3,
+      "texto": "Andou demais? O alarme dispara antes da praça de alimentação."
+    },
+    {
+      "inicio": 35.6,
+      "fim": 40.3,
+      "texto": "A saída é a porta de emergência: a barra antipânico abre por dentro."
+    },
+    {
+      "inicio": 40.6,
+      "fim": 44.6,
+      "texto": "Você empurra... e a sirene toca no prédio inteiro."
+    },
+    {
+      "inicio": 44.9,
+      "fim": 49.6,
+      "texto": "Em minutos, a lanterna do segurança te acha. Agora é só explicar."
+    },
+    {
+      "inicio": 50.0,
+      "fim": 54.7,
+      "texto": "Moral da história: no provador, nunca dorme sem despertador."
+    },
+    {
+      "inicio": 55.0,
+      "fim": 59.2,
+      "texto": "Você tentava sair ou dormia na loja de colchão? Comenta!"
+    },
+    {
+      "inicio": 59.5,
+      "fim": 62.0,
+      "texto": "E se fosse com você?",
+      "ancorarFim": true
+    }
+  ],
+  "humor": [
+    [
+      0,
+      0.3
+    ],
+    [
+      3.0,
+      0.3
+    ],
+    [
+      3.4,
+      1.2
+    ],
+    [
+      4.2,
+      0.6
+    ],
+    [
+      8.8,
+      0.6
+    ],
+    [
+      9.4,
+      1.4
+    ],
+    [
+      13.4,
+      0.5
+    ],
+    [
+      18.0,
+      0.6
+    ],
+    [
+      20.4,
+      2.0
+    ],
+    [
+      22.6,
+      0.4
+    ],
+    [
+      26.5,
+      0.3
+    ],
+    [
+      31,
+      0.4
+    ],
+    [
+      33,
+      2.0
+    ],
+    [
+      35.5,
+      0.6
+    ],
+    [
+      40.5,
+      0.8
+    ],
+    [
+      41.2,
+      2.0
+    ],
+    [
+      44.8,
+      1.4
+    ],
+    [
+      49.8,
+      0.2
+    ],
+    [
+      55,
+      0.3
+    ],
+    [
+      62,
+      0.3
+    ]
+  ],
+  "panico": [
+    [
+      0,
+      0
+    ],
+    [
+      3.0,
+      0
+    ],
+    [
+      3.4,
+      0.4
+    ],
+    [
+      4.2,
+      0.1
+    ],
+    [
+      9.4,
+      0.5
+    ],
+    [
+      13.4,
+      0.1
+    ],
+    [
+      20.4,
+      0.9
+    ],
+    [
+      22.6,
+      0
+    ],
+    [
+      33,
+      0.8
+    ],
+    [
+      35.5,
+      0.1
+    ],
+    [
+      41.2,
+      0.9
+    ],
+    [
+      44.8,
+      0.4
+    ],
+    [
+      49.8,
+      0
+    ],
+    [
+      62,
+      0
+    ]
+  ],
+  "balanca": [
+    [
+      0,
+      0
+    ],
+    [
+      22.6,
+      0
+    ],
+    [
+      23,
+      0.7
+    ],
+    [
+      26.4,
+      0.7
+    ],
+    [
+      26.8,
+      0
+    ],
+    [
+      50,
+      0
+    ],
+    [
+      50.4,
+      0.6
+    ],
+    [
+      54.6,
+      0.6
+    ],
+    [
+      55,
+      0
+    ],
+    [
+      62,
+      0
+    ]
+  ],
+  "abaixa": [
+    [
+      0,
+      0
+    ],
+    [
+      20.3,
+      0
+    ],
+    [
+      20.5,
+      0.8
+    ],
+    [
+      21.6,
+      0.8
+    ],
+    [
+      22.2,
+      0
+    ],
+    [
+      41.1,
+      0
+    ],
+    [
+      41.3,
+      0.7
+    ],
+    [
+      42.6,
+      0.7
+    ],
+    [
+      43,
+      0
+    ],
+    [
+      62,
+      0
+    ]
+  ],
+  "sustos": [
+    3.4,
+    20.4,
+    33.0,
+    41.2,
+    45.4
+  ]
+}

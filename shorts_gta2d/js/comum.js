@@ -362,3 +362,27 @@ export function museum(g, t, x, y, s) {
   g.fillStyle = '#2a1a10'; g.font = `800 34px ${F_UI}`; g.textAlign = 'center'; g.fillText('CONTROLE', 0, 168); g.font = `700 28px ${F_UI}`; g.fillText('Século XXI', 0, 210);
   g.restore();
 }
+
+// ---------------------------------------------------------------- pessoa andando de perfil (para a direita)
+export function andarilho(g, x, y, s, t, { passo = 1, cansado = 0, camisa = '#3a8ac8', mochila = true } = {}) {
+const ink = (g, w = 5) => { g.lineWidth = w; g.strokeStyle = A.INK; g.lineJoin = 'round'; g.lineCap = 'round'; g.stroke(); };
+  g.save(); g.translate(x, y); g.scale(s, s);
+  const ph = t * 7 * passo, sw = Math.sin(ph) * 0.5, bob = Math.abs(Math.cos(ph)) * 8;
+  g.translate(0, -bob); g.rotate(0.05 + 0.15 * cansado);
+  const leg = (a, col) => { g.save(); g.translate(0, -150); g.rotate(a); g.fillStyle = col; rr(g, -18, 0, 36, 150, 16); g.fill(); ink(g, 4); g.fillStyle = '#e8c04a'; rr(g, -14, 140, 56, 16, 6); g.fill(); ink(g, 3); g.restore(); };
+  const arm = (a, col) => { g.save(); g.translate(0, -300); g.rotate(a); g.fillStyle = col; rr(g, -14, 0, 28, 120, 14); g.fill(); ink(g, 4); g.beginPath(); g.arc(0, 128, 16, 0, 7); g.fillStyle = '#f0c39e'; g.fill(); ink(g, 3); g.restore(); };
+  leg(-sw, '#2a3a5a'); arm(sw, mix(camisa, '#000000', 0.2));
+  rr(g, -45, -330, 90, 190, 30); g.fillStyle = camisa; g.fill(); ink(g, 5);
+  g.fillStyle = '#e8d8b0'; g.fillRect(-48, -380 + 2, 0, 0);
+  // mochila
+  if (mochila) { rr(g, -95, -320, 60, 120, 18); g.fillStyle = '#d8743a'; g.fill(); ink(g, 4); }
+  leg(sw, '#34466a'); arm(-sw, camisa);
+  // cabeça de perfil
+  g.beginPath(); g.arc(8, -385, 58, 0, 7); g.fillStyle = '#f0c39e'; g.fill(); ink(g, 5);
+  g.beginPath(); g.moveTo(-50, -400); g.quadraticCurveTo(-30, -460, 30, -448); g.quadraticCurveTo(70, -440, 64, -410); for (let k = 0; k < 4; k++) g.lineTo(40 - k * 22, -420 + (k % 2 ? 10 : -6)); g.closePath(); g.fillStyle = '#2f221c'; g.fill(); ink(g, 4);
+  g.beginPath(); g.arc(36, -392, 6, 0, 7); g.fillStyle = '#120a08'; g.fill();
+  g.beginPath(); g.moveTo(62, -385); g.lineTo(74, -372); g.lineTo(60, -368); ink(g, 3);
+  g.beginPath(); g.moveTo(40, -355); g.quadraticCurveTo(50, -350 + 8 * cansado, 58, -356); ink(g, 3);
+  if (cansado > 0.3) for (let i = 0; i < 3; i++) { const p = (t * 1.5 + i / 3) % 1; g.fillStyle = `rgba(120,190,255,${1 - p})`; g.beginPath(); g.ellipse(-20 + i * 20, -420 + p * 60, 6, 9, 0, 0, 7); g.fill(); }
+  g.restore();
+}

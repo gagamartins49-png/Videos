@@ -1,0 +1,87 @@
+{
+  "titulo": "E se você fosse um NPC do GTA 6?",
+  "experimento": "020",
+  "arquivo": "short_gta2d_npc",
+  "projeto": "PROJETO E SE?",
+  "largura": 1080,
+  "altura": 1920,
+  "fps": 30,
+  "duracao": 62,
+  "voz": "pt-BR-AntonioNeural",
+  "velocidade": "+2%",
+  "tom": "-1Hz",
+  "narracao_natural": true,
+  "frases": [
+    {
+      "inicio": 0.0,
+      "fim": 3.8,
+      "texto": "E se você fosse um NPC do GTA 6?"
+    },
+    {
+      "inicio": 4.2,
+      "fim": 8.4,
+      "texto": "Seu dia é sempre igual: anda, para, anda, olha pro nada."
+    },
+    {
+      "inicio": 8.8,
+      "fim": 12.7,
+      "texto": "Aí chega um jogador. E tudo muda em três segundos."
+    },
+    {
+      "inicio": 13.1,
+      "fim": 17.2,
+      "texto": "Primeiro, ele rouba o seu carro. Com você dentro."
+    },
+    {
+      "inicio": 17.6,
+      "fim": 21.9,
+      "texto": "Você grita, ele acelera. E começa uma perseguição na sua rua."
+    },
+    {
+      "inicio": 22.3,
+      "fim": 26.5,
+      "texto": "Um helicóptero cai no seu quintal. Um jacaré passa na calçada."
+    },
+    {
+      "inicio": 26.9,
+      "fim": 31.1,
+      "texto": "E você só consegue dizer as mesmas três frases."
+    },
+    {
+      "inicio": 31.5,
+      "fim": 35.7,
+      "texto": "Aí ele salva o jogo, sai... e o mundo inteiro reseta."
+    },
+    {
+      "inicio": 36.1,
+      "fim": 40.1,
+      "texto": "Seu carro volta, sua casa volta, como se nada tivesse acontecido."
+    },
+    {
+      "inicio": 40.5,
+      "fim": 44.4,
+      "texto": "Só que amanhã... ele volta."
+    },
+    {
+      "inicio": 44.9,
+      "fim": 49.3,
+      "texto": "Vida de NPC: zero escolha, mil explosões e nenhum agradecimento."
+    },
+    {
+      "inicio": 49.7,
+      "fim": 54.6,
+      "texto": "Então, da próxima vez que você jogar, dá um oi pra eles."
+    },
+    {
+      "inicio": 55.0,
+      "fim": 59.2,
+      "texto": "Qual a pior coisa que você já fez com um NPC? Comenta!"
+    },
+    {
+      "inicio": 59.5,
+      "fim": 62.0,
+      "texto": "E se o NPC fosse você?",
+      "ancorarFim": true
+    }
+  ]
+}

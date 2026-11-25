@@ -1,0 +1,298 @@
+{
+  "titulo": "E se o Naruto fosse parar no mundo de Dragon Ball?",
+  "projeto": "PROJETO E SE?",
+  "experimento": "023",
+  "arquivo": "short_naruto_dragon_ball",
+  "largura": 1080,
+  "altura": 1920,
+  "fps": 30,
+  "duracao": 62,
+  "qualidade3d": 0.8,
+  "voz": "pt-BR-AntonioNeural",
+  "velocidade": "+4%",
+  "tom": "+0Hz",
+  "narracao_natural": true,
+  "frases": [
+    {
+      "inicio": 0.0,
+      "fim": 3.8,
+      "texto": "E se o Naruto fosse parar no mundo de Dragon Ball?"
+    },
+    {
+      "inicio": 4.0,
+      "fim": 8.1,
+      "texto": "Um portal abre no céu... e ele cai de cara no chão."
+    },
+    {
+      "inicio": 8.4,
+      "fim": 11.3,
+      "texto": "Ele levanta, faz joinha... e dá de cara com o Goku."
+    },
+    {
+      "inicio": 11.6,
+      "fim": 15.5,
+      "texto": "Na força, o Goku ganha fácil. Ele treina com gravidade pesada."
+    },
+    {
+      "inicio": 15.8,
+      "fim": 19.5,
+      "texto": "Mas o Naruto tem truque. Muito truque."
+    },
+    {
+      "inicio": 19.8,
+      "fim": 24.5,
+      "texto": "Ele faz um monte de clones... e o Goku derruba um por um."
+    },
+    {
+      "inicio": 24.8,
+      "fim": 27.5,
+      "texto": "Aí vem o Rasengan contra o Kamehameha!"
+    },
+    {
+      "inicio": 27.8,
+      "fim": 30.7,
+      "texto": "Bum! O Naruto sai voando longe."
+    },
+    {
+      "inicio": 31.0,
+      "fim": 34.5,
+      "texto": "Aí o Goku fica sério... e o cabelo fica dourado."
+    },
+    {
+      "inicio": 34.8,
+      "fim": 37.6,
+      "texto": "O Naruto olha aquilo e pensa: ferrou."
+    },
+    {
+      "inicio": 37.9,
+      "fim": 41.2,
+      "texto": "Mas ele também tem um segredo: o poder da Raposa!"
+    },
+    {
+      "inicio": 41.5,
+      "fim": 45.6,
+      "texto": "Os dois se batem com tudo... e o chão inteiro racha."
+    },
+    {
+      "inicio": 46.0,
+      "fim": 48.8,
+      "texto": "No fim, o Goku dá a mão pro Naruto levantar."
+    },
+    {
+      "inicio": 49.1,
+      "fim": 55.4,
+      "texto": "Veredito: na força, o Goku ganha. Mas o Naruto sai de lá com um amigo novo... e um rival.",
+      "legenda": "Veredito: na força, o Goku ganha. Mas o Naruto ganha um amigo... e um rival."
+    },
+    {
+      "inicio": 55.7,
+      "fim": 59.4,
+      "texto": "Quem ganha essa? Comenta: um pro Goku, dois pro Naruto!"
+    },
+    {
+      "inicio": 59.6,
+      "fim": 62.0,
+      "texto": "E se fosse de verdade?",
+      "ancorarFim": true
+    }
+  ],
+  "humor": [
+    [
+      0,
+      1.6
+    ],
+    [
+      3.6,
+      0.6
+    ],
+    [
+      5.0,
+      1.2
+    ],
+    [
+      8.4,
+      0.8
+    ],
+    [
+      11.6,
+      0.3
+    ],
+    [
+      15.8,
+      0.6
+    ],
+    [
+      19.8,
+      1.2
+    ],
+    [
+      24.8,
+      1.6
+    ],
+    [
+      27.8,
+      1.4
+    ],
+    [
+      31,
+      1.8
+    ],
+    [
+      34.8,
+      0.8
+    ],
+    [
+      37.9,
+      1.6
+    ],
+    [
+      41.5,
+      2.0
+    ],
+    [
+      46,
+      0.4
+    ],
+    [
+      49,
+      0.3
+    ],
+    [
+      55.7,
+      0.8
+    ],
+    [
+      62,
+      1.6
+    ]
+  ],
+  "panico": [
+    [
+      0,
+      0.4
+    ],
+    [
+      3.6,
+      0
+    ],
+    [
+      24.8,
+      0.3
+    ],
+    [
+      28.5,
+      0
+    ],
+    [
+      31,
+      0.5
+    ],
+    [
+      34.5,
+      0.2
+    ],
+    [
+      41.5,
+      0.6
+    ],
+    [
+      44,
+      0
+    ],
+    [
+      62,
+      0.3
+    ]
+  ],
+  "balanca": [
+    [
+      0,
+      0
+    ],
+    [
+      8.4,
+      0
+    ],
+    [
+      8.8,
+      0.6
+    ],
+    [
+      10.8,
+      0.6
+    ],
+    [
+      11.2,
+      0
+    ],
+    [
+      46,
+      0
+    ],
+    [
+      46.4,
+      0.6
+    ],
+    [
+      48.6,
+      0.6
+    ],
+    [
+      49,
+      0
+    ],
+    [
+      62,
+      0
+    ]
+  ],
+  "abaixa": [
+    [
+      0,
+      0
+    ],
+    [
+      27.4,
+      0
+    ],
+    [
+      27.7,
+      0.8
+    ],
+    [
+      28.6,
+      0.8
+    ],
+    [
+      29,
+      0
+    ],
+    [
+      42.3,
+      0
+    ],
+    [
+      42.6,
+      0.8
+    ],
+    [
+      43.6,
+      0.8
+    ],
+    [
+      44,
+      0
+    ],
+    [
+      62,
+      0
+    ]
+  ],
+  "sustos": [
+    0.64,
+    6.3,
+    27.6,
+    31.2,
+    42.5
+  ]
+}

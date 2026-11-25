@@ -1,0 +1,12 @@
+{
+  "name": "projeto-e-se-short-naruto",
+  "private": true,
+  "type": "module",
+  "description": "Renderiza o Short 9:16 'E se o Naruto fosse parar no mundo de Dragon Ball?' (low poly) (Playwright + FFmpeg via pipe).",
+  "scripts": {
+    "render": "node render.mjs"
+  },
+  "dependencies": {
+    "playwright": "1.63.0"
+  }
+}

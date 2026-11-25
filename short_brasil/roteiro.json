@@ -1,0 +1,245 @@
+{
+  "titulo": "E se alguém tentasse invadir o Brasil?",
+  "projeto": "PROJETO E SE?",
+  "experimento": "022",
+  "arquivo": "short_brasil_invadido",
+  "largura": 1080,
+  "altura": 1920,
+  "fps": 30,
+  "duracao": 62,
+  "qualidade3d": 0.8,
+  "voz": "pt-BR-AntonioNeural",
+  "velocidade": "+2%",
+  "tom": "+0Hz",
+  "narracao_natural": true,
+  "frases": [
+    {
+      "inicio": 0.0,
+      "fim": 3.8,
+      "texto": "E se alguém tentasse invadir o Brasil?"
+    },
+    {
+      "inicio": 4.2,
+      "fim": 8.7,
+      "texto": "Primeiro: o tamanho. São oito milhões e meio de quilômetros quadrados."
+    },
+    {
+      "inicio": 9.0,
+      "fim": 13.2,
+      "texto": "Dá pra colocar quase a Europa inteira aqui dentro."
+    },
+    {
+      "inicio": 13.5,
+      "fim": 17.7,
+      "texto": "Tem mais de sete mil quilômetros de litoral pra vigiar."
+    },
+    {
+      "inicio": 18.1,
+      "fim": 22.3,
+      "texto": "E se passar da praia, tem a Amazônia."
+    },
+    {
+      "inicio": 22.7,
+      "fim": 26.9,
+      "texto": "Calor, chuva, rio e floresta até onde a vista alcança."
+    },
+    {
+      "inicio": 27.3,
+      "fim": 31.5,
+      "texto": "Aí o invasor chega em São Paulo... e fica preso no trânsito."
+    },
+    {
+      "inicio": 31.9,
+      "fim": 36.1,
+      "texto": "E ainda tem mais de duzentos milhões de brasileiros."
+    },
+    {
+      "inicio": 36.5,
+      "fim": 40.7,
+      "texto": "Mais de trezentos mil militares e dez países na fronteira."
+    },
+    {
+      "inicio": 41.1,
+      "fim": 45.3,
+      "texto": "Resumindo: invadir o Brasil seria uma missão impossível."
+    },
+    {
+      "inicio": 45.7,
+      "fim": 49.9,
+      "texto": "E se conseguisse... o brasileiro ia chamar ele pro churrasco."
+    },
+    {
+      "inicio": 50.3,
+      "fim": 54.6,
+      "texto": "No domingo, o invasor já tava torcendo pro time da casa."
+    },
+    {
+      "inicio": 55.0,
+      "fim": 59.2,
+      "texto": "Qual parte do Brasil seria mais difícil de invadir? Comenta!"
+    },
+    {
+      "inicio": 59.5,
+      "fim": 62.0,
+      "texto": "E se tentassem?",
+      "ancorarFim": true
+    }
+  ],
+  "humor": [
+    [
+      0,
+      1.2
+    ],
+    [
+      4,
+      0.6
+    ],
+    [
+      9,
+      0.4
+    ],
+    [
+      13.4,
+      0.6
+    ],
+    [
+      17.9,
+      0.8
+    ],
+    [
+      22.6,
+      1.2
+    ],
+    [
+      27.2,
+      0.5
+    ],
+    [
+      31.8,
+      0.3
+    ],
+    [
+      36.4,
+      0.6
+    ],
+    [
+      41,
+      0.2
+    ],
+    [
+      45.6,
+      0
+    ],
+    [
+      50.2,
+      0.1
+    ],
+    [
+      52.4,
+      0.4
+    ],
+    [
+      55,
+      0.2
+    ],
+    [
+      62,
+      1.0
+    ]
+  ],
+  "panico": [
+    [
+      0,
+      0.3
+    ],
+    [
+      4,
+      0
+    ],
+    [
+      22.6,
+      0.3
+    ],
+    [
+      27,
+      0
+    ],
+    [
+      62,
+      0
+    ]
+  ],
+  "balanca": [
+    [
+      0,
+      0
+    ],
+    [
+      9,
+      0
+    ],
+    [
+      9.4,
+      0.6
+    ],
+    [
+      13,
+      0.6
+    ],
+    [
+      13.4,
+      0
+    ],
+    [
+      41,
+      0
+    ],
+    [
+      41.6,
+      0.7
+    ],
+    [
+      45.2,
+      0.7
+    ],
+    [
+      45.6,
+      0
+    ],
+    [
+      46,
+      0
+    ],
+    [
+      46.4,
+      0.6
+    ],
+    [
+      49.8,
+      0.6
+    ],
+    [
+      50.2,
+      0
+    ],
+    [
+      62,
+      0
+    ]
+  ],
+  "abaixa": [
+    [
+      0,
+      0
+    ],
+    [
+      62,
+      0
+    ]
+  ],
+  "sustos": [
+    0.3,
+    22.8,
+    41.6
+  ]
+}
